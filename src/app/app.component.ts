@@ -5,6 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'angular-wp-cms';
-}
+export class AppComponent {}
+
