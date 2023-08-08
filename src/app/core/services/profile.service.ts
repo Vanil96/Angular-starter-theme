@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserAPiModel } from '../models/user.api-model';
+import { UserApiModel } from '../models/user.api-model';
+import { Observable, share,} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
 
+  user_request = this.http.get('users/1').pipe(
+    share()
+  );
 
-  getUserProfile() {
-   return this.http.get<UserAPiModel>('users/1');
-  }
 
-  constructor(private http: HttpClient) { }
+ getUserProfile(): Observable<UserApiModel>{
+  return this.user_request;
+ }
+
+  constructor(private http: HttpClient) {}
 }

@@ -1,4 +1,4 @@
-export interface UserAPiModel {
+export interface UserApiModel {
     id?: number
     name?: string
     username?: string
