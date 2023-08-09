@@ -8,10 +8,9 @@ import { ProfileService } from 'src/app/core/services/profile.service';
   styleUrls: ['./profile-bar.component.scss']
 })
 export class ProfileBarComponent implements OnInit {
-  user!:UserApiModel;
+  user:UserApiModel | undefined;
 
   constructor(private profileService:ProfileService) {}
-
 
   ngOnInit(): void {
     this.profileService.getUserProfile().subscribe(user => this.user = user)

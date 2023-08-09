@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { UserApiModel } from 'src/app/core/models/user.api-model';
 import { ProfileService } from 'src/app/core/services/profile.service';
@@ -14,21 +13,15 @@ export class ProfileComponent implements OnInit {
   constructor(private profileService: ProfileService) { }
 
   ngOnInit(): void {
-    this.profileService.getUserProfile().subscribe(user => this.user = user)
-    this.profileService.getUserProfile().subscribe(user => this.user = user)
-    this.profileService.getUserProfile().subscribe(user => this.user = user)
-    this.profileService.getUserProfile().subscribe(user => this.user = user)
-    this.profileService.getUserProfile().subscribe(user => this.user = user)
-    this.profileService.getUserProfile().subscribe(user => this.user = user)
-    this.profileService.getUserProfile().subscribe(user => this.user = user)
-    this.profileService.getUserProfile().subscribe(user => this.user = user)
-    this.profileService.getUserProfile().subscribe(user => this.user = user)
-    this.profileService.getUserProfile().subscribe(user => this.user = user)
-    this.profileService.getUserProfile().subscribe(user => this.user = user)
-    this.profileService.getUserProfile().subscribe(user => this.user = user)
-    this.profileService.getUserProfile().subscribe(user => this.user = user)
-    this.profileService.getUserProfile().subscribe(user => this.user = user)
-
+    this.getProfile();
   }
 
+  refreshProfile(): void {
+    this.profileService.clearCache();
+    this.getProfile();
+  }
+
+  getProfile(): void {
+    this.profileService.getUserProfile().subscribe(user => this.user = user);
+  }
 }
