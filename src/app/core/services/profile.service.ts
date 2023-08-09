@@ -8,20 +8,20 @@ import { Observable, shareReplay, } from 'rxjs';
 })
 export class ProfileService {
 
-  private user_request: Observable<UserApiModel> | null;
+  private userRequest: Observable<UserApiModel> | null;
 
 
   getUserProfile(): Observable<UserApiModel> {
-    if (!this.user_request) {
-      this.user_request = this.http.get('users/5').pipe(
+    if (!this.userRequest) {
+      this.userRequest = this.http.get('users/5').pipe(
         shareReplay()
       );
     }
-    return this.user_request;
+    return this.userRequest;
   }
 
   clearCache(): void {
-    this.user_request = null;
+    this.userRequest = null;
   }
 
   constructor(private http: HttpClient) { }
