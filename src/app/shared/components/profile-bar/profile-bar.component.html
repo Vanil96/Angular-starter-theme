@@ -1,1 +1,3 @@
-<p>Hello {{user?.username}}</p>
+<p *ngIf="user">Hello {{user.username}}
+    <span (click)="this.auth.logout()"> | Logout</span>
+</p>

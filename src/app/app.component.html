@@ -1,3 +1,8 @@
-<app-navigation></app-navigation>
-<router-outlet> </router-outlet>
-<app-footer></app-footer>
+<fieldset>
+    <legend>App component</legend>
+
+    <app-navigation [isAuthenticated]="isAuthenticated"></app-navigation>
+    <router-outlet> </router-outlet>
+    <app-footer style="position:fixed; bottom:0; width:100%; left:0"></app-footer>
+
+</fieldset>

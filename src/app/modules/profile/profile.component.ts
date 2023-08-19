@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { UserApiModel } from 'src/app/core/models/user.api-model';
+import { User } from 'src/app/core/models/user.model';
 import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
@@ -9,12 +9,12 @@ import { ProfileService } from 'src/app/core/services/profile.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user: UserApiModel;
+  user: User | null;
   private subscriptions: Subscription[] = []
   constructor(private profileService: ProfileService) { }
 
   ngOnInit(): void {
-    this.getProfile();
+     this.getProfile();
   }
 
   ngOnDestroy(): void {
@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
 
   getProfile(): void {
     this.subscriptions.push(
-      this.profileService.getUserProfile().subscribe(user => this.user = user)
+      this.profileService.getUserProfile().subscribe(user => {this.user = user; console.log('Profile get user')})
     )
   }
 }

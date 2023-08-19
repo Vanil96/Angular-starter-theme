@@ -1,21 +1,34 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { UserApiModel } from '../models/user.api-model';
-import { Observable, shareReplay, } from 'rxjs';
+import { User } from '../models/user.model';
+import { Observable, catchError, filter, map, } from 'rxjs';
+import { AuthService } from './auth.service';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
+
+export interface Todo {
+  id: number,
+  title: string,
+  completed: boolean
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProfileService {
 
-  private userRequest: Observable<UserApiModel> | null;
+  private userRequest: Observable<User | null> | null;
+
+  constructor(private auth: AuthService, private http: HttpClient) { }
 
 
-  getUserProfile(): Observable<UserApiModel> {
+  getUserProfile(): Observable<User | null> {
+    console.log('Observable getUserProfile')
     if (!this.userRequest) {
-      this.userRequest = this.http.get('users/5').pipe(
-        shareReplay()
-      );
+      this.userRequest = this.auth.state.pipe(
+        filter(() => this.auth.isAuthenticated),
+        map(() => this.auth.getCurrentUser()),
+      )
     }
     return this.userRequest;
   }
@@ -24,5 +37,22 @@ export class ProfileService {
     this.userRequest = null;
   }
 
-  constructor(private http: HttpClient) { }
+
+  //temporary todo for testing authorization
+  createTodo(todo: Partial<Todo>): Observable<Todo> {
+    return this.http.post<Todo>('todos', todo, {
+      headers: {
+        'Authorization': 'Bearer ' + this.auth.getToken()
+      }
+    }).pipe(
+      catchError((err) => {
+        if (err instanceof HttpErrorResponse) {
+          this.auth.logout('Non authorized, please login');
+          throw new Error(err.message);
+        }
+        throw new Error('Unusual error');
+      })
+    );
+  }
+
 }

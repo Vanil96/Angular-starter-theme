@@ -1,1 +1,13 @@
-<p>home works!</p>
+<fieldset>
+    <legend>
+        Home component
+    </legend>
+
+<div>
+    <p style="color:red" *ngIf="error">{{error}} </p>
+    <label for="">todo: </label>
+    <input type="text" #titleRef>
+    <button (click)="addTodo(titleRef.value)">add</button>
+</div>
+
+</fieldset>

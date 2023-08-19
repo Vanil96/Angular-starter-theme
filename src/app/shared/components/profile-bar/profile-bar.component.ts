@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserApiModel } from 'src/app/core/models/user.api-model';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/core/models/user.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
@@ -8,12 +10,19 @@ import { ProfileService } from 'src/app/core/services/profile.service';
   styleUrls: ['./profile-bar.component.scss']
 })
 export class ProfileBarComponent implements OnInit {
-  user:UserApiModel | undefined;
+  user: User | null;
+  private subscriptions: Subscription[] = []
 
-  constructor(private profileService:ProfileService) {}
+  constructor(private profileService: ProfileService, protected auth: AuthService) { }
 
   ngOnInit(): void {
-    this.profileService.getUserProfile().subscribe(user => this.user = user)
+    this.subscriptions.push(
+      this.profileService.getUserProfile().subscribe(user => { this.user = user; console.log('Profile bar get user') })
+      )
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
 }

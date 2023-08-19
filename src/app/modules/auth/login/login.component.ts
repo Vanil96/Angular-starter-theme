@@ -8,10 +8,11 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  message: string | null | undefined;
 
   form: FormGroup = this.fb.group({
-    username: [''],
-    password: ['']
+    username: 'admin',
+    password: ''
   })
 
   constructor(
@@ -19,7 +20,9 @@ export class LoginComponent implements OnInit {
     private auth: AuthService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.message = this.auth.getMessage();
+  }
 
   login() { this.auth.login(this.form.value) }
 }

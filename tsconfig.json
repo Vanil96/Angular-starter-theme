@@ -25,7 +25,7 @@
     , //custom
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -34,3 +34,15 @@
     "strictTemplates": true
   }
 }
+
+/*
+strict parts enabled {
+noImplicitAny: Powoduje błąd na wyrażeniach i deklaracjach z niejawnym typem any.
+noImplicitThis: Powoduje błąd, gdy this jest używane w funkcji bez typu.
+alwaysStrict: Analizuje pliki w trybie ECMAScript strict mode i emituje używanie dyrektywy "use strict" dla każdego źródłowego pliku.
+strictBindCallApply: Sprawdza poprawność dla bind, call i apply.
+strictNullChecks: Powoduje, że null i undefined nie są przypisywalne do innych typów, chyba że są one jawnie unia z tymi typami.
+strictFunctionTypes: Sprawdza, czy typy parametrów funkcji są kompatybilne w kontekście przypisania.
+strictPropertyInitialization: Sprawdza, czy właściwości klasy są zainicjowane w konstruktorze.
+}
+*/
