@@ -41,16 +41,16 @@ export class AuthService {
       {
         next: (session: Session) => {
           this.session.next(session);
+          this.router.navigate(['/profile']);
 
           //Simulate expired token
-          setTimeout(() => {
-            const currentSession = this.session.getValue();
-            if (currentSession) {
-              console.log('Token setted to expired');
-              this.session.next({ ...currentSession, token: 'SETTED_TO_EXPIRED' });
-            }
-          }, 5000)
-
+          /*    setTimeout(() => {
+                const currentSession = this.session.getValue();
+                if (currentSession) {
+                  console.log('Token setted to expired');
+                  this.session.next({ ...currentSession, token: 'SETTED_TO_EXPIRED' });
+                }
+              }, 5500)      */
         },
         error: err => { if (err instanceof HttpErrorResponse) console.error(err.error) }
       }

@@ -8,9 +8,7 @@ import { Observable } from 'rxjs';
 export class ApiUrlInterceptor implements HttpInterceptor {
     private apiUrl = environment.apiUrl;
 
-    constructor() {
-        //if multilanguage = set lang from store
-    }
+    constructor() {}
 
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {

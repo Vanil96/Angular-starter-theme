@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiUrlInterceptorProvider } from './core/interceptors/api-url.interceptor';
 import { ProfileModule } from './modules/profile/profile.module';
+import { AuthInterceptorProvider } from './core/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { ProfileModule } from './modules/profile/profile.module';
     HttpClientModule,
     ProfileModule,
   ],
-  providers: [ApiUrlInterceptorProvider],
+  providers: [ApiUrlInterceptorProvider, AuthInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

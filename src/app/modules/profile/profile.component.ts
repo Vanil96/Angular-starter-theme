@@ -11,10 +11,12 @@ import { ProfileService } from 'src/app/core/services/profile.service';
 export class ProfileComponent implements OnInit {
   user: User | null;
   private subscriptions: Subscription[] = []
-  constructor(private profileService: ProfileService) { }
+  error: String;
+  $todos = this.profileService.apiTest_getTodos();
+  constructor(protected profileService: ProfileService) { }
 
   ngOnInit(): void {
-     this.getProfile();
+    this.getProfile();
   }
 
   ngOnDestroy(): void {
@@ -28,7 +30,27 @@ export class ProfileComponent implements OnInit {
 
   getProfile(): void {
     this.subscriptions.push(
-      this.profileService.getUserProfile().subscribe(user => {this.user = user; console.log('Profile get user')})
+      this.profileService.getUserProfile().subscribe(user => { this.user = user; console.log('Profile get user') })
     )
   }
+
+  addTodo(title: string) {
+    this.profileService.apiTest_createTodo({ title }).subscribe(() => {
+      console.log('success apiTest_createTodo');
+    }, err => {
+      this.error = err.message
+    });
+  }
+
+  search(event: Event) {
+    const inputValue = (event.target as HTMLInputElement).value;
+    this.profileService.apiTest_setPhrase(inputValue);
+  }
+
+  setPerPage(event: Event) {
+    const inputValue:number = parseInt((event.target as HTMLInputElement).value);
+    this.profileService.apiTest_setPerPage(inputValue);
+  }
+
+
 }
