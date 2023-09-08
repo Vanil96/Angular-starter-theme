@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiUrlInterceptorProvider } from './core/interceptors/api-url.interceptor';
 import { ProfileModule } from './modules/profile/profile.module';
 import { AuthInterceptorProvider } from './core/interceptors/auth.interceptor';
+import { AuthorizedGuard } from './core/guards/authorized.guard';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { AuthInterceptorProvider } from './core/interceptors/auth.interceptor';
     HttpClientModule,
     ProfileModule,
   ],
-  providers: [ApiUrlInterceptorProvider, AuthInterceptorProvider],
+  providers: [ApiUrlInterceptorProvider, AuthInterceptorProvider, AuthorizedGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

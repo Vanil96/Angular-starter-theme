@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
 
   getProfile(): void {
     this.subscriptions.push(
-      this.profileService.getUserProfile().subscribe(user => { this.user = user; console.log('Profile get user') })
+      this.profileService.getUserProfile().subscribe(user => { this.user = user;})
     )
   }
 
