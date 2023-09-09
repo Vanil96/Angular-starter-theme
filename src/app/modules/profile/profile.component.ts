@@ -12,7 +12,6 @@ export class ProfileComponent implements OnInit {
   user: User | null;
   private subscriptions: Subscription[] = []
   error: String;
-  $todos = this.profileService.apiTest_getTodos();
   constructor(protected profileService: ProfileService) { }
 
   ngOnInit(): void {
@@ -34,23 +33,6 @@ export class ProfileComponent implements OnInit {
     )
   }
 
-  addTodo(title: string) {
-    this.profileService.apiTest_createTodo({ title }).subscribe(() => {
-      console.log('success apiTest_createTodo');
-    }, err => {
-      this.error = err.message
-    });
-  }
-
-  search(event: Event) {
-    const inputValue = (event.target as HTMLInputElement).value;
-    this.profileService.apiTest_setPhrase(inputValue);
-  }
-
-  setPerPage(event: Event) {
-    const inputValue:number = parseInt((event.target as HTMLInputElement).value);
-    this.profileService.apiTest_setPerPage(inputValue);
-  }
 
 
 }

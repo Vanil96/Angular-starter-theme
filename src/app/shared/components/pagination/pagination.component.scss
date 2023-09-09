@@ -1,0 +1,15 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    button {
+      margin: 5px;
+      padding: 10px;
+      cursor: pointer;
+    }
+  
+    .active {
+      background-color: lightblue;
+    }
+  }

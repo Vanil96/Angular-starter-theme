@@ -5,6 +5,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { FooterComponent } from './components/footer/footer.component';
 import { ProfileBarComponent } from './components/profile-bar/profile-bar.component';
 import { CommonModule } from '@angular/common';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 
 
@@ -13,7 +14,8 @@ import { CommonModule } from '@angular/common';
         PageNotFoundComponent,
         NavigationComponent,
         FooterComponent,
-        ProfileBarComponent
+        ProfileBarComponent,
+        PaginationComponent
     ],
     imports: [RouterModule, CommonModule],
     exports: [PageNotFoundComponent, NavigationComponent, FooterComponent, ProfileBarComponent]

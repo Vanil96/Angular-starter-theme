@@ -6,7 +6,7 @@
             <li>
                 <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">HOME</a>
             </li>
-            <ng-container >
+            <ng-container *ngIf="isAuthenticated">
                 <li>
                     <a routerLink="profile" routerLinkActive="active">MY PROFILE</a>
                 </li>
@@ -16,6 +16,10 @@
                     <a routerLink="auth" routerLinkActive="active">LOGIN/REGISTER</a>
                 </li>
             </ng-container>
+
+            <li *ngIf="isAuthenticated">
+                <a routerLink="examples" routerLinkActive="active">EXAMPLES</a>
+            </li>
         </ul>
 
         <ng-container *ngIf="isAuthenticated">

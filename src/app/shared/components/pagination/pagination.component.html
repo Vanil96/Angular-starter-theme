@@ -1,0 +1,11 @@
+<div class="pagination">
+    <button (click)="setPage(1)" [disabled]="currentPage === 1">Pierwsza</button>
+  
+    <div *ngFor="let page of pages">
+      <button [class.active]="currentPage === page" (click)="setPage(page)">
+        {{page}}
+      </button>
+    </div>
+  
+    <button (click)="setPage(totalPages)" [disabled]="currentPage === totalPages">Ostatnia</button>
+  </div>

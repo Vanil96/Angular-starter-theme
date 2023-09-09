@@ -13,27 +13,6 @@
     </div>
     <button (click)="refreshProfile()">refresh profile</button>
 
-    <div style="margin:2rem 0">
-        <p style="color:red" *ngIf="error">{{error}} </p>
-        <label for="">apiTest_TodoList: </label>
-        <input type="text" #titleRef>
-        <button (click)="addTodo(titleRef.value)">add</button>
-    </div>
-
-    <input type="text" id="search" (keyup.enter)="search($event)" placeholder="Search...">
-    <ul style="height:400px; overflow: scroll;">
-        <li *ngFor="let todo of $todos | async"> {{todo.title}}</li>
-    </ul>
-    <div>
-        <select (change)="setPerPage($event)">
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-        </select>
-    </div>
-
-
-    <p>Results: {{($todos | async)?.length || 0}}</p>
 
 
 </fieldset>
