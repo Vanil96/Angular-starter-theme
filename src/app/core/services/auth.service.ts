@@ -60,8 +60,8 @@ export class AuthService {
 
   logout(message?: string) {
     //this.http.post('logout);
+    localStorage.removeItem('session');  
     this.router.navigate(['/auth']);
-
     const session = this.session.getValue();
     if (session) {
       this.session.next(
