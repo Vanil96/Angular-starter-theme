@@ -12,7 +12,7 @@ interface Credentials {
 
 interface Session {
   token: string | null,
-  user: User,
+  user: User | null,
   message?: string;
 }
 
@@ -23,7 +23,7 @@ interface Session {
 
 export class AuthService {
 
-  private session = new BehaviorSubject<Session | null>(null);
+  private session = new BehaviorSubject<Session | null>(this.getStoredSession());
   isAuthenticated = false;
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -41,6 +41,7 @@ export class AuthService {
       {
         next: (session: Session) => {
           this.session.next(session);
+          this.storeSession(session);
           this.router.navigate(['/profile']);
 
           //Simulate expired token
@@ -86,5 +87,15 @@ export class AuthService {
     const session = this.session.getValue();
     return session && session.message;
   }
+
+  private storeSession(session: Session) {
+    localStorage.setItem('session', JSON.stringify(session));
+  }
+
+  private getStoredSession(): Session | null {
+    const storedSession = localStorage.getItem('session');
+    return storedSession ? JSON.parse(storedSession) : null;
+  }
+
 
 }

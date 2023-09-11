@@ -15,7 +15,6 @@ export class ProfileService {
 
 
   getUserProfile(): Observable<User | null> {
-    console.log('Get User Profile from: profile.service')
     if (!this.userRequest) {
       this.userRequest = this.auth.state.pipe(
         filter(() => this.auth.isAuthenticated),
