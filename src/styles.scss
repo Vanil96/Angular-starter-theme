@@ -1,13 +1,2 @@
 /* You can add global styles to this file, and also import other style files */
-fieldset {
-    padding: 15px;
-    border-color: rgb(211 211 211 / 35%)
-}
-
-legend {
-    color: rgb(168, 168, 168);
-}
-
-.active {
-    color: green;
-}
+@import 'styles/main';

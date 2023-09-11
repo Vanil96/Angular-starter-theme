@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 export class ProfileService {
 
   private userRequest: Observable<User | null> | null;
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService) {}
 
 
   getUserProfile(): Observable<User | null> {
