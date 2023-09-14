@@ -4,6 +4,7 @@ import { LandingRoutingModule } from './landing-routing.module';
 import { LandingComponent } from './landing.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ExamplesComponent } from './pages/examples/examples.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ExamplesComponent } from './pages/examples/examples.component';
   ],
   imports: [
     CommonModule,
-    LandingRoutingModule
+    LandingRoutingModule,
+    FontAwesomeModule
   ],
   providers: []
 })

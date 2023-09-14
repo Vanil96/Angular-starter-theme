@@ -1,0 +1,56 @@
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  
+  [class*='col-'] {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+  }
+  
+
+@mixin generate-grid-classes($prefix, $breakpoint: null) {
+    $media-query: if($breakpoint, "min-width: #{$breakpoint}", null);
+  
+    @if $media-query {
+      @media (#{$media-query}) {
+        @for $i from 1 through 12 {
+          $percentage: $i * 8.333333%;
+          .#{$prefix}-#{$i} {
+            flex: 0 0 $percentage;
+            max-width: $percentage;
+          }
+        }
+      }
+    } @else {
+      @for $i from 1 through 12 {
+        $percentage: $i * 8.333333%;
+        .#{$prefix}-#{$i} {
+          flex: 0 0 $percentage;
+          max-width: $percentage;
+        }
+      }
+    }
+  }
+  
+  @include generate-grid-classes('col');
+  @include generate-grid-classes('col-sm', 576px);
+  @include generate-grid-classes('col-md', 768px);
+  @include generate-grid-classes('col-lg', 992px);
+

@@ -1,7 +1,6 @@
 import { ExamplesService } from './../../../../core/services/examples.service';
 import { Component, OnInit } from '@angular/core';
 
-
 @Component({
   selector: 'app-examples',
   templateUrl: './examples.component.html',
@@ -11,11 +10,9 @@ export class ExamplesComponent implements OnInit {
   $todos = this.examplesService.apiTest_getTodos();
   error: String;
 
-
   constructor(protected examplesService: ExamplesService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   addTodo(title: string) {
     this.examplesService.apiTest_createTodo({ title }).subscribe(() => {
@@ -31,7 +28,7 @@ export class ExamplesComponent implements OnInit {
   }
 
   setPerPage(event: Event) {
-    const inputValue:number = parseInt((event.target as HTMLInputElement).value);
+    const inputValue: number = parseInt((event.target as HTMLInputElement).value);
     this.examplesService.apiTest_setPerPage(inputValue);
   }
 

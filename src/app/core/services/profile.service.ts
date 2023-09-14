@@ -21,6 +21,7 @@ export class ProfileService {
         map(() => this.auth.getCurrentUser()),
       )
     }
+  
     return this.userRequest;
   }
 

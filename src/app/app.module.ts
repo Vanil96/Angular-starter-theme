@@ -8,7 +8,6 @@ import { ApiUrlInterceptorProvider } from './core/interceptors/api-url.intercept
 import { ProfileModule } from './modules/profile/profile.module';
 import { AuthInterceptorProvider } from './core/interceptors/auth.interceptor';
 import { AuthorizedGuard } from './core/guards/authorized.guard';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AppRoutingModule,
     HttpClientModule,
     ProfileModule,
-    FontAwesomeModule,
+    
   ],
   providers: [ApiUrlInterceptorProvider, AuthInterceptorProvider, AuthorizedGuard],
   bootstrap: [AppComponent]

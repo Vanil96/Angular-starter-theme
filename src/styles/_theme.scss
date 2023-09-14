@@ -1,0 +1,22 @@
+.hide {
+    display: none
+}
+
+.bg-primary {
+    background-color: blue;
+}
+
+.bg-secondary {
+    background-color: gray;
+}
+
+.bg-danger {
+    background-color: red;
+}
+
+
+.center-vertically {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

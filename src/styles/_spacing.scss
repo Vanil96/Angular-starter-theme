@@ -1,0 +1,35 @@
+
+$spacing-sizes: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 1rem,
+  4: 1.5rem,
+  5: 3rem,
+);
+
+
+@mixin generate-margins {
+  @each $size, $value in $spacing-sizes {
+    .m-#{$size} { margin: $value !important; }
+    .mt-#{$size} { margin-top: $value !important; }
+    .mr-#{$size} { margin-right: $value !important; }
+    .mb-#{$size} { margin-bottom: $value !important; }
+    .ml-#{$size} { margin-left: $value !important; }
+  }
+}
+
+@include generate-margins;
+
+
+@mixin generate-paddings {
+  @each $size, $value in $spacing-sizes {
+    .p-#{$size} { padding: $value !important; }
+    .pt-#{$size} { padding-top: $value !important; }
+    .pr-#{$size} { padding-right: $value !important; }
+    .pb-#{$size} { padding-bottom: $value !important; }
+    .pl-#{$size} { padding-left: $value !important; }
+  }
+}
+
+@include generate-paddings;
