@@ -5,18 +5,21 @@ import { LandingComponent } from './landing.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ExamplesComponent } from './pages/examples/examples.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SharedModule } from '@app/shared/shared.module';
 
 
 @NgModule({
   declarations: [
     LandingComponent,
     HomeComponent,
-    ExamplesComponent
+    ExamplesComponent,
+
   ],
   imports: [
     CommonModule,
     LandingRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SharedModule,
   ],
   providers: []
 })

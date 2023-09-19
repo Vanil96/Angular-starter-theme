@@ -6,6 +6,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ProfileBarComponent } from './components/profile-bar/profile-bar.component';
 import { CommonModule } from '@angular/common';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { ScrollAnimationDirective } from '@app/core/directives/scroll-animation.directive';
 
 
 
@@ -15,10 +16,11 @@ import { PaginationComponent } from './components/pagination/pagination.componen
         NavigationComponent,
         FooterComponent,
         ProfileBarComponent,
-        PaginationComponent
+        PaginationComponent,
+        ScrollAnimationDirective,
     ],
     imports: [RouterModule, CommonModule],
-    exports: [PageNotFoundComponent, NavigationComponent, FooterComponent, ProfileBarComponent]
+    exports: [PageNotFoundComponent, NavigationComponent, FooterComponent, ProfileBarComponent, ScrollAnimationDirective,]
 })
 
 export class SharedModule { }
