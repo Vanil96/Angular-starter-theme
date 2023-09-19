@@ -1,3 +1,4 @@
+@use '/src/styles/shared/variables' as var;
 
 body,
 h1,
@@ -12,8 +13,8 @@ li {
 
 body {
     font-family: Arial, sans-serif;
-    color: $black-color;
-    background-color: $white-color;
+    color: var.$black-color;
+    background-color: var.$white-color;
 }
 
 a {
@@ -31,5 +32,5 @@ legend {
 }
 
 .active {
-    color: $secondary-color;
+    color: var.$secondary-color;
 }

@@ -1,1 +1,7 @@
+@use '/src/styles/shared/mixins' as mixins;
 
+
+
+.container {
+    @include mixins.fade-in(2s);
+}

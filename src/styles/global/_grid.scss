@@ -1,3 +1,5 @@
+@use '/src/styles/shared/variables' as var;
+
 .container {
     width: 100%;
     padding-right: 15px;
@@ -50,7 +52,8 @@
   }
   
   @include generate-grid-classes('col');
-  @include generate-grid-classes('col-sm', 576px);
-  @include generate-grid-classes('col-md', 768px);
-  @include generate-grid-classes('col-lg', 992px);
-
+  @include generate-grid-classes('col-sm', var.$breakpoint-sm);
+  @include generate-grid-classes('col-md', var.$breakpoint-md);
+  @include generate-grid-classes('col-lg', var.$breakpoint-lg);
+  @include generate-grid-classes('col-xl', var.$breakpoint-xl);
+  @include generate-grid-classes('col-xl', var.$breakpoint-xll);
