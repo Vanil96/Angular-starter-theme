@@ -7,6 +7,7 @@ import { ProfileBarComponent } from './components/profile-bar/profile-bar.compon
 import { CommonModule } from '@angular/common';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ScrollAnimationDirective } from '@app/core/directives/scroll-animation.directive';
+import { RestrictCharactersDirective } from '@app/core/directives/restrict-characters.directive';
 
 
 
@@ -18,9 +19,10 @@ import { ScrollAnimationDirective } from '@app/core/directives/scroll-animation.
         ProfileBarComponent,
         PaginationComponent,
         ScrollAnimationDirective,
+        RestrictCharactersDirective,
     ],
     imports: [RouterModule, CommonModule],
-    exports: [PageNotFoundComponent, NavigationComponent, FooterComponent, ProfileBarComponent, ScrollAnimationDirective,]
+    exports: [PageNotFoundComponent, NavigationComponent, FooterComponent, ProfileBarComponent, ScrollAnimationDirective, RestrictCharactersDirective,]
 })
 
 export class SharedModule { }
