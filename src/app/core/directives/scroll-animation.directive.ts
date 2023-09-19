@@ -8,7 +8,12 @@ export class ScrollAnimationDirective {
   @Input() animationClass: string = 'animate-element';
 
   constructor(private el: ElementRef, private renderer: Renderer2) {
-    this.checkPosition();
+  }
+
+  ngOnInit() {
+    window.addEventListener('load', () => {
+      this.checkPosition();
+    })
   }
 
   @HostListener('window:scroll', ['$event'])
