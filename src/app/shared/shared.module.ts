@@ -10,7 +10,6 @@ import { ScrollAnimationDirective } from '@app/core/directives/scroll-animation.
 import { RestrictCharactersDirective } from '@app/core/directives/restrict-characters.directive';
 
 
-
 @NgModule({
     declarations: [
         PageNotFoundComponent,

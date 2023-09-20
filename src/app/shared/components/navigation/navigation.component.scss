@@ -1,0 +1,15 @@
+.mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  .user-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
