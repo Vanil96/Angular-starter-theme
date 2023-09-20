@@ -8,6 +8,7 @@ import { ApiUrlInterceptorProvider } from './core/interceptors/api-url.intercept
 import { ProfileModule } from './modules/profile/profile.module';
 import { AuthInterceptorProvider } from './core/interceptors/auth.interceptor';
 import { AuthorizedGuard } from './core/guards/authorized.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { AuthorizedGuard } from './core/guards/authorized.guard';
     AppRoutingModule,
     HttpClientModule,
     ProfileModule,
+    BrowserAnimationsModule,
     
   ],
   providers: [ApiUrlInterceptorProvider, AuthInterceptorProvider, AuthorizedGuard],
