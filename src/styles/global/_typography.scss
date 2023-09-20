@@ -1,4 +1,5 @@
-// Nagłówki
+@use '/src/styles/shared/variables' as var;
+
 h1,
 h2,
 h3 {
@@ -6,29 +7,106 @@ h3 {
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 2.5em;
 }
 
 h2 {
-  font-size: 1.5em;
+  font-size: 2em;
 }
 
 h3 {
+  font-size: 1.5em;
+}
+
+h4 {
   font-size: 1.2em;
 }
 
-// Paragrafy
+h5 {
+  font-size: 1em;
+}
+
+h6 {
+  font-size: 0.8em;
+}
+
 p {
   margin-bottom: 1em;
   line-height: 1.6;
 }
 
+a {
+  color: var.$link-clr;
+}
 
+a:hover {
+  color: var.$link-clr;
+  text-decoration: underline;
+}
 
-.title {}
+.title {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  color: #333;
+}
 
-.subtitle {}
+.subtitle {
+  font-size: 1.5em;
+  font-weight: lighter;
+  margin-bottom: 1em;
+  color: #777;
+}
 
-.t-center {
-  text-align: center
+.section-header {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-bottom: 1em;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.highlight {
+  background-color: #f9f9f9;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.95em;
+}
+
+.small-text {
+  font-size: 0.8em;
+  color: #888;
+}
+
+.large-text {
+  font-size: 1.2em;
+  color: #333;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.light-text {
+  font-weight: 200;
+}
+
+.bold-text {
+  font-weight: 700;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
 }

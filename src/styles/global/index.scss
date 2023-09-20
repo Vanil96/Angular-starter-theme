@@ -1,33 +1,6 @@
-//@use 'variables' as *;
-//@use 'media-queries' as *;
 @use 'normalize' as *;
-//@use 'base' as *;
+@use 'theme' as *;
 @use 'grid' as *;
 @use 'spacing' as *;
 @use 'typography' as *;
-//@use 'theme' as * ;
 
-
-
-.hide {
-    display: none
-}
-
-.bg-primary {
-    background-color: blue;
-}
-
-.bg-secondary {
-    background-color: gray;
-}
-
-.bg-danger {
-    background-color: red;
-}
-
-
-.center-vertically {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
