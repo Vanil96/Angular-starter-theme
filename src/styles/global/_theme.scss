@@ -1,5 +1,10 @@
 @use '/src/styles/shared/variables' as var;
 
+html,
+body {
+    height: 100%;
+}
+
 body,
 h1,
 h2,
@@ -12,14 +17,9 @@ li {
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: var.$main-font;
     color: var.$black-color;
     background-color: var.$white-color;
-}
-
-a {
-    color: var.$primary-color;
-    text-decoration: none;
 }
 
 fieldset {
@@ -33,4 +33,9 @@ legend {
 
 .active {
     color: var.$secondary-color;
+}
+
+.m-auto {
+    margin-left:auto;
+    margin-right:auto;
 }

@@ -28,26 +28,70 @@
 
   <p>Results: {{($todos | async)?.length || 0}}</p>
 
-  <div style="height:150vh"></div>
+
+
+
+  <div class="container">
+    <div class="col-6">
+      <fieldset>
+        <legend>Form Example</legend>
+
+        <form (ngSubmit)="onSubmit()" [formGroup]="form" style="display:flex; flex-direction: column; gap:2px">
+          <app-input [control]="form.get('name') | formControl" label="Name"> </app-input>
+          <app-input [control]="form.get('email') | formControl" label="Email" type="email"> </app-input>
+          <app-input [control]="form.get('password') | formControl" label="Password" type="password"> </app-input>
+          <app-input-autocomplete [control]="form.get('name') | formControl" [options]="list" label="List"></app-input-autocomplete>
+          <label>Gender</label>
+          <label><input type="radio" value="male" formControlName="gender">Male</label>
+          <label><input type="radio" value="female" formControlName="gender">Female</label>
+
+
+          <label for="country">Country</label>
+          <select id="country" formControlName="country">
+            <option value="poland">Poland</option>
+            <option value="germany">Germany</option>
+            <option value="uk">United Kingdom</option>
+          </select>
+
+          <label for="agree">I Agree to Terms and Conditions</label>
+          <input type="checkbox" id="agree" formControlName="agree">
+
+          <label for="description"> Description</label>
+          <textarea id="description" formControlName="description" cols="30" rows="7"></textarea>
+
+          <div formArrayName="hobbies">
+            <label>Hobbies</label>
+            <div *ngFor="let hobby of hobbies.controls; let i = index">
+              <input [formControlName]="i">
+            </div>
+          </div>
+          <button type="submit" [disabled]="form.invalid">Submit</button>
+        </form>
+      </fieldset>
+    </div>
+  </div>
+
+
   <div class="container" appScrollAnimation>
-    <div class="row mt-5 fade-in"> sdfs
-      <div class="col-12 col-md-4 col-lg-2 pt-5" style="background:red">
+    <div class="row mt-5 fade-in">
+      <div class="col-12 col-md-4 col-lg-2 pt-5" style="border: 1px solid red">
         <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam magni, quaerat nobis repellendus quasi autem
           accusantium doloribus soluta facere laboriosam veniam qui ab, beatae neque ipsam dolorum vitae maiores
           nesciunt?</h3>
       </div>
-      <div class="col-12 col-md-4 col-lg-2 pr-5 mt-5" style="background:yellow">
+      <div class="col-12 col-md-4 col-lg-2 pr-5 mt-5" style="border: 1px solid rgb(195, 0, 255)">
         <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam magni, quaerat nobis repellendus quasi autem
           accusantium doloribus soluta facere laboriosam veniam qui ab, beatae neque ipsam dolorum vitae maiores
           nesciunt?</h3>
       </div>
-      <div class="col-12 col-md-4 col-lg-8 " style="background:brown">
+      <div class="col-12 col-md-4 col-lg-8 " style="border: 1px solid brown">
         <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam magni, quaerat nobis repellendus quasi autem
           accusantium doloribus soluta facere laboriosam veniam qui ab, beatae neque ipsam dolorum vitae maiores
           nesciunt?</h3>
       </div>
     </div>
   </div>
+
 
 
 </fieldset>

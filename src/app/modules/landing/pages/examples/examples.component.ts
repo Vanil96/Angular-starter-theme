@@ -1,3 +1,4 @@
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ExamplesService } from './../../../../core/services/examples.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 export class ExamplesComponent implements OnInit {
   $todos = this.examplesService.apiTest_getTodos();
   error: String;
+  form:FormGroup;
+  defaultControl = new FormControl('');
 
-  constructor(protected examplesService: ExamplesService) { }
+  list = [{label:'label 1', value: 1}, {label:'blok 2', value: 2}, {label:'element 3', value: 3}, {label:'dywan 4', value: 4}]
 
+  constructor(protected examplesService: ExamplesService, private fb: FormBuilder) {
+  this.form = this.fb.group({
+    name: ['', Validators.required],
+    email: ['', Validators.email],
+    password: ['', [Validators.minLength(8), Validators.required]],
+    gender:[''],
+    country: [''],
+    agree: [false, Validators.requiredTrue],
+    birthdate:[''],
+    description:[''],
+    hobbies: this.fb.array([new FormControl('')])
+  })
+  }
   ngOnInit(): void { }
 
   addTodo(title: string) {
@@ -30,6 +46,16 @@ export class ExamplesComponent implements OnInit {
   setPerPage(event: Event) {
     const inputValue: number = parseInt((event.target as HTMLInputElement).value);
     this.examplesService.apiTest_setPerPage(inputValue);
+  }
+
+  get hobbies() {
+    return this.form.get('hobbies') as FormArray;
+  }
+
+  onSubmit() {
+    if(this.form.valid) {
+      console.log('Form submitted', this.form.value);
+    }
   }
 
 }

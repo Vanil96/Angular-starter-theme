@@ -1,6 +1,5 @@
 <fieldset>
     <legend>Navbar component</legend>
-
     <nav style="display:flex; justify-content: space-between;">
         <ul style="display:flex; gap:2rem;">
             <li>
@@ -21,9 +20,7 @@
                 <a routerLink="examples" routerLinkActive="active">EXAMPLES</a>
             </li>
         </ul>
-
-
-
+        <app-profile-bar *ngIf="isAuthenticated"></app-profile-bar>
     </nav>
-
 </fieldset>
+

@@ -6,6 +6,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ExamplesComponent } from './pages/examples/examples.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '@app/shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { SharedModule } from '@app/shared/shared.module';
     LandingRoutingModule,
     FontAwesomeModule,
     SharedModule,
+    ReactiveFormsModule,
   ],
   providers: []
 })

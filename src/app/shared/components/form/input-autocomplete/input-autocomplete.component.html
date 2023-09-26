@@ -1,0 +1,19 @@
+<mat-form-field [appearance]="appearance">
+    <mat-label>{{ label }}</mat-label>
+    <input matInput 
+    [formControl]="control" 
+    [placeholder]="placeholder" 
+    [type]="type" 
+    [autocomplete]="autocomplete"
+    [matAutocomplete]="auto"
+    (keydown.enter)="onSelectOrBlur($event)"
+    (focusout)="onSelectOrBlur($event)"
+    
+    />
+</mat-form-field>
+
+<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith" >
+    <mat-option *ngFor="let option of displayedOptions" [value]="option">
+      {{option.label}}
+    </mat-option>
+  </mat-autocomplete>

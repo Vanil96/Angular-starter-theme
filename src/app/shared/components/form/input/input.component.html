@@ -1,0 +1,11 @@
+<mat-form-field [appearance]="appearance">
+    <mat-label>{{ label }}</mat-label>
+    <input matInput 
+    [formControl]="control" 
+    [placeholder]="placeholder" 
+    [type]="type" 
+    [autocomplete]="autocomplete"
+        
+    (input)="onInput($event)" 
+    />
+</mat-form-field>
