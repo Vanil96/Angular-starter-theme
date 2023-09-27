@@ -41,7 +41,7 @@
           <app-input [control]="form.get('email') | formControl" label="Email" type="email"> </app-input>
           <app-input [control]="form.get('password') | formControl" label="Password" type="password"> </app-input>
           <app-input-autocomplete [control]="form.get('name') | formControl" [options]="list" label="List"></app-input-autocomplete>
-          <label>Gender</label>
+          Gender
           <label><input type="radio" value="male" formControlName="gender">Male</label>
           <label><input type="radio" value="female" formControlName="gender">Female</label>
 
@@ -60,8 +60,7 @@
           <textarea id="description" formControlName="description" cols="30" rows="7"></textarea>
 
           <div formArrayName="hobbies">
-            <label>Hobbies</label>
-            <div *ngFor="let hobby of hobbies.controls; let i = index">
+Hobbies            <div *ngFor="let hobby of hobbies.controls; let i = index">
               <input [formControlName]="i">
             </div>
           </div>

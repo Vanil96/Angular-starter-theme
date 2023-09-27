@@ -1,9 +1,9 @@
-import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appScrollAnimation]'
 })
-export class ScrollAnimationDirective {
+export class ScrollAnimationDirective implements OnInit {
   private hasClassBeenAdded = false;
   @Input() animationClass: string = 'animate-element';
 

@@ -1,15 +1,15 @@
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ExamplesService } from './../../../../core/services/examples.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-examples',
   templateUrl: './examples.component.html',
   styleUrls: ['./examples.component.scss']
 })
-export class ExamplesComponent implements OnInit {
+export class ExamplesComponent {
   $todos = this.examplesService.apiTest_getTodos();
-  error: String;
+  error: string;
   form:FormGroup;
   defaultControl = new FormControl('');
 
@@ -28,7 +28,7 @@ export class ExamplesComponent implements OnInit {
     hobbies: this.fb.array([new FormControl('')])
   })
   }
-  ngOnInit(): void { }
+
 
   addTodo(title: string) {
     this.examplesService.apiTest_createTodo({ title }).subscribe(() => {

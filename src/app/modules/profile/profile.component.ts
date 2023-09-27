@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/core/models/user.model';
 import { ProfileService } from 'src/app/core/services/profile.service';
@@ -8,10 +8,10 @@ import { ProfileService } from 'src/app/core/services/profile.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   user: User | null;
   private subscriptions: Subscription[] = []
-  error: String;
+  error: string;
   constructor(protected profileService: ProfileService) { }
 
   ngOnInit(): void {

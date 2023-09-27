@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { Options } from '@app/core/models/option.model';
+import { Option } from '@app/core/models/option.model';
 import { Subscription, map, startWith } from 'rxjs';
 type InputType = 'text' | 'number' | 'password' | 'email';
 
@@ -10,9 +10,9 @@ type InputType = 'text' | 'number' | 'password' | 'email';
   templateUrl: './input-autocomplete.component.html',
   styleUrls: ['./input-autocomplete.component.scss']
 })
-export class InputAutocompleteComponent {
+export class InputAutocompleteComponent implements OnInit, OnDestroy {
   @Input({ required: true }) control: FormControl;
-  @Input({ required: true }) options: Options[];
+  @Input({ required: true }) options: Option[];
   @Input() label = '';
   @Input() placeholder = '';
   @Input() type: InputType = 'text';
@@ -20,8 +20,8 @@ export class InputAutocompleteComponent {
   @Input() autocomplete = 'auto'
   private subscriptions = new Subscription();
 
-  allOptions: Options[] = [];
-  displayedOptions: Options[] = [];
+  allOptions: Option[] = [];
+  displayedOptions: Option[] = [];
 
   ngOnInit() {
     this.allOptions = [...this.options];
@@ -36,7 +36,7 @@ export class InputAutocompleteComponent {
     )
   }
 
-  private _filter(value: string): Options[] {
+  private _filter(value: string): Option[] {
     const filterValue = value.toLowerCase();
     return this.allOptions.filter(option => option.label.toLowerCase().includes(filterValue))
   }
@@ -55,7 +55,7 @@ export class InputAutocompleteComponent {
     }
   }
 
-  displayWith(option: Options): string {
+  displayWith(option: Option): string {
     return option ? option.label : '';
   }
 

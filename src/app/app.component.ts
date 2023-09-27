@@ -8,7 +8,7 @@ import { AuthService } from './core/services/auth.service';
 })
 
 export class AppComponent {
-  isAuthenticated: boolean = false;
+  isAuthenticated = false;
 
   constructor(private auth: AuthService) {
     this.auth.state.subscribe(isAuthenticated => this.isAuthenticated = isAuthenticated);
