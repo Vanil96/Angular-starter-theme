@@ -58,4 +58,8 @@ export class ExamplesComponent {
     }
   }
 
+  ngOnInit(){
+    this.form.valueChanges.subscribe(()=>{console.log(this.form.value)})
+  }
+
 }

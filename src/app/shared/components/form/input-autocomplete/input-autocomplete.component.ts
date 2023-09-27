@@ -3,8 +3,8 @@ import { FormControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Option } from '@app/core/models/option.model';
 import { Subscription, map, startWith } from 'rxjs';
-type InputType = 'text' | 'number' | 'password' | 'email';
 
+type InputType = 'text' | 'number' | 'password' | 'email';
 @Component({
   selector: 'app-input-autocomplete',
   templateUrl: './input-autocomplete.component.html',
@@ -22,6 +22,7 @@ export class InputAutocompleteComponent implements OnInit, OnDestroy {
 
   allOptions: Option[] = [];
   displayedOptions: Option[] = [];
+  displayedValue: string;
 
   ngOnInit() {
     this.allOptions = [...this.options];
@@ -30,9 +31,11 @@ export class InputAutocompleteComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.control.valueChanges.pipe(
         startWith(''),
-        map(value => typeof value === 'string' ? value : value.label),
-        map(label => label ? this._filter(label) : this.allOptions.slice())
-      ).subscribe(options => this.displayedOptions = options)
+        map(value => typeof value === 'string' ? value : this.displayWith(value)),
+      ).subscribe((displayedValue) => {
+        this.displayedValue = displayedValue;
+        this.displayedOptions = displayedValue ? this._filter(displayedValue) : this.allOptions.slice();
+      })
     )
   }
 
@@ -42,7 +45,8 @@ export class InputAutocompleteComponent implements OnInit, OnDestroy {
   }
 
 
-  onSelectOrBlur(event: Event) {
+  onSelectOrFocusOut(event: Event) {
+
     const inputElement = event.target as HTMLInputElement;
     let inputValue = inputElement.value;
 
@@ -62,6 +66,5 @@ export class InputAutocompleteComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
-
 
 }

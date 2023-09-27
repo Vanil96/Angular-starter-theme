@@ -17,6 +17,8 @@ import { InputAutocompleteComponent } from './components/form/input-autocomplete
 import {MatAutocompleteModule} from '@angular/material/autocomplete'
 import { MatOptionModule } from '@angular/material/core';
 import { SelectComponent } from './components/form/select/select.component';
+import {MatSelectModule} from '@angular/material/select';
+import { RadioComponent } from './components/form/radio/radio.component';
 
 @NgModule({
     declarations: [
@@ -30,10 +32,11 @@ import { SelectComponent } from './components/form/select/select.component';
         InputComponent,
         FormControlPipe,
         InputAutocompleteComponent,
-        SelectComponent
+        SelectComponent,
+        RadioComponent,
     ],
-    imports: [RouterModule, CommonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatAutocompleteModule, MatOptionModule ],
-    exports: [PageNotFoundComponent, FooterComponent, ProfileBarComponent, ScrollAnimationDirective, RestrictCharactersDirective, NavbarComponent, InputComponent, FormControlPipe, InputAutocompleteComponent,]
+    imports: [RouterModule, CommonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatAutocompleteModule, MatOptionModule, MatSelectModule ],
+    exports: [PageNotFoundComponent, FooterComponent, ProfileBarComponent, ScrollAnimationDirective, RestrictCharactersDirective, NavbarComponent, InputComponent, FormControlPipe, InputAutocompleteComponent, SelectComponent]
 })
 
 export class SharedModule { }

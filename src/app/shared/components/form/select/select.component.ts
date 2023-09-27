@@ -14,5 +14,10 @@ export class SelectComponent {
   @Input() label = '';
   @Input() placeholder = '';
   @Input() appearance: MatFormFieldAppearance = 'fill';
+  @Input() isMultiple = false;
 
+  compare(option1: Option, option2: Option):boolean {
+    if (!option1 || !option2) { return false }
+    return option1.value === option2.value && option1.label === option2.label
+  }
 }

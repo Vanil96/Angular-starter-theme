@@ -45,6 +45,9 @@
           <label><input type="radio" value="male" formControlName="gender">Male</label>
           <label><input type="radio" value="female" formControlName="gender">Female</label>
 
+Select
+<app-select [control]="form.get('name') | formControl" [options]="list" label="Select"></app-select>
+
 
           <label for="country">Country</label>
           <select id="country" formControlName="country">

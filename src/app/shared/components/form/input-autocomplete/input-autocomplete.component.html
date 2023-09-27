@@ -6,8 +6,9 @@
     [type]="type" 
     [autocomplete]="autocomplete"
     [matAutocomplete]="auto"
-    (keydown.enter)="onSelectOrBlur($event)"
-    (focusout)="onSelectOrBlur($event)"
+    [value]="displayedValue"
+    (keydown.enter)="onSelectOrFocusOut($event)"
+    (focusout)="onSelectOrFocusOut($event)"
     
     />
 </mat-form-field>

@@ -1,4 +1,6 @@
 <mat-form-field [appearance]="appearance">
     <mat-label>{{ label }}</mat-label>
-
+    <mat-select [formControl]="control" [compareWith]="compare" [multiple]="isMultiple">
+        <mat-option *ngFor="let option of options" [value]="option">{{option.label}}</mat-option>
+    </mat-select>
 </mat-form-field>
