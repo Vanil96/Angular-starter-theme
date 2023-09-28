@@ -1,4 +1,8 @@
-.btn {
+@use '/src/styles/shared/variables' as var;
+
+.btn,
+button {
+    font-family: var.$btn-font;
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;

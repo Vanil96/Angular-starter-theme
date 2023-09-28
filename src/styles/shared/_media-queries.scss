@@ -1,28 +1,24 @@
 @use '/src/styles/shared/variables' as var;
 
 
-// Mixin dla small devices
 @mixin sm {
   @media (min-width: var.$breakpoint-sm) {
     @content;
   }
 }
 
-// Mixin dla medium devices
 @mixin md {
   @media (min-width: var.$breakpoint-md) {
     @content;
   }
 }
 
-// Mixin dla large devices
 @mixin lg {
   @media (min-width: var.$breakpoint-lg) {
     @content;
   }
 }
 
-// Mixin dla xlarge devices
 @mixin xl {
   @media (min-width: var.$breakpoint-xl) {
     @content;
