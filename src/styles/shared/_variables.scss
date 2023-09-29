@@ -1,17 +1,35 @@
+@use '@angular/material' as mat;
+@use 'sass:map';
+@use '/src/styles/global/material/config' as mat-config;
+
+
+//fonts
 $main-font: "Courier New", monospace;
-$material-font:$main-font;
+$material-font: $main-font;
 $btn-font: $main-font;
 
+//colors
+$primary-clr: mat-config.$primary-clr;
+$primary-contrast-clr: mat-config.$primary-contrast-clr;
 
-$primary-color: #3498db;
-$secondary-color: #2ecc71;
-$warning-color: #f39c12;
-$error-color: #e74c3c;
-$white-color: #ffffff;
-$black-color: #000000;
-$link-clr: #243047;
+$accent-clr: mat-config.$accent-clr;
+$accent-contrast-clr: mat-config.$accent-contrast-clr;
+
+$accent-lighter-clr: mat-config.$accent-lighter-clr;
+$accent-lighter-contrast-clr: mat-config.$accent-lighter-contrast-clr;
+
+$accent-darker-clr: mat-config.$accent-darker-clr;
+$accent-darker-contrast-clr: mat-config.$accent-darker-contrast-clr;
+
+$warn-clr: mat-config.$warn-clr;
+$warn-contrast-clr: mat-config.$warn-contrast-clr;
+
+$main-text-clr: black;
+$link-clr: $accent-lighter-contrast-clr;
 
 
+
+//breakpoints
 $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 992px;

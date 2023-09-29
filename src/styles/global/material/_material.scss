@@ -1,0 +1,70 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use '/src/styles/shared/variables' as var;
+@use 'config' as config;
+//these settings have support from angular 15+
+
+$my-primary: mat.define-palette(config.$primary-palette, config.$primary-default);
+$my-accent: mat.define-palette(config.$accent-palette, config.$accent-default, config.$accent-lighter, config.$accent-darker);
+$my-warn: mat.define-palette(config.$warn-palette, config.$warn-default); 
+
+//define the typography
+$my-typography: mat.define-typography-config($font-family: var.$material-font);
+
+// define theme
+$my-theme: mat.define-light-theme((
+      color: (
+        primary: $my-primary,
+        accent: $my-accent,
+        warn: $my-warn,
+      ),
+      typography: $my-typography ,
+      density: 0,
+    ),
+  );
+
+@include mat.core-theme($my-theme);
+@include mat.all-component-themes($my-theme);
+@include mat.typography-hierarchy($my-theme);
+
+
+$color-config:    mat.get-color-config($my-theme);
+$primary-palette: map.get($color-config, 'primary');
+$accent-palette:  map.get($color-config, 'accent');
+$warn-palette:    map.get($color-config, 'warn');
+$is-dark-theme:   map.get($color-config, 'is-dark');
+   
+// do usunięcia
+// .mat-typography {
+//   font-family: config.$material-font;
+//   .mat-display-4,
+//   .mat-display-3,
+//   .mat-display-2,
+//   .mat-display-1,
+//   .mat-h1,
+//   .mat-headline,
+//   .mat-h2,
+//   .mat-title,
+//   .mat-h3,
+//   .mat-subheading-2,
+//   .mat-h4,
+//   .mat-subheading-1,
+//   .mat-h5,
+//   .mat-h6,
+//   .mat-body,
+//   .mat-body-1,
+//   .mat-body-strong,
+//   .mat-body-2,
+//   .mat-small,
+//   .mat-caption,
+//   h1,
+//   h2,
+//   h3,
+//   h4,
+//   h5,
+//   h6,
+//   p,
+//   span {
+//     font-family: config.$material-font
+//   }
+// }
