@@ -1,36 +1,33 @@
 import { Component, Input, OnDestroy, OnInit, forwardRef } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Option } from '@app/core/models/option.model';
 import { Subscription } from 'rxjs';
 
+
 @Component({
-  selector: 'app-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
+  selector: 'app-checkbox-group',
+  templateUrl: './checkbox-group.component.html',
+  styleUrls: ['./checkbox-group.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectComponent),
+      useExisting: forwardRef(() => CheckboxGroupComponent),
       multi: true
     }
   ]
 })
-export class SelectComponent implements ControlValueAccessor, OnInit, OnDestroy {
+export class CheckboxGroupComponent implements OnInit, OnDestroy, ControlValueAccessor {
   @Input({ required: true }) control: FormControl;
   @Input({ required: true }) options: Option[];
   @Input() label = '';
-  @Input() placeholder = '';
-  @Input() appearance: MatFormFieldAppearance = 'fill';
-  @Input() isMultiple = false;
   private subscriptions = new Subscription();
-
   isDisabled = false;
 
-  onChange = (_: any) => {};
+  onChange = (_: any) => { };
   onTouched = () => { };
 
   ngOnInit(): void {
+    console.log(this.control)
     this.subscriptions.add(
       this.control.valueChanges.subscribe(value => {
         this.forceComparison(value);
@@ -41,12 +38,12 @@ export class SelectComponent implements ControlValueAccessor, OnInit, OnDestroy 
     this.subscriptions.unsubscribe();
   }
 
-
   writeValue(values: any[]): void {
     if (values && this.control) {
       this.control.setValue(values, { emitEvent: false });
     }
   }
+
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
@@ -64,14 +61,22 @@ export class SelectComponent implements ControlValueAccessor, OnInit, OnDestroy 
     }
   }
 
-  compare(option1: Option, option2: Option): boolean {
-    console.log('compare')
-    if (!option1 || !option2) { return false }
-    return option1.value === option2.value && option1.label === option2.label
+  onCheckboxChange(option: Option, isChecked: boolean) {
+    let currentValues = Array.isArray(this.control.value) ? this.control.value : [];
+    if (isChecked) {
+      currentValues.push(option);
+    } else {
+      currentValues = currentValues.filter((item: Option) => item.value !== option.value);
+    }
+    this.control.setValue(currentValues);
+    this.onChange(currentValues);
+    this.onTouched();
+
+    console.log('ON CHECKBOX CHANGE', this.control.value)
+
   }
 
   forceComparison(value: any) {
     this.control.setValue(value, { emitEvent: false });
   }
-
 }

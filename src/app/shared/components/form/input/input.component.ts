@@ -16,8 +16,7 @@ export class InputComponent {
   @Input() appearance: MatFormFieldAppearance = 'fill';
   @Input() autocomplete = 'off'
 
-  onInput($event: Event) {
-    console.log($event)
+  onInput(_$event: Event) {
   }
 
 }

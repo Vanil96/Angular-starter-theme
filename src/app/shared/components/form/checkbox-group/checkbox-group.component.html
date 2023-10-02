@@ -1,0 +1,10 @@
+<div class="checkbox-group-container">
+<p>{{label}}</p>
+<div [formControl]="control">
+  <mat-checkbox *ngFor="let option of options" 
+    [value]="option.label"
+    (change)="onCheckboxChange(option, $event.checked)">
+    {{option.label}}
+  </mat-checkbox>
+</div> 
+</div>

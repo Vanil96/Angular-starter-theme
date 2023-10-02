@@ -11,7 +11,7 @@ export class ExamplesComponent {
   $todos = this.examplesService.apiTest_getTodos();
   error: string;
   form:FormGroup;
-  defaultControl = new FormControl('');
+  defaultControl:FormControl = new FormControl([]);
 
   list = [{label:'label 1', value: 1}, {label:'blok 2', value: 2}, {label:'element 3', value: 3}, {label:'dywan 4', value: 4}]
 

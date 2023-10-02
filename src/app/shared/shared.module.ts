@@ -14,13 +14,16 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormControlPipe } from '@app/core/pipes/form-control.pipe';
 import { InputAutocompleteComponent } from './components/form/input-autocomplete/input-autocomplete.component';
-import {MatAutocompleteModule} from '@angular/material/autocomplete'
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import { MatOptionModule } from '@angular/material/core';
 import { SelectComponent } from './components/form/select/select.component';
-import {MatSelectModule} from '@angular/material/select';
-import { RadioComponent } from './components/form/radio/radio.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { RadioGroupComponent } from './components/form/radio-group/radio-group.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
+import { CheckboxGroupComponent } from './components/form/checkbox-group/checkbox-group.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
     declarations: [
@@ -35,10 +38,11 @@ import {MatIconModule} from '@angular/material/icon';
         FormControlPipe,
         InputAutocompleteComponent,
         SelectComponent,
-        RadioComponent,
+        RadioGroupComponent,
+        CheckboxGroupComponent,
     ],
-    imports: [RouterModule, CommonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatAutocompleteModule, MatOptionModule, MatSelectModule, MatButtonModule, MatIconModule ],
-    exports: [PageNotFoundComponent, FooterComponent, ProfileBarComponent, ScrollAnimationDirective, RestrictCharactersDirective, NavbarComponent, InputComponent, FormControlPipe, InputAutocompleteComponent, SelectComponent, MatButtonModule, MatIconModule ]
+    imports: [RouterModule, CommonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatAutocompleteModule, MatOptionModule, MatSelectModule, MatButtonModule, MatIconModule, MatRadioModule, MatCheckboxModule],
+    exports: [PageNotFoundComponent, FooterComponent, ProfileBarComponent, ScrollAnimationDirective, RestrictCharactersDirective, NavbarComponent, InputComponent, FormControlPipe, InputAutocompleteComponent, SelectComponent, MatButtonModule, MatIconModule, RadioGroupComponent, CheckboxGroupComponent]
 })
 
 export class SharedModule { }

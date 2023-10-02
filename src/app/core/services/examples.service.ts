@@ -19,11 +19,14 @@ interface Params {
 })
 export class ExamplesService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+
+   }
   params = new BehaviorSubject<Params>({
     perPage: 10,
     phrase: ''
   })
+
 
 
 

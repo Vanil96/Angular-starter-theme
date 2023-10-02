@@ -15,24 +15,24 @@
     <button mat-flat-button color="warn" (click)="addTodo(titleRef.value)">mat-flat-button</button>
     <button mat-stroked-button disabled (click)="addTodo(titleRef.value)">mat-stroked-button</button>
 
-<button mat-icon-button>
-  <mat-icon>more_vert</mat-icon>  
-</button>
+    <button mat-icon-button>
+      <mat-icon>more_vert</mat-icon>
+    </button>
 
-<button mat-icon-button color="accent" aria-label="Example icon button with a home icon">
-  <mat-icon>home</mat-icon>
-</button>
+    <button mat-icon-button color="accent" aria-label="Example icon button with a home icon">
+      <mat-icon>home</mat-icon>
+    </button>
 
     <button class="btn primary" (click)="addTodo(titleRef.value)">btn primary</button>
     <button class="btn accent" (click)="addTodo(titleRef.value)">btn accent</button>
-    <button class="btn warn" (click)="addTodo(titleRef.value)">btn warn  <mat-icon>more_vert</mat-icon> </button>
-    <button class="btn warn" disabled (click)="addTodo(titleRef.value)">btn warn  </button>
+    <button class="btn warn" (click)="addTodo(titleRef.value)">btn warn <mat-icon>more_vert</mat-icon> </button>
+    <button class="btn warn" disabled (click)="addTodo(titleRef.value)">btn warn </button>
 
-    <button class="btn primary stroked" disabled (click)="addTodo(titleRef.value)">btn warn  </button>
+    <button class="btn primary stroked" disabled (click)="addTodo(titleRef.value)">btn warn </button>
 
-    <div style="padding:50px; background:black"> 
-    <button class="btn primary stroked" disabled (click)="addTodo(titleRef.value)">btn warn  </button>
-  </div>
+    <div style="padding:50px; background:black">
+      <button class="btn primary stroked" disabled (click)="addTodo(titleRef.value)">btn warn </button>
+    </div>
   </div>
 
   <input type="text" id="search" (keyup.enter)="search($event)" placeholder="Search...">
@@ -62,13 +62,20 @@
           <app-input [control]="form.get('name') | formControl" label="Name"> </app-input>
           <app-input [control]="form.get('email') | formControl" label="Email" type="email"> </app-input>
           <app-input [control]="form.get('password') | formControl" label="Password" type="password"> </app-input>
-          <app-input-autocomplete [control]="form.get('name') | formControl" [options]="list" label="List"></app-input-autocomplete>
+          <app-input-autocomplete [control]="form.get('name') | formControl" [options]="list"
+            label="List"></app-input-autocomplete>
           Gender
           <label><input type="radio" value="male" formControlName="gender">Male</label>
           <label><input type="radio" value="female" formControlName="gender">Female</label>
 
-Select
-<app-select [control]="form.get('name') | formControl" [options]="list" label="Select"></app-select>
+          <app-radio-group [control]="form.get('name') | formControl" [options]="list"
+            label="Radio group"></app-radio-group>
+
+          <app-checkbox-group [control]="defaultControl" [options]="list"
+            label="hobbies"></app-checkbox-group>
+
+          Select
+          <app-select [control]="form.get('name') | formControl" [options]="list" label="Select"></app-select>
 
 
           <label for="country">Country</label>
@@ -85,7 +92,7 @@ Select
           <textarea id="description" formControlName="description" cols="30" rows="7"></textarea>
 
           <div formArrayName="hobbies">
-Hobbies            <div *ngFor="let hobby of hobbies.controls; let i = index">
+            Hobbies <div *ngFor="let hobby of hobbies.controls; let i = index">
               <input [formControlName]="i">
             </div>
           </div>
