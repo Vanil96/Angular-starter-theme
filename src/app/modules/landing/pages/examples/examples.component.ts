@@ -12,8 +12,9 @@ export class ExamplesComponent {
   error: string;
   form:FormGroup;
   defaultControl:FormControl = new FormControl([]);
+  someValue = false;
 
-  list = [{label:'label 1', value: 1}, {label:'blok 2', value: 2}, {label:'element 3', value: 3}, {label:'dywan 4', value: 4}]
+  list = [{label:'label 1', value: 1, isChecked: true}, {label:'blok 2', value: 2, isChecked: true}, {label:'element 3', value: 3}, {label:'dywan 4', value: 4}]
 
   constructor(protected examplesService: ExamplesService, private fb: FormBuilder) {
   this.form = this.fb.group({
@@ -60,6 +61,10 @@ export class ExamplesComponent {
 
   ngOnInit(){
     this.form.valueChanges.subscribe(()=>{console.log(this.form.value)})
+  }
+
+  handleOptions(options:any){
+    console.log('OPTIONS WITH PROPERTY', options);
   }
 
 }

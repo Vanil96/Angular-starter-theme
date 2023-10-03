@@ -62,21 +62,22 @@
           <app-input [control]="form.get('name') | formControl" label="Name"> </app-input>
           <app-input [control]="form.get('email') | formControl" label="Email" type="email"> </app-input>
           <app-input [control]="form.get('password') | formControl" label="Password" type="password"> </app-input>
-          <app-input-autocomplete [control]="form.get('name') | formControl" [options]="list"
+          <app-input-autocomplete [formControl]="form.get('name') | formControl" [options]="list"
             label="List"></app-input-autocomplete>
           Gender
           <label><input type="radio" value="male" formControlName="gender">Male</label>
           <label><input type="radio" value="female" formControlName="gender">Female</label>
 
-          <app-radio-group [control]="form.get('name') | formControl" [options]="list"
+          <app-radio-group [formControl]="form.get('name') | formControl" [options]="list"
             label="Radio group"></app-radio-group>
 
-          <app-checkbox-group [control]="defaultControl" [options]="list"
+          <app-checkbox-group [formControl]="form.get('email') | formControl" [options]="list"
             label="hobbies"></app-checkbox-group>
 
           Select
           <app-select [control]="form.get('name') | formControl" [options]="list" label="Select"></app-select>
 
+<app-checkbox label="I Agree to Terms and Conditions" [formControl]="form.get('agree') | formControl" ></app-checkbox>
 
           <label for="country">Country</label>
           <select id="country" formControlName="country">
@@ -85,8 +86,6 @@
             <option value="uk">United Kingdom</option>
           </select>
 
-          <label for="agree">I Agree to Terms and Conditions</label>
-          <input type="checkbox" id="agree" formControlName="agree">
 
           <label for="description"> Description</label>
           <textarea id="description" formControlName="description" cols="30" rows="7"></textarea>

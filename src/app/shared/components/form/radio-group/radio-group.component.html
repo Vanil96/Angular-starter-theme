@@ -1,4 +1,11 @@
-    <mat-label>{{label}}</mat-label>
-    <mat-radio-group [formControl]="control" aria-label="Select an option">
-    <mat-radio-button *ngFor="let option of options" [value]="option"></mat-radio-button>
-    </mat-radio-group>
+<mat-label>{{ label }}</mat-label>
+<mat-radio-group aria-label="Select an option">
+  <mat-radio-button
+    *ngFor="let option of options"
+    [value]="option"
+    [checked]="option === selectedOption"
+    (click)="selectOption(option)"
+  >
+    {{ option.label }}
+  </mat-radio-button>
+</mat-radio-group>

@@ -7,6 +7,7 @@ import { ExamplesComponent } from './pages/examples/examples.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '@app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FontAwesomeModule,
     SharedModule,
     ReactiveFormsModule,
+    FormsModule
   ],
   providers: []
 })

@@ -1,8 +1,6 @@
-import { Component, Input, OnDestroy, OnInit, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Option } from '@app/core/models/option.model';
-import { Subscription } from 'rxjs';
-
+import { Component, Input, OnInit, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CheckboxOption } from '@app/core/models/option.model';
 
 @Component({
   selector: 'app-checkbox-group',
@@ -16,31 +14,27 @@ import { Subscription } from 'rxjs';
     }
   ]
 })
-export class CheckboxGroupComponent implements OnInit, OnDestroy, ControlValueAccessor {
-  @Input({ required: true }) control: FormControl;
-  @Input({ required: true }) options: Option[];
+export class CheckboxGroupComponent implements ControlValueAccessor, OnInit {
+  @Input({ required: true }) options: CheckboxOption[];
   @Input() label = '';
-  private subscriptions = new Subscription();
   isDisabled = false;
 
   onChange = (_: any) => { };
   onTouched = () => { };
 
   ngOnInit(): void {
-    console.log(this.control)
-    this.subscriptions.add(
-      this.control.valueChanges.subscribe(value => {
-        this.forceComparison(value);
-      }));
+    for (const option of this.options) {
+      if (option.isChecked === undefined) {
+        option.isChecked = false;
+      }
+    }
   }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
-  writeValue(values: any[]): void {
-    if (values && this.control) {
-      this.control.setValue(values, { emitEvent: false });
+  writeValue(values: CheckboxOption[]): void {
+    if (values) {
+      for (const option of this.options) {
+        const correspondingValue = values.find(val => val.value === option.value);
+        option.isChecked = correspondingValue ? correspondingValue.isChecked : false;
+      }
     }
   }
 
@@ -54,29 +48,11 @@ export class CheckboxGroupComponent implements OnInit, OnDestroy, ControlValueAc
 
   setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
-    if (isDisabled) {
-      this.control.disable();
-    } else {
-      this.control.enable();
-    }
   }
 
-  onCheckboxChange(option: Option, isChecked: boolean) {
-    let currentValues = Array.isArray(this.control.value) ? this.control.value : [];
-    if (isChecked) {
-      currentValues.push(option);
-    } else {
-      currentValues = currentValues.filter((item: Option) => item.value !== option.value);
-    }
-    this.control.setValue(currentValues);
-    this.onChange(currentValues);
+  onCheckboxChange(option: CheckboxOption, isChecked: boolean) {
+    option.isChecked = isChecked;
+    this.onChange(this.options);
     this.onTouched();
-
-    console.log('ON CHECKBOX CHANGE', this.control.value)
-
-  }
-
-  forceComparison(value: any) {
-    this.control.setValue(value, { emitEvent: false });
   }
 }

@@ -1,5 +1,5 @@
 import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Option } from '@app/core/models/option.model';
 
 
@@ -14,34 +14,35 @@ import { Option } from '@app/core/models/option.model';
   }]
 })
 export class RadioGroupComponent implements ControlValueAccessor {
-  @Input({ required: true }) control: FormControl;
-  @Input({ required: true }) options: Option[];
+  @Input() options: Option[];
   @Input() label = '';
   isDisabled = false;
-
+  selectedOption: Option | null = null; 
 
   onChange = (_: any) => {};
-  onTouched = () => { };
+  onTouched = () => {};
 
-  writeValue(values: any[]): void {
-    if (values && this.control) {
-      this.control.setValue(values, { emitEvent: false });
-    }
+  writeValue(selectedOption: Option | null): void {
+    this.selectedOption = selectedOption;
   }
+
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
 
   registerOnTouched(fn: any): void {
-    this.onTouched = fn;;
+    this.onTouched = fn;
   }
 
   setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
-    if (isDisabled) {
-      this.control.disable();
-    } else {
-      this.control.enable();
+  }
+
+  selectOption(option: Option): void {
+    if (!this.isDisabled) {
+      this.selectedOption = option;
+      this.onChange(option); 
+      this.onTouched();
     }
   }
 }

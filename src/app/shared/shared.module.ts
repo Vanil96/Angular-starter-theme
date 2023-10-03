@@ -1,4 +1,5 @@
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from "@angular/core";
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -24,6 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { CheckboxGroupComponent } from './components/form/checkbox-group/checkbox-group.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CheckboxComponent } from './components/form/checkbox/checkbox.component';
 
 @NgModule({
     declarations: [
@@ -40,9 +42,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         SelectComponent,
         RadioGroupComponent,
         CheckboxGroupComponent,
+        CheckboxComponent,
     ],
-    imports: [RouterModule, CommonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatAutocompleteModule, MatOptionModule, MatSelectModule, MatButtonModule, MatIconModule, MatRadioModule, MatCheckboxModule],
-    exports: [PageNotFoundComponent, FooterComponent, ProfileBarComponent, ScrollAnimationDirective, RestrictCharactersDirective, NavbarComponent, InputComponent, FormControlPipe, InputAutocompleteComponent, SelectComponent, MatButtonModule, MatIconModule, RadioGroupComponent, CheckboxGroupComponent]
+    imports: [RouterModule, CommonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatAutocompleteModule, MatOptionModule, MatSelectModule, MatButtonModule, MatIconModule, MatRadioModule, MatCheckboxModule, FormsModule],
+    exports: [PageNotFoundComponent, FooterComponent, ProfileBarComponent, ScrollAnimationDirective, RestrictCharactersDirective, NavbarComponent, InputComponent, FormControlPipe, InputAutocompleteComponent, SelectComponent, MatButtonModule, MatIconModule, RadioGroupComponent, CheckboxGroupComponent, CheckboxComponent]
 })
 
 export class SharedModule { }
