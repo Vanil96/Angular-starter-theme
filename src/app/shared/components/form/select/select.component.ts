@@ -1,8 +1,7 @@
-import { Component, Input, OnDestroy, OnInit, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Injector, Input, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Option } from '@app/core/models/option.model';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-select',
@@ -16,39 +15,45 @@ import { Subscription } from 'rxjs';
     }
   ]
 })
-export class SelectComponent implements ControlValueAccessor, OnInit, OnDestroy {
-  @Input({ required: true }) control: FormControl;
+export class SelectComponent implements ControlValueAccessor {
   @Input({ required: true }) options: Option[];
   @Input() label = '';
   @Input() placeholder = '';
   @Input() appearance: MatFormFieldAppearance = 'fill';
   @Input() isMultiple = false;
-  private subscriptions = new Subscription();
+  
+// to verify
+  constructor(private injector: Injector) {}
+  ngControl: NgControl;
+  ngOnInit() {
+    this.ngControl = this.injector.get(NgControl);
+  }
+////////////////////
+
 
   isDisabled = false;
+  private _value: any;
 
-  onChange = (_: any) => {};
-  onTouched = () => { };
-
-  ngOnInit(): void {
-    this.subscriptions.add(
-      this.control.valueChanges.subscribe(value => {
-        this.forceComparison(value);
-      }));
+  get value(): any {
+    return this._value;
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
-
-  writeValue(values: any[]): void {
-    if (values && this.control) {
-      this.control.setValue(values, { emitEvent: false });
+  set value(newValue: any) {
+    if (this._value !== newValue) {
+      this._value = newValue;
+      this.onChange(newValue);
     }
   }
+
+  onChange = (_: any) => { };
+  onTouched = () => { };
+
+  writeValue(value: any): void {
+    this.value = value;
+  }
+
   registerOnChange(fn: any): void {
-    this.onChange = fn;
+    this.onChange = (value: any) => { console.log(value, this.label); fn(value) };
   }
 
   registerOnTouched(fn: any): void {
@@ -57,21 +62,20 @@ export class SelectComponent implements ControlValueAccessor, OnInit, OnDestroy 
 
   setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
-    if (isDisabled) {
-      this.control.disable();
-    } else {
-      this.control.enable();
-    }
   }
 
   compare(option1: Option, option2: Option): boolean {
-    console.log('compare')
     if (!option1 || !option2) { return false }
     return option1.value === option2.value && option1.label === option2.label
   }
 
-  forceComparison(value: any) {
-    this.control.setValue(value, { emitEvent: false });
-  }
+  handleValueChange(value: any): void {
+    this.value = value;
 
+    // to verify
+    if (this.ngControl && this.ngControl.control) {
+      this.ngControl.control.setValue(value, { emitEvent: false });
+    }
+    ////////////
+  }
 }

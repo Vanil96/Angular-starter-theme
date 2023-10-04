@@ -10,7 +10,7 @@
     <p style="color:red" *ngIf="error">{{error}} </p>
     <label for="">apiTest_TodoList: </label>
     <input type="text" #titleRef>
-    <button mat-button color="primary" (click)="addTodo(titleRef.value)">mat-button</button>
+    <button mat-button color="primary" (click)="test()">mat-button TEST</button>
     <button mat-raised-button color="accent" (click)="addTodo(titleRef.value)">mat-raised-button</button>
     <button mat-flat-button color="warn" (click)="addTodo(titleRef.value)">mat-flat-button</button>
     <button mat-stroked-button disabled (click)="addTodo(titleRef.value)">mat-stroked-button</button>
@@ -59,23 +59,24 @@
         <legend>Form Example</legend>
 
         <form (ngSubmit)="onSubmit()" [formGroup]="form" style="display:flex; flex-direction: column; gap:2px">
-          <app-input [control]="form.get('name') | formControl" label="Name"> </app-input>
+          <app-input [control]="form.get('email') | formControl" label="Name"> </app-input>
           <app-input [control]="form.get('email') | formControl" label="Email" type="email"> </app-input>
           <app-input [control]="form.get('password') | formControl" label="Password" type="password"> </app-input>
-          <app-input-autocomplete [formControl]="form.get('name') | formControl" [options]="list"
+          <app-input-autocomplete [formControl]="form.get('email') | formControl" [options]="list"
             label="List"></app-input-autocomplete>
           Gender
           <label><input type="radio" value="male" formControlName="gender">Male</label>
           <label><input type="radio" value="female" formControlName="gender">Female</label>
 
-          <app-radio-group [formControl]="form.get('name') | formControl" [options]="list"
+          <app-radio-group [formControl]="form.get('email') | formControl" [options]="list"
             label="Radio group"></app-radio-group>
 
           <app-checkbox-group [formControl]="form.get('email') | formControl" [options]="list"
             label="hobbies"></app-checkbox-group>
 
           Select
-          <app-select [control]="form.get('name') | formControl" [options]="list" label="Select"></app-select>
+          <app-select [formControl]="form.get('name') | formControl" [options]="list" label="Select1"></app-select>
+          <app-select [formControl]="form.get('name') | formControl" [options]="list" label="Select2"></app-select>
 
 <app-checkbox label="I Agree to Terms and Conditions" [formControl]="form.get('agree') | formControl" ></app-checkbox>
 
