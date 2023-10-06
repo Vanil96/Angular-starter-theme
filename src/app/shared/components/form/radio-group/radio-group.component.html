@@ -1,10 +1,11 @@
 <mat-label>{{ label }}</mat-label>
-<mat-radio-group aria-label="Select an option">
+<mat-radio-group [ariaLabel]="ariaLabel" [disabled]="isDisabled">
   <mat-radio-button
     *ngFor="let option of options"
     [value]="option"
-    [checked]="option === selectedOption"
-    (click)="selectOption(option)"
+    [checked]="option === value"
+    [disabled]="option.isDisabled === true"
+    (change)="selectOption(option)"
   >
     {{ option.label }}
   </mat-radio-button>

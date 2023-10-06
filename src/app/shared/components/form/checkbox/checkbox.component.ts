@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
+import { Component, Input, forwardRef, Injector, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms'
 
 @Component({
   selector: 'app-checkbox',
@@ -11,18 +11,33 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
     multi: true
   }]
 })
-export class CheckboxComponent implements ControlValueAccessor {
+export class CheckboxComponent implements ControlValueAccessor, OnInit {
   @Input() label = '';
-  value: boolean = false;
+  ngControl: NgControl;
+  private _value: boolean;
 
   private onChange = (_value: boolean) => { };
   private onTouched = () => { };
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(private injector: Injector) { }
+
+  ngOnInit(): void {
+    this.ngControl = this.injector.get(NgControl)
+  }
+
+  get value(): boolean {
+    return this._value;
+  }
+
+  set value(value: boolean) {
+    if (value !== this._value) {
+      this._value = value;
+      this.emitChangeForAllInputsUsingSameControl(value);
+    }
+  }
 
   writeValue(value: boolean): void {
     this.value = value;
-    this.cd.markForCheck();
   }
 
   registerOnChange(fn: (value: boolean) => void): void {
@@ -37,5 +52,11 @@ export class CheckboxComponent implements ControlValueAccessor {
     this.value = event.checked;
     this.onChange(this.value);
     this.onTouched();
+  }
+
+  private emitChangeForAllInputsUsingSameControl(value: any): void {
+    if (this.ngControl && this.ngControl.control) {
+      this.ngControl.control.setValue(value, { emitEvent: false });
+    }
   }
 }

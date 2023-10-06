@@ -1,32 +1,28 @@
-import { Component, Injector, Input, OnInit, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { Component, Injector, Input, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-type InputType = 'text' | 'number' | 'password' | 'email';
 
 @Component({
-  selector: 'app-input',
-  templateUrl: './input.component.html',
-  styleUrls: ['./input.component.scss'],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => InputComponent),
-    multi: true
+  selector: 'app-textarea',
+  templateUrl: './textarea.component.html',
+  styleUrls: ['./textarea.component.scss'],
+  providers:[{
+    provide:NG_VALUE_ACCESSOR,
+    useExisting:forwardRef(()=>TextareaComponent),
+    multi:true
   }]
 })
-
-export class InputComponent implements ControlValueAccessor, OnInit {
+export class TextareaComponent {
   @Input() label = '';
   @Input() placeholder = '';
-  @Input() type: InputType = 'text';
   @Input() appearance: MatFormFieldAppearance = 'fill';
-  @Input() autocomplete = 'off'
   @Input() isDisabled = false;
-  @Input() maxLength: number
-  @Input() minLength: number
-  @Input() max: number;
-  @Input() min: number
-  @Input() alt: string;
-  @Input() isRequired: boolean;
+  @Input() isRequired = false;
+  @Input() rows:number = 15;
+  @Input() cols:number = 45;
+  @Input() maxLength:number = 15;
+
+
 
   ngControl: NgControl;
   private _value: string | number;
@@ -70,5 +66,5 @@ export class InputComponent implements ControlValueAccessor, OnInit {
     if (this.ngControl && this.ngControl.control) {
       this.ngControl.control.setValue(value, { emitEvent: false });
     }
-  }
+} 
 }

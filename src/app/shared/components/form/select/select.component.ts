@@ -1,4 +1,4 @@
-import { Component, Injector, Input, forwardRef } from '@angular/core';
+import { Component, Injector, Input, OnInit, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Option } from '@app/core/models/option.model';
@@ -15,24 +15,24 @@ import { Option } from '@app/core/models/option.model';
     }
   ]
 })
-export class SelectComponent implements ControlValueAccessor {
+export class SelectComponent implements ControlValueAccessor, OnInit {
   @Input({ required: true }) options: Option[];
   @Input() label = '';
   @Input() placeholder = '';
   @Input() appearance: MatFormFieldAppearance = 'fill';
   @Input() isMultiple = false;
-  
-// to verify
-  constructor(private injector: Injector) {}
   ngControl: NgControl;
+  isDisabled = false;
+  private _value: any;
+
+  onChange = (_: any) => {};
+  onTouched = () => {};
+
+  constructor(private injector: Injector) {}
+
   ngOnInit() {
     this.ngControl = this.injector.get(NgControl);
   }
-////////////////////
-
-
-  isDisabled = false;
-  private _value: any;
 
   get value(): any {
     return this._value;
@@ -42,18 +42,16 @@ export class SelectComponent implements ControlValueAccessor {
     if (this._value !== newValue) {
       this._value = newValue;
       this.onChange(newValue);
+      this.emitChangeForAllInputsUsingSameControl(newValue);
     }
   }
-
-  onChange = (_: any) => { };
-  onTouched = () => { };
 
   writeValue(value: any): void {
     this.value = value;
   }
 
   registerOnChange(fn: any): void {
-    this.onChange = (value: any) => { console.log(value, this.label); fn(value) };
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: any): void {
@@ -71,11 +69,11 @@ export class SelectComponent implements ControlValueAccessor {
 
   handleValueChange(value: any): void {
     this.value = value;
+  }
 
-    // to verify
-    if (this.ngControl && this.ngControl.control) {
+  private emitChangeForAllInputsUsingSameControl(value:any):void{
+    if (this.ngControl && this.ngControl.control ) {
       this.ngControl.control.setValue(value, { emitEvent: false });
     }
-    ////////////
-  }
+  }  
 }

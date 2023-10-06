@@ -1,6 +1,6 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Option } from '@app/core/models/option.model';
+import { Component, Injector, Input, OnInit, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { RadioOption } from '@app/core/models/option.model';
 
 
 @Component({
@@ -13,17 +13,57 @@ import { Option } from '@app/core/models/option.model';
     multi: true
   }]
 })
-export class RadioGroupComponent implements ControlValueAccessor {
-  @Input() options: Option[];
+
+export class RadioGroupComponent implements ControlValueAccessor, OnInit {
+  @Input({ required: true }) options: RadioOption[];
   @Input() label = '';
+  @Input() ariaLabel: string = 'Select an option'
+  ngControl: NgControl;
   isDisabled = false;
-  selectedOption: Option | null = null; 
 
-  onChange = (_: any) => {};
-  onTouched = () => {};
+  private _value: RadioOption | null = null;
+  onChange = (_: RadioOption | null) => { };
+  onTouched = () => { };
 
-  writeValue(selectedOption: Option | null): void {
-    this.selectedOption = selectedOption;
+  constructor(private injector: Injector) { }
+
+  ngOnInit(): void {
+    this.ngControl = this.injector.get(NgControl);
+    this.options.forEach(option => {
+      option.isChecked = option.isChecked || false;
+      option.isDisabled = option.isDisabled || false;
+    });
+
+    const checkedOptions = this.options.filter(option => option.isChecked);
+    if (checkedOptions.length > 1) {
+      console.warn('Multiple radio options are checked. Only the first one will remain checked.');
+      checkedOptions.slice(1).forEach(option => option.isChecked = false);
+      this.value = checkedOptions[0];
+    }
+    else if (checkedOptions.length === 1) {
+      this.value = checkedOptions[0];
+    }
+  }
+
+  get value(): RadioOption | null {
+    return this._value;
+  }
+
+  set value(value: RadioOption | null) {
+    if (this._value !== value) {
+      const selectedOption = this.options.find(option => option === value)
+      if (selectedOption) {
+        selectedOption.isChecked = true;
+        this._value = value;
+        this.onChange(value);
+        this.onTouched();
+        this.emitChangeForAllInputsUsingSameControl(value);
+      }
+    }
+  }
+
+  writeValue(value: RadioOption | null): void {
+    this.value = value;
   }
 
   registerOnChange(fn: any): void {
@@ -38,11 +78,15 @@ export class RadioGroupComponent implements ControlValueAccessor {
     this.isDisabled = isDisabled;
   }
 
-  selectOption(option: Option): void {
+  selectOption(value: RadioOption): void {
     if (!this.isDisabled) {
-      this.selectedOption = option;
-      this.onChange(option); 
-      this.onTouched();
+      this.value = value;
+    }
+  }
+
+  private emitChangeForAllInputsUsingSameControl(value: any): void {
+    if (this.ngControl && this.ngControl.control) {
+      this.ngControl.control.setValue(value, { emitEvent: false });
     }
   }
 }

@@ -1,11 +1,17 @@
 <mat-form-field [appearance]="appearance">
     <mat-label>{{ label }}</mat-label>
     <input matInput 
-    [formControl]="control" 
+    [value]="value" 
     [placeholder]="placeholder" 
     [type]="type" 
     [autocomplete]="autocomplete"
-        
-    (input)="onInput($event)" 
+    [disabled]="isDisabled"
+    [attr.maxLength]="maxLength ? maxLength : null"
+    [attr.minLength]="minLength ? minLength : null"
+    [attr.max]="max ? max : null"
+    [attr.min]="min ? min : null"
+    [attr.alt]="alt ? alt : null"
+    [required]="isRequired"
+    (input)="handleInput($event)" 
     />
 </mat-form-field>

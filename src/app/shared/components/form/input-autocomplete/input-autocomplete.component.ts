@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Injector, Input, OnInit, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Option } from '@app/core/models/option.model';
 
@@ -21,32 +21,36 @@ export class InputAutocompleteComponent implements OnInit, ControlValueAccessor 
   @Input() type: InputType = 'text';
   @Input() appearance: MatFormFieldAppearance = 'fill';
   @Input() autocomplete = 'auto';
+  ngControl: NgControl;
   isDisabled = false;
   
   allOptions: Option[] = [];
   displayedOptions: Option[] = [];
   displayedValue: string;
-
-  private innerValue: any = '';
+  private _value: any;
 
   onChange = (_: any) => {};
   onTouched = () => {};
 
-  get value(): any {
-    return this.innerValue;
-  }
-
-  set value(v: any) {
-    if (v !== this.innerValue) {
-      this.innerValue = v;
-      this.onChange(v);
-      this.updateDisplayedValueAndOptions();
-    }
-  }
+constructor(private injector: Injector){}
 
   ngOnInit(): void {
+    this.ngControl = this.injector.get(NgControl);
     this.allOptions = [...this.options];
     this.updateDisplayedValueAndOptions();
+  }
+
+  get value(): any {
+    return this._value;
+  }
+
+  set value(newValue: any) {
+    if (newValue !== this._value) {
+      this._value = newValue;
+      this.onChange(newValue);
+      this.updateDisplayedValueAndOptions();
+      this.emitChangeForAllInputsUsingSameControl(newValue);
+    }
   }
 
   writeValue(value: any): void {
@@ -95,4 +99,10 @@ export class InputAutocompleteComponent implements OnInit, ControlValueAccessor 
     const filterValue = value.toLowerCase();
     return this.allOptions.filter(option => option.label.toLowerCase().includes(filterValue));
   }
+
+   private emitChangeForAllInputsUsingSameControl(value:any):void{
+     if (this.ngControl && this.ngControl.control) {
+       this.ngControl.control.setValue(value, { emitEvent: false });
+     }
+   }
 }

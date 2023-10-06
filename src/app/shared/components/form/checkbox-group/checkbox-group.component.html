@@ -1,8 +1,9 @@
 <div class="checkbox-group-container">
-  <p>{{label}}</p>
+  <span *ngIf="label">{{label}}</span>
   <div>
     <mat-checkbox *ngFor="let option of options" 
     [checked]="option.isChecked"
+    [disabled]="option.isDisabled === true"
     (change)="onCheckboxChange(option, $event.checked)">
       {{option.label}}
     </mat-checkbox>

@@ -59,37 +59,68 @@
         <legend>Form Example</legend>
 
         <form (ngSubmit)="onSubmit()" [formGroup]="form" style="display:flex; flex-direction: column; gap:2px">
-          <app-input [control]="form.get('email') | formControl" label="Name"> </app-input>
-          <app-input [control]="form.get('email') | formControl" label="Email" type="email"> </app-input>
-          <app-input [control]="form.get('password') | formControl" label="Password" type="password"> </app-input>
-          <app-input-autocomplete [formControl]="form.get('email') | formControl" [options]="list"
-            label="List"></app-input-autocomplete>
-          Gender
-          <label><input type="radio" value="male" formControlName="gender">Male</label>
-          <label><input type="radio" value="female" formControlName="gender">Female</label>
 
-          <app-radio-group [formControl]="form.get('email') | formControl" [options]="list"
-            label="Radio group"></app-radio-group>
-
-          <app-checkbox-group [formControl]="form.get('email') | formControl" [options]="list"
-            label="hobbies"></app-checkbox-group>
-
-          Select
-          <app-select [formControl]="form.get('name') | formControl" [options]="list" label="Select1"></app-select>
-          <app-select [formControl]="form.get('name') | formControl" [options]="list" label="Select2"></app-select>
-
-<app-checkbox label="I Agree to Terms and Conditions" [formControl]="form.get('agree') | formControl" ></app-checkbox>
-
-          <label for="country">Country</label>
-          <select id="country" formControlName="country">
-            <option value="poland">Poland</option>
-            <option value="germany">Germany</option>
-            <option value="uk">United Kingdom</option>
-          </select>
+          <fieldset>
+            <legend>app-input</legend>
+            <app-input [formControl]="form.get('name') | formControl" label="Name"> </app-input>
+            <app-input [formControl]="form.get('name') | formControl" label="Name" type="email"> </app-input>
+            <hr>
+            <app-input [formControl]="form.get('email') | formControl" label="Email" type="email"> </app-input>
+            <app-input [formControl]="form.get('password') | formControl" label="Password" type="password"> </app-input>
+          </fieldset>
 
 
-          <label for="description"> Description</label>
-          <textarea id="description" formControlName="description" cols="30" rows="7"></textarea>
+          <fieldset>
+            <legend>app-input-autocomplete</legend>
+
+            <app-input-autocomplete [formControl]="form.get('list1') | formControl" [options]="list1" label="List 1">
+            </app-input-autocomplete>
+            <hr>
+            <app-input-autocomplete [formControl]="form.get('list1') | formControl" [options]="list1" label="List 1">
+            </app-input-autocomplete>
+          </fieldset>
+
+          <fieldset>
+            <legend>app-checkbox-group</legend>
+            <app-checkbox-group [formControl]="form.get('checkboxList') | formControl" [options]="checkboxList"
+              label="hobbies"></app-checkbox-group>
+            <hr>
+            <app-checkbox-group [formControl]="form.get('checkboxList') | formControl" [options]="checkboxList"
+              label="hobbies"></app-checkbox-group>
+          </fieldset>
+
+          <fieldset>
+            <legend>app-radio-group</legend>
+            <app-radio-group [formControl]="form.get('radioList') | formControl" [options]="radioList"
+              label="List 3"></app-radio-group>
+            <hr>
+            <app-radio-group [formControl]="form.get('radioList') | formControl" [options]="radioList"
+              label="List 3"></app-radio-group>
+          </fieldset>
+
+
+          <fieldset>
+            <legend>app-select </legend>
+            <app-select [formControl]="form.get('list4') | formControl" [options]="list4" label="List 4"></app-select>
+            <hr>
+            <app-select [formControl]="form.get('list4') | formControl" [options]="list4" label="List 4"></app-select>
+          </fieldset>
+
+
+          <fieldset>
+            <legend>app-checkbox</legend>
+            <app-checkbox label="I Agree to Terms and Conditions"
+              [formControl]="form.get('agree') | formControl"></app-checkbox>
+            <hr>
+            <app-checkbox label="I Agree to Terms and Conditions"
+              [formControl]="form.get('agree') | formControl"></app-checkbox>
+          </fieldset>
+
+          <fieldset>
+            <legend>app-textarea</legend>
+            <app-textarea [formControl]="form.get('description') | formControl" label="Description"
+              placeholder="Lorem ipsum..."></app-textarea>
+          </fieldset>
 
           <div formArrayName="hobbies">
             Hobbies <div *ngFor="let hobby of hobbies.controls; let i = index">

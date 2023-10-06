@@ -18,24 +18,35 @@ export class CheckboxGroupComponent implements ControlValueAccessor, OnInit {
   @Input({ required: true }) options: CheckboxOption[];
   @Input() label = '';
   isDisabled = false;
-
-  onChange = (_: any) => { };
+  private _value: CheckboxOption[] = [];
+  onChange = (_: CheckboxOption[]) => { };
   onTouched = () => { };
 
   ngOnInit(): void {
-    for (const option of this.options) {
-      if (option.isChecked === undefined) {
-        option.isChecked = false;
-      }
+    this.options.forEach(option => {
+      option.isChecked = option.isChecked || false;
+      option.isDisabled = option.isDisabled || false;
+    });
+  }
+
+  get value(): CheckboxOption[] {
+    return this._value;
+  }
+
+  set value(newValue: CheckboxOption[]) {
+    if (this._value !== newValue) {
+      this._value = newValue;
+      if (newValue instanceof Array) { 
+      for (const option of this.options) {
+        const correspondingValue = newValue.find(val => val.value === option.value);
+        option.isChecked = correspondingValue ? correspondingValue.isChecked : false;
+      }}
+      this.onChange(newValue);
     }
   }
-  writeValue(values: CheckboxOption[]): void {
-    if (values) {
-      for (const option of this.options) {
-        const correspondingValue = values.find(val => val.value === option.value);
-        option.isChecked = correspondingValue ? correspondingValue.isChecked : false;
-      }
-    }
+
+  writeValue(value: CheckboxOption[]): void {
+    this.value = value;
   }
 
   registerOnChange(fn: any): void {
