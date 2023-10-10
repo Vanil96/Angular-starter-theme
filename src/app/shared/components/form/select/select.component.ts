@@ -38,11 +38,11 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
     return this._value;
   }
 
-  set value(newValue: any) {
-    if (this._value !== newValue) {
-      this._value = newValue;
-      this.onChange(newValue);
-      this.emitChangeForAllInputsUsingSameControl(newValue);
+  set value(value: any) {
+    if (this._value !== value) {
+      this._value = value;
+      this.onChange(value);
+      this.emitChangeForAllInputsUsingSameControl(value);
     }
   }
 

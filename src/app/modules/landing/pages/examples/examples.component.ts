@@ -14,6 +14,7 @@ export class ExamplesComponent {
   form: FormGroup;
   defaultControl: FormControl = new FormControl([]);
   someValue = false;
+  email = new FormControl('', [Validators.required, Validators.email]);
 
   list1 = [{ label: 'label 1', value: 1 }, { label: 'blok 2', value: 2 }, { label: 'element 3', value: 3 }, { label: 'dywan 4', value: 4 }]
   checkboxList:CheckboxOption[] = [{ label: 'label 1', value: 1, isDisabled:true }, { label: 'blok 2', value: 2, isChecked:true }, { label: 'element 3', value: 3 }, { label: 'dywan 4', value: 4, isChecked:true }]
@@ -23,7 +24,7 @@ export class ExamplesComponent {
   constructor(protected examplesService: ExamplesService, private fb: FormBuilder) {
     this.form = this.fb.group({
       name: ['Kłi', [Validators.required, Validators.minLength(10), Validators.maxLength(20)]],
-      email: [{value: 'essa', disabled: true}, Validators.email], 
+      email: ['dsa', Validators.email], 
       password: ['', [Validators.minLength(8), Validators.required]], 
       gender: [''],
       country: [''],
@@ -34,7 +35,7 @@ export class ExamplesComponent {
       list5: [this.list4[1]],
       agree: [false, Validators.requiredTrue],
       birthdate: [''],
-      description: ['', Validators.maxLength(40)], 
+      description: ['Essa', Validators.maxLength(40)], 
       hobbies: this.fb.array([new FormControl('')])
     })
   }
@@ -65,7 +66,7 @@ export class ExamplesComponent {
   onSubmit() {
 
     if (this.form.valid) {
-      console.log('Form submitted', this.form.value);
+      console.log('onSubmit', this.form.value);
     }
 
   }
@@ -76,12 +77,20 @@ export class ExamplesComponent {
   }
 
   ngOnInit() {
-    console.log(this.form)
-    this.form.valueChanges.subscribe(() => { console.log(this.form) })
+    this.form.valueChanges.subscribe(() => {this.onFormChange(); })
+    console.log('es1', this.form.get('name'))
   }
 
   handleOptions(options: any) {
     console.log('OPTIONS WITH PROPERTY', options);
   }
+
+  onFormChange():void {
+    console.log('onFormChange value: ',this.form.value);
+    console.log('onFormChange errors: ',this.form.get('name')?.errors);
+
+  }
+
+  
 
 }

@@ -51,7 +51,13 @@
   <p>Results: {{($todos | async)?.length || 0}}</p>
 
 
-
+  <div class="example-container">
+    <mat-form-field>
+      <mat-label>Enter your email</mat-label>
+      <input matInput placeholder="pat@example.com" [formControl]="email" required>
+      <mat-error *ngIf="true">esssaaa</mat-error>
+    </mat-form-field>
+  </div>
 
   <div class="container">
     <div class="col-6">
@@ -59,6 +65,9 @@
         <legend>Form Example</legend>
 
         <form (ngSubmit)="onSubmit()" [formGroup]="form" style="display:flex; flex-direction: column; gap:2px">
+
+   
+
 
           <fieldset>
             <legend>app-input</legend>

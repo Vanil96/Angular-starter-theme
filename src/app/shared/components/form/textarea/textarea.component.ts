@@ -41,6 +41,7 @@ export class TextareaComponent {
   set value(value: string | number) {
     if (this._value !== value) {
       this._value = value;
+      this.onChange(value);
       this.emitChangeForAllInputsUsingSameControl(value);
     }
   }
@@ -61,6 +62,8 @@ export class TextareaComponent {
   handleInput(event: Event) {
     this.value = (event.target as HTMLInputElement).value;
   }
+
+
 
   private emitChangeForAllInputsUsingSameControl(value: any): void {
     if (this.ngControl && this.ngControl.control) {

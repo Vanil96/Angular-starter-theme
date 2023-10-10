@@ -8,6 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '@app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { FormsModule } from '@angular/forms';
     FontAwesomeModule,
     SharedModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatInputModule
   ],
   providers: []
 })

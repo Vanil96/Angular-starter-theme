@@ -27,6 +27,7 @@ import { CheckboxGroupComponent } from './components/form/checkbox-group/checkbo
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CheckboxComponent } from './components/form/checkbox/checkbox.component';
 import { TextareaComponent } from './components/form/textarea/textarea.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,7 @@ import { TextareaComponent } from './components/form/textarea/textarea.component
         CheckboxComponent,
         TextareaComponent,
     ],
-    imports: [RouterModule, CommonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatAutocompleteModule, MatOptionModule, MatSelectModule, MatButtonModule, MatIconModule, MatRadioModule, MatCheckboxModule, FormsModule],
+    imports: [RouterModule, CommonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatAutocompleteModule, MatOptionModule, MatSelectModule, MatButtonModule, MatIconModule, MatRadioModule, MatCheckboxModule, FormsModule, FontAwesomeModule],
     exports: [PageNotFoundComponent, FooterComponent, ProfileBarComponent, ScrollAnimationDirective, RestrictCharactersDirective, NavbarComponent, InputComponent, FormControlPipe, InputAutocompleteComponent, SelectComponent, MatButtonModule, MatIconModule, RadioGroupComponent, CheckboxGroupComponent, CheckboxComponent, TextareaComponent]
 })
 

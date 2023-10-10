@@ -1,17 +1,18 @@
 <mat-form-field [appearance]="appearance">
     <mat-label>{{ label }}</mat-label>
     <input matInput 
-    [value]="value" 
+    [value]="value"
     [placeholder]="placeholder" 
     [type]="type" 
     [autocomplete]="autocomplete"
     [disabled]="isDisabled"
-    [attr.maxLength]="maxLength ? maxLength : null"
-    [attr.minLength]="minLength ? minLength : null"
-    [attr.max]="max ? max : null"
-    [attr.min]="min ? min : null"
-    [attr.alt]="alt ? alt : null"
-    [required]="isRequired"
-    (input)="handleInput($event)" 
-    />
-</mat-form-field>
+    (input)="handleInput($event)"  
+    (blur)="onTouched()"
+    />     
+
+
+    <mat-hint *ngIf="hint || false">{{hint}} asdasdas</mat-hint>
+<div style="border:1px solid red; font-size:11px" *ngIf="hasError">
+{{getErrorMessage()}}</div>
+
+</mat-form-field>  

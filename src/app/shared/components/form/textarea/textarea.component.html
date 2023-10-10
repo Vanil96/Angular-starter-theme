@@ -9,5 +9,6 @@
     [disabled]="isDisabled"
     [maxLength]="maxLength"
     [required]="isRequired"
+    (input)="handleInput($event)"
     ></textarea>
   </mat-form-field>
