@@ -1,3 +1,4 @@
+<div class="form-field select-field" [ngClass]="{'with-error':errorState}">
 <mat-form-field [appearance]="appearance">
     <mat-label>{{ label }}</mat-label>
     <mat-select 
@@ -6,10 +7,15 @@
         [multiple]="isMultiple"
         [disabled]="isDisabled"
         (valueChange)="handleValueChange($event)" 
-        (blur)="onTouched()">
+        (blur)="handleBlur()">
         <mat-option *ngFor="let option of options" [value]="option">{{option.label}}</mat-option>
     </mat-select>
+    <div class="form-field-error" *ngIf="errorState">
+        <span>{{getErrorMessage()}}</span></div>
+        
+        <mat-hint class="form-field-hint" *ngIf="hint">{{hint}}</mat-hint>
 </mat-form-field>
+</div>
 
 
 

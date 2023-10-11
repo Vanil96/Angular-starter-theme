@@ -1,18 +1,20 @@
+<div class="form-field input-field" [ngClass]="{'with-error':errorState}">
 <mat-form-field [appearance]="appearance">
     <mat-label>{{ label }}</mat-label>
     <input matInput 
+    #inputRef
     [value]="value"
     [placeholder]="placeholder" 
     [type]="type" 
     [autocomplete]="autocomplete"
     [disabled]="isDisabled"
     (input)="handleInput($event)"  
-    (blur)="onTouched()"
+    (blur)="handleBlur()"
     />     
 
+<div class="form-field-error" *ngIf="errorState">
+<span>{{getErrorMessage()}}</span></div>
 
-    <mat-hint *ngIf="hint || false">{{hint}} asdasdas</mat-hint>
-<div style="border:1px solid red; font-size:11px" *ngIf="hasError">
-{{getErrorMessage()}}</div>
-
+<mat-hint class="form-field-hint" *ngIf="hint">{{hint}}</mat-hint>
 </mat-form-field>  
+</div>

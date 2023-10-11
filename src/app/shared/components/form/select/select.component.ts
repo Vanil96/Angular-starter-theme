@@ -1,37 +1,32 @@
-import { Component, Injector, Input, OnInit, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { Component, Input, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Option } from '@app/core/models/option.model';
+import { getErrorMessage } from '@app/core/utilities/form.utils';
 
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectComponent),
-      multi: true
-    }
-  ]
 })
-export class SelectComponent implements ControlValueAccessor, OnInit {
+export class SelectComponent implements ControlValueAccessor {
   @Input({ required: true }) options: Option[];
   @Input() label = '';
   @Input() placeholder = '';
   @Input() appearance: MatFormFieldAppearance = 'fill';
+  @Input() hint = '';
   @Input() isMultiple = false;
-  ngControl: NgControl;
   isDisabled = false;
+  errorState: boolean = false;
   private _value: any;
-
+  private _getErrorMessage = getErrorMessage;
   onChange = (_: any) => {};
   onTouched = () => {};
 
-  constructor(private injector: Injector) {}
-
-  ngOnInit() {
-    this.ngControl = this.injector.get(NgControl);
+  constructor(@Self() @Optional() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
   }
 
   get value(): any {
@@ -42,7 +37,8 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
     if (this._value !== value) {
       this._value = value;
       this.onChange(value);
-      this.emitChangeForAllInputsUsingSameControl(value);
+      this.emitValueToFieldsWithSameControl(value);
+      this.updateErrorState();
     }
   }
 
@@ -71,9 +67,22 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
     this.value = value;
   }
 
-  private emitChangeForAllInputsUsingSameControl(value:any):void{
+  handleBlur():void {
+    this.onTouched();
+    this.updateErrorState();
+  }
+
+  getErrorMessage(): string {
+    return this._getErrorMessage(this.ngControl.errors)
+  }
+
+  private emitValueToFieldsWithSameControl(value:any):void{
     if (this.ngControl && this.ngControl.control ) {
       this.ngControl.control.setValue(value, { emitEvent: false });
     }
   }  
+
+  private updateErrorState(): void {
+    this.errorState = !!this.ngControl.errors && !!this.ngControl.touched;
+  }
 }

@@ -1,28 +1,27 @@
-import { Component, Input, forwardRef, Injector, OnInit } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms'
+import { Component, Input, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms'
+import { getErrorMessage } from '@app/core/utilities/form.utils';
 
 @Component({
   selector: 'app-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => CheckboxComponent),
-    multi: true
-  }]
-})
-export class CheckboxComponent implements ControlValueAccessor, OnInit {
-  @Input() label = '';
-  ngControl: NgControl;
-  private _value: boolean;
 
+})
+export class CheckboxComponent implements ControlValueAccessor {
+  @Input() label = '';
+  isDisabled = false;
+  errorState: boolean = false;
+
+  private _value: boolean;
+  private _getErrorMessage = getErrorMessage;
   private onChange = (_value: boolean) => { };
   private onTouched = () => { };
 
-  constructor(private injector: Injector) { }
-
-  ngOnInit(): void {
-    this.ngControl = this.injector.get(NgControl)
+  constructor(@Self() @Optional() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
   }
 
   get value(): boolean {
@@ -32,7 +31,10 @@ export class CheckboxComponent implements ControlValueAccessor, OnInit {
   set value(value: boolean) {
     if (value !== this._value) {
       this._value = value;
-      this.emitChangeForAllInputsUsingSameControl(value);
+      this.onChange(this.value);
+      this.emitValueToFieldsWithSameControl(value);
+      this.onTouched();
+      this.updateErrorState();
     }
   }
 
@@ -48,15 +50,31 @@ export class CheckboxComponent implements ControlValueAccessor, OnInit {
     this.onTouched = fn;
   }
 
-  onCheckboxChange(event: any): void {
-    this.value = event.checked;
-    this.onChange(this.value);
-    this.onTouched();
+  setDisabledState?(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
   }
 
-  private emitChangeForAllInputsUsingSameControl(value: any): void {
+  handleChange(event: any): void {
+    this.value = event.checked;
+  }
+
+  handleBlur():void {
+    this.onTouched();
+    this.updateErrorState();
+  }
+
+  getErrorMessage(): string {
+    return this._getErrorMessage(this.ngControl.errors)
+  }
+
+  private emitValueToFieldsWithSameControl(value: any): void {
     if (this.ngControl && this.ngControl.control) {
       this.ngControl.control.setValue(value, { emitEvent: false });
     }
+  }
+
+  private updateErrorState(): void {
+    this.errorState = !!this.ngControl.errors && !!this.ngControl.touched;
+    console.log('SS', !!this.ngControl.touched)
   }
 }
