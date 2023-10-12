@@ -1,4 +1,4 @@
-<div class="form-field select-field" [ngClass]="{'with-error':errorState}">
+<div class="form-field select-field" [ngClass]="{'field-invalid':errorState}">
 <mat-form-field [appearance]="appearance">
     <mat-label>{{ label }}</mat-label>
     <mat-select 
@@ -10,7 +10,7 @@
         (blur)="handleBlur()">
         <mat-option *ngFor="let option of options" [value]="option">{{option.label}}</mat-option>
     </mat-select>
-    <div class="form-field-error" *ngIf="errorState">
+    <div class="form-field-invalid-message" *ngIf="errorState">
         <span>{{getErrorMessage()}}</span></div>
         
         <mat-hint class="form-field-hint" *ngIf="hint">{{hint}}</mat-hint>

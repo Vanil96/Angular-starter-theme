@@ -1,4 +1,4 @@
-import { ValidationErrors } from "@angular/forms";
+import { FormGroup, ValidationErrors } from "@angular/forms";
 
 interface ErrorMessages {
     [key: string]: string;
@@ -20,7 +20,6 @@ export function getErrorMessage(errors: ValidationErrors | null): string {
         default: 'Invalid value'
     };
 
-    // Dynamic error handling
     if (errors["minlength"]) {
         const requiredLength = errors["minlength"].requiredLength;
         return `Value should be at least ${requiredLength} chars long`;
@@ -38,4 +37,14 @@ export function getErrorMessage(errors: ValidationErrors | null): string {
     }
 
     return errorMessages["default"];
+}
+
+export function updateAllValueAndValidity(formGroup: FormGroup, emitEvent: boolean = true): void {
+    Object.keys(formGroup.controls).forEach((key: string) => {
+        const control = formGroup.get(key);
+        if (control instanceof FormGroup) {
+            updateAllValueAndValidity(control);
+        }
+        control?.updateValueAndValidity({ emitEvent });
+    })
 }

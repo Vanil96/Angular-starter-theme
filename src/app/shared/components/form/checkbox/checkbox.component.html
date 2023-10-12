@@ -1,9 +1,10 @@
-<div class="form-field checkbox-field" [ngClass]="{'with-error':errorState}">
+<div class="form-field checkbox-field" [ngClass]="{'field-invalid':errorState}">
   <div>
     <mat-checkbox [checked]="value" (change)="handleChange($event)" [disabled]="isDisabled" (blur)="handleBlur()">
       {{label}}
-  </mat-checkbox>
-  </div> 
-  <div class="form-field-error" *ngIf="errorState">
-    <span>{{getErrorMessage()}}</span></div>
+    </mat-checkbox>
+  </div>
+  <div class="form-field-invalid-message" *ngIf="errorState">
+    <span>{{getErrorMessage()}}</span>
+  </div>
 </div>

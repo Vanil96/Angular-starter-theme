@@ -66,17 +66,14 @@
 
         <form (ngSubmit)="onSubmit()" [formGroup]="form" style="display:flex; flex-direction: column; gap:2px">
 
-   
-
-
           <fieldset>
             <legend>app-input</legend>
 
             <app-input [formControl]="form.get('name')" label="Name" hint="Lorem ipsum"> </app-input>
-            <!-- <app-input [formControl]="form.get('name') | formControl" label="Name" type="email"> </app-input> -->
+            <app-input [formControl]="form.get('name') | formControl" label="Name" type="email"> </app-input> 
             <hr>
-            <!-- <app-input [formControl]="form.get('email') | formControl" label="Email" type="email"> </app-input> -->
-            <!-- <app-input [formControl]="form.get('password') | formControl" label="Password" type="password"> </app-input> -->
+            <app-input [formControl]="form.get('email') | formControl" label="Email" type="email"> </app-input>
+            <app-input [formControl]="form.get('password') | formControl" label="Password" type="password"> </app-input>
           </fieldset>
 
 

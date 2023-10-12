@@ -1,6 +1,7 @@
-import { Component, Input, Optional, Self } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { getErrorMessage } from '@app/core/utilities/form.utils';
+import { Subscription, debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-checkbox',
@@ -8,20 +9,34 @@ import { getErrorMessage } from '@app/core/utilities/form.utils';
   styleUrls: ['./checkbox.component.scss'],
 
 })
-export class CheckboxComponent implements ControlValueAccessor {
+export class CheckboxComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() label = '';
   isDisabled = false;
   errorState: boolean = false;
 
   private _value: boolean;
-  private _getErrorMessage = getErrorMessage;
-  private onChange = (_value: boolean) => { };
-  private onTouched = () => { };
+  private subscriptions: Subscription[] = [];
+
+   onChange = (_value: boolean) => { };
+   onTouched = () => { };
 
   constructor(@Self() @Optional() public ngControl: NgControl) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
+  }
+
+  ngOnInit(): void {
+    if (this.ngControl.statusChanges) {
+      this.subscriptions.push(
+        this.ngControl.statusChanges.pipe(debounceTime(350)).subscribe(() => {
+          this.updateErrorState();
+        }))
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe())
   }
 
   get value(): boolean {
@@ -34,7 +49,6 @@ export class CheckboxComponent implements ControlValueAccessor {
       this.onChange(this.value);
       this.emitValueToFieldsWithSameControl(value);
       this.onTouched();
-      this.updateErrorState();
     }
   }
 
@@ -64,7 +78,7 @@ export class CheckboxComponent implements ControlValueAccessor {
   }
 
   getErrorMessage(): string {
-    return this._getErrorMessage(this.ngControl.errors)
+    return getErrorMessage(this.ngControl.errors);
   }
 
   private emitValueToFieldsWithSameControl(value: any): void {

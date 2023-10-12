@@ -2,7 +2,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { ExamplesService } from './../../../../core/services/examples.service';
 import { Component } from '@angular/core';
 import { CheckboxOption, RadioOption } from '@app/core/models/option.model';
-
+import {updateAllValueAndValidity} from '@core/utilities/form.utils'
 @Component({
   selector: 'app-examples',
   templateUrl: './examples.component.html',
@@ -35,7 +35,7 @@ export class ExamplesComponent {
       list5: [this.list4[1]],
       agree: [false, Validators.requiredTrue],
       birthdate: [''],
-      description: ['Essa', Validators.maxLength(40)],
+      description: ['Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum', Validators.maxLength(40)],
       hobbies: this.fb.array([new FormControl('')])
     })
   }
@@ -71,9 +71,7 @@ export class ExamplesComponent {
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      Object.values(this.form.controls).forEach(control => {
-        control.updateValueAndValidity()
-      });
+      updateAllValueAndValidity(this.form);
     }
 
   }

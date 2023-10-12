@@ -1,5 +1,6 @@
-<div class="form-field input-field" [ngClass]="{'with-error':errorState}">
-<mat-form-field [appearance]="appearance">
+<div class="form-field input-field" [ngClass]="{'field-invalid':errorState}">
+<mat-form-field [appearance]="appearance"
+>
     <mat-label>{{ label }}</mat-label>
     <input matInput 
     #inputRef
@@ -12,7 +13,7 @@
     (blur)="handleBlur()"
     />     
 
-<div class="form-field-error" *ngIf="errorState">
+<div class="form-field-invalid-message" *ngIf="errorState">
 <span>{{getErrorMessage()}}</span></div>
 
 <mat-hint class="form-field-hint" *ngIf="hint">{{hint}}</mat-hint>

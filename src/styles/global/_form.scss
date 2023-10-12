@@ -1,26 +1,34 @@
 @use '/src/styles/shared/variables' as var;
 
 
-.form-field.with-error input {
+.form-field.field-invalid label {
     color: var.$warn-clr !important;
 }
 
 .form-field {
 
-    .form-field-error {
+    .form-field-invalid-message {
         border: 1px solid var.$warn-clr;
         color: var.$warn-clr;
         padding: 3px;
         font-size: 11px;
         line-height: 1.2em;
     }
-   // .form-field-hint {}
+
+    // .form-field-hint {}
 }
 
 //material
 body {
-    .mdc-text-field, 
+    .mdc-text-field,
     .mat-mdc-form-field-hint-wrapper {
         padding: 0 12px;
+    }
+
+    .form-field.field-invalid {
+        .mdc-text-field--filled .mdc-line-ripple::after {
+            border-bottom-color: var.$warn-clr;
+            opacity:1;
+        }
     }
 }

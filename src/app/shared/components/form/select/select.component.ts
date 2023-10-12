@@ -1,15 +1,16 @@
-import { Component, Input, Optional, Self } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Option } from '@app/core/models/option.model';
 import { getErrorMessage } from '@app/core/utilities/form.utils';
+import { Subscription, debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
-export class SelectComponent implements ControlValueAccessor {
+export class SelectComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input({ required: true }) options: Option[];
   @Input() label = '';
   @Input() placeholder = '';
@@ -19,7 +20,8 @@ export class SelectComponent implements ControlValueAccessor {
   isDisabled = false;
   errorState: boolean = false;
   private _value: any;
-  private _getErrorMessage = getErrorMessage;
+  private subscriptions: Subscription[] = [];
+
   onChange = (_: any) => {};
   onTouched = () => {};
 
@@ -27,6 +29,19 @@ export class SelectComponent implements ControlValueAccessor {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
+  }
+
+  ngOnInit():void {
+    if (this.ngControl.statusChanges) {
+      this.subscriptions.push(
+        this.ngControl.statusChanges.pipe(debounceTime(350)).subscribe(() => {
+          this.updateErrorState();
+        }))
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe())
   }
 
   get value(): any {
@@ -38,7 +53,6 @@ export class SelectComponent implements ControlValueAccessor {
       this._value = value;
       this.onChange(value);
       this.emitValueToFieldsWithSameControl(value);
-      this.updateErrorState();
     }
   }
 
@@ -73,7 +87,7 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   getErrorMessage(): string {
-    return this._getErrorMessage(this.ngControl.errors)
+    return getErrorMessage(this.ngControl.errors)
   }
 
   private emitValueToFieldsWithSameControl(value:any):void{

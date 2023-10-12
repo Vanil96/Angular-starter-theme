@@ -1,37 +1,47 @@
-import { Component, Injector, Input, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { getErrorMessage } from '@app/core/utilities/form.utils';
+import { Subscription, debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-textarea',
   templateUrl: './textarea.component.html',
   styleUrls: ['./textarea.component.scss'],
-  providers:[{
-    provide:NG_VALUE_ACCESSOR,
-    useExisting:forwardRef(()=>TextareaComponent),
-    multi:true
-  }]
 })
-export class TextareaComponent {
+export class TextareaComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() label = '';
   @Input() placeholder = '';
   @Input() appearance: MatFormFieldAppearance = 'fill';
-  @Input() isDisabled = false;
-  @Input() isRequired = false;
-  @Input() rows:number = 15;
-  @Input() cols:number = 45;
-  @Input() maxLength:number = 15;
-
-
-
-  ngControl: NgControl;
+  @Input() rows: number = 15;
+  @Input() cols: number = 45;
+  @Input() hint = '';
+  errorState: boolean = false;
+  isDisabled = false;
   private _value: string | number;
+  private subscriptions: Subscription[] = [];
+
+
   onChange = (_: string | number) => { };
   onTouched = () => { };
 
-  constructor(private injector: Injector) { }
+  constructor(@Self() @Optional() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
   ngOnInit(): void {
-    this.ngControl = this.injector.get(NgControl)
+    if (this.ngControl.statusChanges) {
+      this.subscriptions.push(
+        this.ngControl.statusChanges.pipe(debounceTime(350)).subscribe(() => {
+          this.updateErrorState();
+        }))
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe())
   }
 
   get value(): string | number {
@@ -42,7 +52,7 @@ export class TextareaComponent {
     if (this._value !== value) {
       this._value = value;
       this.onChange(value);
-      this.emitChangeForAllInputsUsingSameControl(value);
+      this.emitValueToFieldsWithSameControl(value);
     }
   }
 
@@ -63,11 +73,22 @@ export class TextareaComponent {
     this.value = (event.target as HTMLInputElement).value;
   }
 
+  handleBlur(): void {
+    this.onTouched();
+    this.updateErrorState();
+  }
 
+  getErrorMessage(): string {
+    return getErrorMessage(this.ngControl.errors)
+  }
 
-  private emitChangeForAllInputsUsingSameControl(value: any): void {
+  private emitValueToFieldsWithSameControl(value: any): void {
     if (this.ngControl && this.ngControl.control) {
       this.ngControl.control.setValue(value, { emitEvent: false });
     }
-} 
+  }
+
+  private updateErrorState(): void {
+    this.errorState = !!this.ngControl.errors && !!this.ngControl.touched;
+  }
 }

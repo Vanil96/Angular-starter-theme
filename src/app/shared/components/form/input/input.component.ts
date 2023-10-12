@@ -22,7 +22,6 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   isDisabled = false;
   errorState: boolean = false;
   private _value: string | number;
-  private _getErrorMessage = getErrorMessage;
   private subscriptions: Subscription[] = [];
 
   onChange = (_: string | number) => { };
@@ -39,8 +38,6 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
       this.subscriptions.push(
         this.ngControl.statusChanges.pipe(debounceTime(350)).subscribe(() => {
           this.updateErrorState();
-          this.emitValueToFieldsWithSameControl(this._value);
-          console.log('STATUS CHANGE')
         }))
     }
   }
@@ -57,8 +54,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
     if (this._value !== value) {
       this._value = value;
       this.onChange(value);
-      console.log('SETTER')
-      // this.emitValueToFieldsWithSameControl(value);
+      this.emitValueToFieldsWithSameControl(this.value);
     }
   }
 
@@ -86,7 +82,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   }
 
   getErrorMessage(): string {
-    return this._getErrorMessage(this.ngControl.errors)
+    return getErrorMessage(this.ngControl.errors)
   }
 
   private emitValueToFieldsWithSameControl(value: any): void {
