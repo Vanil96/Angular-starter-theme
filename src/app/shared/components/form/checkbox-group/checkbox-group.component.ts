@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormArray, FormControl, NgControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroupDirective, NgControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { CheckboxOption } from '@app/core/models/option.model';
-import { getErrorMessage } from '@app/core/utilities/form.utils';
-import { Subscription, debounceTime } from 'rxjs';
+import { getErrorMessage, isCheckboxOption } from '@app/core/utilities/form.utils';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-checkbox-group',
@@ -21,26 +21,27 @@ export class CheckboxGroupComponent implements ControlValueAccessor, OnInit, OnD
   onChange = (_: CheckboxOption[]) => { };
   onTouched = () => { };
 
-  constructor(@Self() @Optional() public ngControl: NgControl) {
+  constructor(@Self() @Optional() public ngControl: NgControl, @Optional() private formGroupDirective: FormGroupDirective
+  ) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
   }
 
   ngOnInit(): void {
-    if (this.ngControl && this.ngControl.statusChanges) {
-      this.subscriptions.push(
-        this.ngControl.statusChanges.pipe(debounceTime(350)).subscribe((status) => {
-          console.log('STATUS CHANGE', status)
-          this.formArray.markAllAsTouched(); //cant be here, its loading on start, should be only on accept form
-        }),
-        this.formArray.valueChanges.subscribe(() => {
-          this.setValueByFormControls();
-          this.onChange(this.value);
-          //push errors from formArray to ngControl
-          this.ngControl.control?.setErrors(this.ngControl.control?.errors || this.formArray.errors ? { ...(this.ngControl.control?.errors), ...(this.formArray.errors) } : null);
-        }))
+    if (this.formGroupDirective) {
+      this.subscriptions.push(this.formGroupDirective.ngSubmit.subscribe(() => {
+        this.formArray.markAllAsTouched();
+      }));
     }
+    this.subscriptions.push(
+      this.formArray.valueChanges.subscribe(() => {
+        this.setValueByFormControls();
+        this.onChange(this.value);
+        if (this.ngControl) {
+          this.ngControl.control?.setErrors(this.ngControl.control?.errors || this.formArray.errors ? { ...(this.ngControl.control?.errors), ...(this.formArray.errors) } : null);
+        }
+      }))
   }
 
   ngOnDestroy(): void {
@@ -48,8 +49,18 @@ export class CheckboxGroupComponent implements ControlValueAccessor, OnInit, OnD
   }
 
   writeValue(value: CheckboxOption[]): void {
-    this.value = value.map(option => this.getOptionNormalize(option));
-    this.setFormControlsByValue();
+    if (Array.isArray(value)) {
+      if (this.isValidCheckboxOptionArray(value)) {
+        this.value = value.map(option => this.getOptionNormalize(option));
+        this.setFormControlsByValue();
+      } else {
+        console.warn("Invalid array format: Not all items are CheckboxOption objects");
+        return
+      }
+    } else {
+      console.warn("Invalid input: value is not an array");
+      return
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -60,10 +71,13 @@ export class CheckboxGroupComponent implements ControlValueAccessor, OnInit, OnD
     this.onTouched = fn;
   }
 
+  onSingleCheckboxFocusOut() {
+    this.onTouched();
+  }
+
   setValueByFormControls() {
     const formArrayValues = this.formArray.getRawValue(); //get values with 'disabled' status
     this.value.forEach((option, index) => {
-      console.log(option.label, index, formArrayValues[index])
       option.isChecked = formArrayValues[index];
     })
   }
@@ -74,7 +88,7 @@ export class CheckboxGroupComponent implements ControlValueAccessor, OnInit, OnD
       option = this.getOptionNormalize(option);
       const formControl = new FormControl(
         option.isChecked,
-        option.requiredCheck ? Validators.requiredTrue : null
+        option.isRequired ? Validators.requiredTrue : null
       );
       if (option.isDisabled) {
         formControl.disable({ emitEvent: false });
@@ -88,14 +102,13 @@ export class CheckboxGroupComponent implements ControlValueAccessor, OnInit, OnD
     option.value = option.value || null;
     option.isChecked = option.isChecked || false;
     option.isDisabled = option.isDisabled || false;
-    option.requiredCheck = option.requiredCheck || false;
+    option.isRequired = option.isRequired || false;
     option.labelPosition = option.labelPosition || 'after';
     return option
   }
 
 
   getErrorMessage(errors: any): string {
-    console.log('get error [CheckboxGroupComponent]')
     return getErrorMessage(errors);
   }
 
@@ -112,5 +125,9 @@ export class CheckboxGroupComponent implements ControlValueAccessor, OnInit, OnD
       }
       return null;
     };
+  }
+
+  private isValidCheckboxOptionArray(value: any[]): value is CheckboxOption[] {
+    return value.every(item => isCheckboxOption(item));
   }
 }

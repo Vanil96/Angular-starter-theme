@@ -2,7 +2,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { ExamplesService } from './../../../../core/services/examples.service';
 import { Component } from '@angular/core';
 import { CheckboxOption, RadioOption } from '@app/core/models/option.model';
-import {updateAllValueAndValidity} from '@core/utilities/form.utils'
+//import {updateAllValueAndValidity} from '@core/utilities/form.utils'
 @Component({
   selector: 'app-examples',
   templateUrl: './examples.component.html',
@@ -17,25 +17,25 @@ export class ExamplesComponent {
   email = new FormControl('', [Validators.required, Validators.email]);
 
   list1 = [{ label: 'label 1', value: 1 }, { label: 'blok 2', value: 2 }, { label: 'element 3', value: 3 }, { label: 'dywan 4', value: 4 }]
-  checkboxList: CheckboxOption[] = [{ label: 'label 1', value: null, isDisabled: true }, { label: 'blok 2', isChecked: true }, { label: 'Rquired true', value: 3, requiredCheck:true}, { label: 'dywan 4', value: 4, isChecked: false }, { label: 'REQ', value: 4, isChecked: true, requiredCheck: true }, { label: 'ffff', value: 4, isChecked: false }, { label: 'fasdada', isChecked: true }]
-  radioList: RadioOption[] = [{ label: 'label 1', value: 1, isChecked: true }, { label: 'blok 2', value: 2, isChecked: true }, { label: 'element 3', value: 3, isDisabled: true }, { label: 'dywan 4', value: 4 }]
+  checkboxList: CheckboxOption[] = [{ label: 'label 1', value: null, isDisabled: true }, { label: 'blok 2', isChecked: true }, { label: 'Rquired true', value: 3, isRequired:true}, { label: 'dywan 4', value: 4, isChecked: false }, { label: 'REQ', value: 4, isChecked: true, isRequired: true }, { label: 'ffff', value: 4, isChecked: false }, { label: 'fasdada', isChecked: true }]
+  radioList: RadioOption[] = [{ label: 'label 1', value: 1, isChecked: false }, { label: 'blok 2', value: 2, isChecked: true }, { label: 'element 3', value: 3, isDisabled: true }, { label: 'dywan 4', value: 4 }]
   list4 = [{ label: 'label 1', value: 1 }, { label: 'blok 2', value: 2 }, { label: 'element 3', value: 3 }, { label: 'dywan 4', value: 4 }]
 
   constructor(protected examplesService: ExamplesService, private fb: FormBuilder) {
     this.form = this.fb.group({
       name: ['Kłi', [Validators.required, Validators.minLength(10), Validators.maxLength(20)]],
-      email: ['dsa', Validators.email],
+      email: ['', [Validators.email, Validators.required]],
       password: ['', [Validators.minLength(8), Validators.required]],
       gender: [''],
       country: [''],
-      list1: [this.list1[1]],
+      list1: [this.list1[0]],
       checkboxList: [this.checkboxList],
-      radioList: [''],
+      radioList: [{ label: 'blok 2', value: 2 }, Validators.required],
       list4: [this.list4[2], [Validators.email]],
       list5: [this.list4[1]],
       agree: [false, Validators.requiredTrue],
       birthdate: [''],
-      description: ['Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum', Validators.maxLength(40)],
+      description: ['', [Validators.maxLength(40), Validators.minLength(15)]],
       hobbies: this.fb.array([new FormControl(''), new FormControl(''), new FormControl('')])
     })
 
@@ -71,8 +71,8 @@ export class ExamplesComponent {
     }
 
     if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      updateAllValueAndValidity(this.form);
+    //  this.form.markAllAsTouched();
+     // updateAllValueAndValidity(this.form);
     }
 
   }
@@ -91,10 +91,13 @@ export class ExamplesComponent {
   }
 
   onFormChange(): void {
-    const checkboxlistControl = this.form.get('checkboxList');
-    checkboxlistControl && console.log('errors of checkboxList', checkboxlistControl.errors, checkboxlistControl);
+  //  const checkboxlistControl = this.form.get('checkboxList');
+     const radiolistControl = this.form.get('radioList');
 
-     console.log('checkboxList value: ',checkboxlistControl?.value);
+   // checkboxlistControl && console.log('errors of checkboxList', checkboxlistControl.errors, checkboxlistControl);
+
+   // console.log('checkboxList value: ',checkboxlistControl?.value);
+    console.log('radioList value: ',radiolistControl?.value, radiolistControl?.errors);
 
   }
 

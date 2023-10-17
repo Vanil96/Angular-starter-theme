@@ -1,6 +1,6 @@
 <div class="form-field checkbox-field" [ngClass]="{'field-invalid':errorState}">
   <div>
-    <mat-checkbox [checked]="value" (change)="handleChange($event)" (blur)="handleBlur()" [disabled]="isDisabled" >
+    <mat-checkbox [checked]="value" (change)="handleChange($event)" (focusout)="handleBlur()" [disabled]="isDisabled" >
       {{label}}
     </mat-checkbox>
   </div>

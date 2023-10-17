@@ -1,4 +1,5 @@
 import { FormGroup, ValidationErrors } from "@angular/forms";
+import { CheckboxOption, RadioOption } from "../models/option.model";
 
 interface ErrorMessages {
     [key: string]: string;
@@ -48,3 +49,34 @@ export function updateAllValueAndValidity(formGroup: FormGroup, emitEvent: boole
         control?.updateValueAndValidity({ emitEvent });
     })
 }
+
+export function isCheckboxOption(obj: any): obj is CheckboxOption {
+    if (obj === null || typeof obj !== 'object') {
+      return false;
+    }
+    if (!('label' in obj) || typeof obj.label !== 'string') {
+      return false;
+    }
+    return true;
+  }
+
+
+export function isRadioOption(obj: any): obj is RadioOption {
+  if (obj === null || typeof obj !== 'object') {
+    return false;
+  }
+  
+  if (!('label' in obj) || typeof obj.label !== 'string') {
+    return false;
+  }
+  
+  if (!('value' in obj) || (typeof obj.value !== 'string' && typeof obj.value !== 'number')) {
+    return false;
+  }
+
+  return true;
+}
+
+
+
+

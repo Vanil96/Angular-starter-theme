@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
-import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { ControlValueAccessor, FormGroupDirective, NgControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { getErrorMessage } from '@app/core/utilities/form.utils';
-import { Subscription, debounceTime } from 'rxjs';
+import { Subscription } from 'rxjs';
 type InputType = 'text' | 'number' | 'password' | 'email';
 
 @Component({
@@ -26,18 +26,18 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   onChange = (_: string | number) => { };
   onTouched = () => { };
 
-  constructor(@Self() @Optional() public ngControl: NgControl) {
+  constructor(@Self() @Optional() public ngControl: NgControl, @Optional() private formGroupDirective: FormGroupDirective) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
   }
 
   ngOnInit():void {
-    if (this.ngControl.statusChanges) {
-      this.subscriptions.push(
-        this.ngControl.statusChanges.pipe(debounceTime(350)).subscribe(() => {
-          this.updateErrorState();
-        }))
+    if (this.formGroupDirective) {
+      this.subscriptions.push(this.formGroupDirective.ngSubmit.subscribe(() => {
+        this.onTouched();
+        this.updateErrorState();
+      }));
     }
   }
 
@@ -54,6 +54,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
       this._value = value;
       this.onChange(value);
       this.emitValueToFieldsWithSameControl(this.value);
+      this.updateErrorState();
     }
   }
 
@@ -72,7 +73,6 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   }
 
   handleInput(event: Event): void {
-
     this.value = (event.target as HTMLInputElement).value;
   }
 
@@ -82,8 +82,6 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   }
 
   getErrorMessage(): string {
-    console.log('get error [InputComponent]')
-
     return getErrorMessage(this.ngControl.errors)
   }
 

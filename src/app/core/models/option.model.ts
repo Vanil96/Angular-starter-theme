@@ -5,7 +5,7 @@ export type CheckboxOption = {
     value?: string | number | null;
     isChecked?: boolean;
     isDisabled?: boolean;
-    requiredCheck?: boolean;
+    isRequired?: boolean;
     labelPosition?: 'before' | 'after';
 };
 
