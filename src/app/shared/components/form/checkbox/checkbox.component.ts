@@ -13,7 +13,6 @@ export class CheckboxComponent implements ControlValueAccessor, OnInit, OnDestro
   @Input() label = '';
   isDisabled = false;
   errorState: boolean = false;
-
   private _value: boolean;
   private subscriptions: Subscription[] = [];
 
@@ -78,6 +77,7 @@ export class CheckboxComponent implements ControlValueAccessor, OnInit, OnDestro
   }
 
   getErrorMessage(): string {
+    console.log('get error [CheckboxComponent]')
     return getErrorMessage(this.ngControl.errors);
   }
 

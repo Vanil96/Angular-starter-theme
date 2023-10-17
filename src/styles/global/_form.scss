@@ -1,11 +1,12 @@
 @use '/src/styles/shared/variables' as var;
 
 
-.form-field.field-invalid label {
-    color: var.$warn-clr !important;
-}
+
 
 .form-field {
+    &.field-invalid label {
+        color: var.$warn-clr !important;
+    }
 
     .form-field-invalid-message {
         border: 1px solid var.$warn-clr;
@@ -15,11 +16,12 @@
         line-height: 1.2em;
     }
 
-    // .form-field-hint {}
+    //remember add style for hints
 }
 
 //material
 body {
+
     .mdc-text-field,
     .mat-mdc-form-field-hint-wrapper {
         padding: 0 12px;
@@ -28,7 +30,7 @@ body {
     .form-field.field-invalid {
         .mdc-text-field--filled .mdc-line-ripple::after {
             border-bottom-color: var.$warn-clr;
-            opacity:1;
+            opacity: 1;
         }
     }
 }

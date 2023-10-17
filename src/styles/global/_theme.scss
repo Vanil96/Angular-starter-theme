@@ -39,3 +39,27 @@ legend {
     margin-left: auto;
     margin-right: auto;
 }
+
+.primary-clr {
+    color: var.$primary-clr;
+}
+
+.accent-clr {
+    color: var.$accent-clr;
+}
+
+.warn-clr {
+    color: var.$warn-clr;
+}
+
+.grey-clr {
+    color:var.$grey-clr;
+}
+
+.main-text-clr {
+    color: var.$main-text-clr;
+}
+
+.link-clr {
+    color: var.$link-clr;
+}

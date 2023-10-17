@@ -18,7 +18,6 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() appearance: MatFormFieldAppearance = 'fill';
   @Input() hint = '';
   @Input() autocomplete = 'off'
-  @Input() alt: string;
   isDisabled = false;
   errorState: boolean = false;
   private _value: string | number;
@@ -33,7 +32,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
     }
   }
 
-  ngOnInit() {
+  ngOnInit():void {
     if (this.ngControl.statusChanges) {
       this.subscriptions.push(
         this.ngControl.statusChanges.pipe(debounceTime(350)).subscribe(() => {
@@ -73,6 +72,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   }
 
   handleInput(event: Event): void {
+
     this.value = (event.target as HTMLInputElement).value;
   }
 
@@ -82,13 +82,15 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   }
 
   getErrorMessage(): string {
+    console.log('get error [InputComponent]')
+
     return getErrorMessage(this.ngControl.errors)
   }
 
   private emitValueToFieldsWithSameControl(value: any): void {
-    if (this.ngControl && this.ngControl.control) {
-      this.ngControl.control.setValue(value, { emitEvent: false });
-    }
+     if (this.ngControl && this.ngControl.control) {
+       this.ngControl.control.setValue(value, { emitEvent: false });
+     }
   }
 
   private updateErrorState(): void {

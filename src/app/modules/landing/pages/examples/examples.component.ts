@@ -17,7 +17,7 @@ export class ExamplesComponent {
   email = new FormControl('', [Validators.required, Validators.email]);
 
   list1 = [{ label: 'label 1', value: 1 }, { label: 'blok 2', value: 2 }, { label: 'element 3', value: 3 }, { label: 'dywan 4', value: 4 }]
-  checkboxList: CheckboxOption[] = [{ label: 'label 1', value: 1, isDisabled: true }, { label: 'blok 2', value: 2, isChecked: true }, { label: 'element 3', value: 3 }, { label: 'dywan 4', value: 4, isChecked: true }]
+  checkboxList: CheckboxOption[] = [{ label: 'label 1', value: null, isDisabled: true }, { label: 'blok 2', isChecked: true }, { label: 'Rquired true', value: 3, requiredCheck:true}, { label: 'dywan 4', value: 4, isChecked: false }, { label: 'REQ', value: 4, isChecked: true, requiredCheck: true }, { label: 'ffff', value: 4, isChecked: false }, { label: 'fasdada', isChecked: true }]
   radioList: RadioOption[] = [{ label: 'label 1', value: 1, isChecked: true }, { label: 'blok 2', value: 2, isChecked: true }, { label: 'element 3', value: 3, isDisabled: true }, { label: 'dywan 4', value: 4 }]
   list4 = [{ label: 'label 1', value: 1 }, { label: 'blok 2', value: 2 }, { label: 'element 3', value: 3 }, { label: 'dywan 4', value: 4 }]
 
@@ -29,15 +29,16 @@ export class ExamplesComponent {
       gender: [''],
       country: [''],
       list1: [this.list1[1]],
-      checkboxList: [this.radioList[2]],
+      checkboxList: [this.checkboxList],
       radioList: [''],
       list4: [this.list4[2], [Validators.email]],
       list5: [this.list4[1]],
       agree: [false, Validators.requiredTrue],
       birthdate: [''],
       description: ['Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum', Validators.maxLength(40)],
-      hobbies: this.fb.array([new FormControl('')])
+      hobbies: this.fb.array([new FormControl(''), new FormControl(''), new FormControl('')])
     })
+
   }
 
 
@@ -90,7 +91,11 @@ export class ExamplesComponent {
   }
 
   onFormChange(): void {
-    //  console.log('onFormChange value: ',this.form.value);
+    const checkboxlistControl = this.form.get('checkboxList');
+    checkboxlistControl && console.log('errors of checkboxList', checkboxlistControl.errors, checkboxlistControl);
+
+     console.log('checkboxList value: ',checkboxlistControl?.value);
+
   }
 
 

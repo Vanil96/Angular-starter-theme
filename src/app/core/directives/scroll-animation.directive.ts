@@ -1,24 +1,30 @@
-import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Renderer2, OnInit, OnDestroy, NgZone } from '@angular/core';
 
 @Directive({
   selector: '[appScrollAnimation]'
 })
-export class ScrollAnimationDirective implements OnInit {
+export class ScrollAnimationDirective implements OnInit, OnDestroy {
   private hasClassBeenAdded = false;
-  @Input() animationClass: string = 'animate-element';
+  private scrollHandler: any; 
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {
+  constructor(private el: ElementRef, private renderer: Renderer2, private ngZone: NgZone) {
   }
 
   ngOnInit() {
-    window.addEventListener('load', () => {
-      this.checkPosition();
-    })
+    this.scrollHandler = this.checkPosition.bind(this);
+
+    this.ngZone.runOutsideAngular(() => {
+      window.addEventListener('load', this.scrollHandler, false);
+    });
+
+    this.ngZone.runOutsideAngular(() => {
+      window.addEventListener('scroll', this.scrollHandler, false);
+    });
   }
 
-  @HostListener('window:scroll', ['$event'])
-  handleScroll() {
-    this.checkPosition();
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.scrollHandler, false);
+    window.removeEventListener('load', this.scrollHandler, false);
   }
 
   private checkPosition() {
@@ -28,9 +34,10 @@ export class ScrollAnimationDirective implements OnInit {
     const position = element.getBoundingClientRect();
 
     if (position.top <= window.innerHeight && position.bottom >= 0) {
-      this.renderer.addClass(element, this.animationClass);
-      this.hasClassBeenAdded = true;
+      this.ngZone.run(() => {
+        this.renderer.addClass(element, 'animate-element'); 
+        this.hasClassBeenAdded = true;
+      });
     }
   }
-
 }

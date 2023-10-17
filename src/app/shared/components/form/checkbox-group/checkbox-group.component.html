@@ -1,12 +1,12 @@
-<div class="checkbox-group-container">
-  <span *ngIf="label">{{label}}</span>
-  <div>
-    <mat-checkbox *ngFor="let option of options" 
-    [checked]="option.isChecked"
-    [disabled]="option.isDisabled === true"
-    (change)="onCheckboxChange(option, $event.checked)">
-      {{option.label}}
+<div class="checkbox-group-field" >
+  <div *ngFor="let control of formArray.controls; let i = index" class="form-field checkbox-field"
+    [ngClass]="{'field-invalid': control.invalid && control.touched, 'is-required': value[i].requiredCheck}">
+    <mat-checkbox [formControl]="control" [labelPosition]="value[i].labelPosition">
+      {{value[i].label}}<sup class="warn-clr" *ngIf="value[i].requiredCheck && showIsRequiredForSingle">*</sup>
     </mat-checkbox>
-  </div> 
+    <div class="form-field-invalid-message" *ngIf="control.invalid && control.touched">
+      <span>{{getErrorMessage(control.errors)}}</span>
+    </div>
+  </div>
+<span *ngIf="showRequiredLegend" class="required-info grey-clr"><sup class="warn-clr">*</sup>Required fields</span>
 </div>
-
