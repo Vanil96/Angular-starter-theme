@@ -54,7 +54,6 @@ export class TextareaComponent implements ControlValueAccessor, OnInit, OnDestro
     if (this._value !== value) {
       this._value = value;
       this.onChange(value);
-      this.emitValueToFieldsWithSameControl(value);
       this.updateErrorState();
     }
   }
@@ -83,12 +82,6 @@ export class TextareaComponent implements ControlValueAccessor, OnInit, OnDestro
 
   getErrorMessage(): string {
     return getErrorMessage(this.ngControl.errors)
-  }
-
-  private emitValueToFieldsWithSameControl(value: any): void {
-    if (this.ngControl && this.ngControl.control) {
-      this.ngControl.control.setValue(value, { emitEvent: false });
-    }
   }
 
   private updateErrorState(): void {

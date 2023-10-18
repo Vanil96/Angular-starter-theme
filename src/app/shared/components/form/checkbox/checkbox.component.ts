@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class CheckboxComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() label = '';
+  @Input() labelPosition:'before' | 'after' = 'after'
   isDisabled = false;
   errorState: boolean = false;
   private _value: boolean;
@@ -46,7 +47,6 @@ export class CheckboxComponent implements ControlValueAccessor, OnInit, OnDestro
     if (value !== this._value) {
       this._value = value;
       this.onChange(this.value);
-      this.emitValueToFieldsWithSameControl(value);
       this.onTouched();
       this.updateErrorState()
     }
@@ -79,12 +79,6 @@ export class CheckboxComponent implements ControlValueAccessor, OnInit, OnDestro
 
   getErrorMessage(): string {
     return getErrorMessage(this.ngControl.errors);
-  }
-
-  private emitValueToFieldsWithSameControl(value: any): void {
-    if (this.ngControl && this.ngControl.control) {
-      this.ngControl.control.setValue(value, { emitEvent: false });
-    }
   }
 
   private updateErrorState(): void {

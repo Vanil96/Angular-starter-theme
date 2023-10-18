@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path') 
 const jsonServer = require('json-server')
 const server = jsonServer.create()
 const router = jsonServer.router(path.join(__dirname, 'db.json'))
@@ -90,3 +90,91 @@ server.use(router)
 server.listen(env.port, () => {
   console.log('JSON Server is running on http://localhost:' + env.port + '/')
 })
+
+
+
+// const path = require('path');
+// const jsonServer = require('json-server');
+// const jwt = require('jsonwebtoken');
+// const server = jsonServer.create();
+// const router = jsonServer.router(path.join(__dirname, 'db.json'));
+// const middlewares = jsonServer.defaults();
+
+// // Konfiguracja sekretu i czasu wygaśnięcia dla JWT
+// const JWT_SECRET = '64N4N64^n$6GWQDFGDF%$#GDF@!213S%32SDF#1A!2'; // Zmień na rzeczywisty, silny sekretny klucz
+// const TOKEN_EXPIRATION_TIME = '10s'; // np. tokeny wygasają po 1 godzinie
+
+// server.use(middlewares);
+// server.use(jsonServer.bodyParser);
+
+// // Dotychczasowe funkcje, np. echo, pozostają bez zmian
+// server.get('/echo', (req, res) => {
+//   res.jsonp(req.query);
+// });
+
+// // Logowanie i generowanie tokenów JWT z czasem wygaśnięcia
+// server.post('/login', (req, res) => {
+//   if (!req.body.username || !req.body.password) {
+//     res.status(400).send('Username and Password required');
+//     return;
+//   }
+
+//   const user = router.db.get('users')
+//     .find({ username: req.body.username })
+//     .value();
+
+//   if (!user) {
+//     res.status(403).send('Username or password invalid');
+//     return;
+//   }
+
+//   // Generowanie tokena z czasem wygaśnięcia
+//   const token = jwt.sign({ sub: user.id, username: user.username }, JWT_SECRET, { expiresIn: TOKEN_EXPIRATION_TIME });
+
+//   res.jsonp({
+//     token,
+//     user, // Wysyłasz pełne dane użytkownika; upewnij się, że nie zawiera to wrażliwych informacji
+//     roles: user.roles
+//   });
+// });
+
+// // Middleware do autentykacji i weryfikacji tokenów JWT
+// server.use((req, res, next) => {
+//   if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
+//     const authHeader = req.get('Authorization') || '';
+//     const token = authHeader.replace('Bearer ', '');
+
+//     try {
+//       // Zweryfikuj token i upewnij się, że jest ważny
+//       const decoded = jwt.verify(token, JWT_SECRET);
+
+//       // Dodatkowe logiki sprawdzające, czy użytkownik ma uprawnienia do wykonania operacji
+//       if (req.body.userId && req.body.userId !== decoded.id) {
+//         res.status(403).send('Access denied. User can only edit own resources');
+//       } else {
+//         req.user = decoded; // Przypisz dekodowane dane użytkownika do żądania, jeśli chcesz ich używać później
+//         next(); // Kontynuuj do następnego middleware lub trasy, jeśli wszystko jest w porządku
+//       }
+//     } catch (error) {
+//       // Obsługa wygasłych tokenów lub innych błędów związanych z tokenem
+//       res.status(401).send('Invalid or expired token');
+//     }
+//   } else {
+//     next(); // Jeśli żądanie nie wymaga autentykacji, kontynuuj normalnie
+//   }
+// });
+
+// // Automatyczne dodawanie pola createdAt
+// server.use((req, res, next) => {
+//   if (req.method === 'POST') {
+//     req.body.createdAt = Date.now();
+//   }
+//   next();
+// });
+
+// // Kontynuowanie używania routera i nasłuchiwania na serwerze
+// server.use(router);
+// const env = { port: 3000 }; // Możesz dostosować port zgodnie z potrzebami
+// server.listen(env.port, () => {
+//   console.log(`JSON Server is running on http://localhost:${env.port}/`);
+// })

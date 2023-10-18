@@ -1,4 +1,4 @@
-export type Option = { label: string, value: string | number };
+export type Option = { label: string, value: string | number, isDisabled?: boolean; };
 
 export type CheckboxOption = {
     label: string;
@@ -8,11 +8,4 @@ export type CheckboxOption = {
     isRequired?: boolean;
     labelPosition?: 'before' | 'after';
 };
-
-export type RadioOption = Option & {
-    isChecked?: boolean;
-    isDisabled?: boolean;
-};
-
-
 

@@ -5,7 +5,7 @@
   <mat-radio-button
     *ngFor="let option of options"
     [value]="option"
-    [checked]="option.isChecked"
+    [checked]="option === value"
     [disabled]="option.isDisabled === true"
     (change)="selectOption(option)"
   >

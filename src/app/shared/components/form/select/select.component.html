@@ -8,13 +8,11 @@
         [disabled]="isDisabled"
         (valueChange)="handleValueChange($event)" 
         (blur)="handleBlur()">
-        <mat-option *ngFor="let option of options" [value]="option">{{option.label}}</mat-option>
+        <mat-option *ngFor="let option of options" [value]="option" [disabled]="option.isDisabled">{{option.label}}</mat-option>
     </mat-select>
     <div class="form-field-invalid-message" *ngIf="errorState">
         <span>{{getErrorMessage()}}</span></div>
-        
-        <mat-hint class="form-field-hint" *ngIf="hint">{{hint}}</mat-hint>
-</mat-form-field>
+        </mat-form-field>
 </div>
 
 

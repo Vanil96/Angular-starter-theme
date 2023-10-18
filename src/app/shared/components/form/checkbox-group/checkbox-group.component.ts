@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/co
 import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroupDirective, NgControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { CheckboxOption } from '@app/core/models/option.model';
 import { getErrorMessage, isCheckboxOption } from '@app/core/utilities/form.utils';
+import { environment } from '@environments/environment';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -49,16 +50,17 @@ export class CheckboxGroupComponent implements ControlValueAccessor, OnInit, OnD
   }
 
   writeValue(value: CheckboxOption[]): void {
+    if (value===null) {return}
     if (Array.isArray(value)) {
       if (this.isValidCheckboxOptionArray(value)) {
         this.value = value.map(option => this.getOptionNormalize(option));
         this.setFormControlsByValue();
       } else {
-        console.warn("Invalid array format: Not all items are CheckboxOption objects");
+        environment.isConsoleInfoVisible && console.warn("Invalid array format: Not all items are CheckboxOption objects");
         return
       }
     } else {
-      console.warn("Invalid input: value is not an array");
+      environment.isConsoleInfoVisible && console.warn("Invalid input: value is not an array");
       return
     }
   }

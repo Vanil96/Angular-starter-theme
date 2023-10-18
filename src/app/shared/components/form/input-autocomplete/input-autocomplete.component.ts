@@ -1,60 +1,90 @@
-import { Component, Injector, Input, OnInit, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { Component, ElementRef, Input, OnDestroy, OnInit, Optional, Self, ViewChild } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormGroupDirective, NgControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Option } from '@app/core/models/option.model';
+import { getErrorMessage, isOption } from '@app/core/utilities/form.utils';
+import { environment } from '@environments/environment';
+import { Subscription } from 'rxjs';
 
 type InputType = 'text' | 'number' | 'password' | 'email';
 @Component({
   selector: 'app-input-autocomplete',
   templateUrl: './input-autocomplete.component.html',
   styleUrls: ['./input-autocomplete.component.scss'],
-  providers:[{
-    provide:NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(()=>InputAutocompleteComponent),
-    multi:true
-  }]
 })
-export class InputAutocompleteComponent implements OnInit, ControlValueAccessor {
+export class InputAutocompleteComponent implements OnInit, OnDestroy, ControlValueAccessor {
   @Input({ required: true }) options: Option[];
   @Input() label = '';
   @Input() placeholder = '';
   @Input() type: InputType = 'text';
   @Input() appearance: MatFormFieldAppearance = 'fill';
   @Input() autocomplete = 'auto';
-  ngControl: NgControl;
+  @ViewChild('inputRef') inputRef: ElementRef;
+
   isDisabled = false;
-  
+  errorState: boolean = false;
   allOptions: Option[] = [];
   displayedOptions: Option[] = [];
   displayedValue: string;
-  private _value: any;
+  private subscriptions: Subscription[] = [];
+  private _value: Option | null;
 
-  onChange = (_: any) => {};
-  onTouched = () => {};
+  onChange = (_: any) => { };
+  onTouched = () => { };
 
-constructor(private injector: Injector){}
-
-  ngOnInit(): void {
-    this.ngControl = this.injector.get(NgControl);
-    this.allOptions = [...this.options];
-    this.updateDisplayedValueAndOptions();
+  constructor(
+    @Self() @Optional() public ngControl: NgControl,
+    @Optional() private formGroupDirective: FormGroupDirective,
+  ) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
   }
 
-  get value(): any {
+  ngOnInit(): void {
+    if (this.formGroupDirective) {
+      this.subscriptions.push(this.formGroupDirective.ngSubmit.subscribe(() => {
+        this.onTouched();
+        this.updateErrorState();
+      }));
+    }
+    if (this.ngControl && this.ngControl.control) {
+      this.ngControl.control.addValidators(this.validate.bind(this));
+    }
+
+    this.allOptions = [...this.options];
+    this.updateDisplayedValueAndOptions();
+
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe())
+  }
+
+  get value(): Option | null {
     return this._value;
   }
 
-  set value(newValue: any) {
+  set value(newValue: Option | null) {
     if (newValue !== this._value) {
       this._value = newValue;
       this.onChange(newValue);
       this.updateDisplayedValueAndOptions();
-      this.emitChangeForAllInputsUsingSameControl(newValue);
+      this.updateErrorState();
+      this.ngControl.control?.updateValueAndValidity()
+    } else if (newValue === null) {
+      this.updateDisplayedValueAndOptions();
+      this.inputRef.nativeElement.value = this.displayedValue;
     }
   }
 
-  writeValue(value: any): void {
-    this.value = value;
+  writeValue(value: Option | null): void {
+    if (value === null) { return }
+    if (isOption(value)) {
+      this.value = value;
+    } else {
+      environment.isConsoleInfoVisible && console.warn("Invalid value format. Value is not in Option type.")
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -69,29 +99,54 @@ constructor(private injector: Injector){}
     this.isDisabled = isDisabled;
   }
 
-  handleInput(event: any): void {
-    this.value = (event.target as HTMLInputElement).value;
+  handleInput(): void {
+    const inputStringValue = this.inputRef.nativeElement.value;
+    this.displayedOptions = inputStringValue ? this.filterOptions(inputStringValue) : this.allOptions.slice();
+  }
+
+  handleBlur(): void {
+    this.onTouched();
+    this.setValueBasedOnInputString();
   }
 
   handleOptionSelection(event: any): void {
     this.value = event.option.value;
   }
 
-  updateDisplayedValueBasedOnInput(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    const inputValue = inputElement.value.replace(/\s+/g, '').toLowerCase();
+  setValueBasedOnInputString(): void {
+    const inputValue = this.inputRef.nativeElement.value.replace(/\s+/g, '').toLowerCase();
     const matchedOption = this.allOptions.find(option => option.label.replace(/\s+/g, '').toLowerCase() === inputValue);
     if (matchedOption) {
       this.value = matchedOption;
+    } else {
+      this.value = null;
     }
   }
 
-  displayOptionLabel(option: Option): string {
+  getErrorMessage(): string {
+    return getErrorMessage(this.ngControl.errors)
+  }
+
+  getOptionLabel(option: Option | null): string {
     return option ? option.label : '';
   }
 
+  private validate(_control: AbstractControl): { [key: string]: any } | null {
+    if (isOption(this.value) && this.value !== null) {
+      const matchedOption = this.allOptions.find(option => option.label === this.value?.label);
+      if (!matchedOption) {
+        return { notInList: true }
+      } else { return null }
+    }
+    return null;
+  }
+
+  private updateErrorState(): void {
+    this.errorState = !!this.ngControl.errors && !!this.ngControl.touched;
+  }
+
   private updateDisplayedValueAndOptions(): void {
-    this.displayedValue = typeof this.value === 'string' ? this.value : this.displayOptionLabel(this.value);
+    this.displayedValue = this.getOptionLabel(this.value);
     this.displayedOptions = this.displayedValue ? this.filterOptions(this.displayedValue) : this.allOptions.slice();
   }
 
@@ -99,10 +154,4 @@ constructor(private injector: Injector){}
     const filterValue = value.toLowerCase();
     return this.allOptions.filter(option => option.label.toLowerCase().includes(filterValue));
   }
-
-   private emitChangeForAllInputsUsingSameControl(value:any):void{
-     if (this.ngControl && this.ngControl.control) {
-       this.ngControl.control.setValue(value, { emitEvent: false });
-     }
-   }
 }

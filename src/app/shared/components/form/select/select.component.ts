@@ -1,9 +1,10 @@
 import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
-import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { ControlValueAccessor, NgControl, FormGroupDirective } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Option } from '@app/core/models/option.model';
-import { getErrorMessage } from '@app/core/utilities/form.utils';
-import { Subscription, debounceTime } from 'rxjs';
+import { getErrorMessage, isArrayOfOptions, isOption } from '@app/core/utilities/form.utils';
+import { environment } from '@environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-select',
@@ -15,49 +16,65 @@ export class SelectComponent implements ControlValueAccessor, OnInit, OnDestroy 
   @Input() label = '';
   @Input() placeholder = '';
   @Input() appearance: MatFormFieldAppearance = 'fill';
-  @Input() hint = '';
   @Input() isMultiple = false;
   isDisabled = false;
   errorState: boolean = false;
-  private _value: any;
+  private _value: Option | Option[];
   private subscriptions: Subscription[] = [];
 
-  onChange = (_: any) => {};
-  onTouched = () => {};
+  onChange = (_: Option | Option[]) => { };
+  onTouched = () => { };
 
-  constructor(@Self() @Optional() public ngControl: NgControl) {
+  constructor(
+    @Self() @Optional() public ngControl: NgControl,
+    @Optional() private formGroupDirective: FormGroupDirective
+  ) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
   }
 
-  ngOnInit():void {
-    if (this.ngControl.statusChanges) {
-      this.subscriptions.push(
-        this.ngControl.statusChanges.pipe(debounceTime(350)).subscribe(() => {
-          this.updateErrorState();
-        }))
+  ngOnInit(): void {
+    if (this.formGroupDirective) {
+      this.subscriptions.push(this.formGroupDirective.ngSubmit.subscribe(() => {
+        this.onTouched();
+        this.updateErrorState();
+      }));
     }
+
+    this.options.forEach(option => {
+      option.isDisabled = option.isDisabled || false;
+    });
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe())
   }
 
-  get value(): any {
+  get value(): Option | Option[] {
     return this._value;
   }
 
-  set value(value: any) {
+  set value(value: Option | Option[]) {
     if (this._value !== value) {
       this._value = value;
       this.onChange(value);
-      this.emitValueToFieldsWithSameControl(value);
+      this.onTouched();
+      this.updateErrorState();
     }
   }
 
-  writeValue(value: any): void {
-    this.value = value;
+  writeValue(value: Option | null): void {
+    if (value === null) { return }
+    if (isOption(value)) {
+      this.value = value;
+    } else if (isArrayOfOptions(value)) {
+      this.isMultiple = true;
+      this.value = value;
+    }
+    else {
+      environment.isConsoleInfoVisible && console.warn("Invalid value format. Value is not in Option type.")
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -77,11 +94,11 @@ export class SelectComponent implements ControlValueAccessor, OnInit, OnDestroy 
     return option1.value === option2.value && option1.label === option2.label
   }
 
-  handleValueChange(value: any): void {
+  handleValueChange(value: Option): void {
     this.value = value;
   }
 
-  handleBlur():void {
+  handleBlur(): void {
     this.onTouched();
     this.updateErrorState();
   }
@@ -89,12 +106,6 @@ export class SelectComponent implements ControlValueAccessor, OnInit, OnDestroy 
   getErrorMessage(): string {
     return getErrorMessage(this.ngControl.errors)
   }
-
-  private emitValueToFieldsWithSameControl(value:any):void{
-    if (this.ngControl && this.ngControl.control ) {
-      this.ngControl.control.setValue(value, { emitEvent: false });
-    }
-  }  
 
   private updateErrorState(): void {
     this.errorState = !!this.ngControl.errors && !!this.ngControl.touched;

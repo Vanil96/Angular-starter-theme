@@ -1,19 +1,24 @@
+<div class="form-field select-field" [ngClass]="{'field-invalid':errorState}">
 <mat-form-field [appearance]="appearance">
   <mat-label>{{ label }}</mat-label>
   <input matInput 
+  #inputRef
   [value]="displayedValue"
   [placeholder]="placeholder" 
   [type]="type" 
   [autocomplete]="autocomplete"
   [matAutocomplete]="auto"
-  (input)="handleInput($event)"
-  (keydown.enter)="updateDisplayedValueBasedOnInput($event)"
-  (focusout)="updateDisplayedValueBasedOnInput($event)"
+  (input)="handleInput()"
+  (blur)="handleBlur()"
+  (keydown.enter)="setValueBasedOnInputString()"
   />
 </mat-form-field>
 
-<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayOptionLabel" (optionSelected)="handleOptionSelection($event)">
+<mat-autocomplete #auto="matAutocomplete" [displayWith]="getOptionLabel" (optionSelected)="handleOptionSelection($event)">
   <mat-option *ngFor="let option of displayedOptions" [value]="option">
     {{option.label}}
   </mat-option>
 </mat-autocomplete> 
+<div class="form-field-invalid-message" *ngIf="errorState">
+  <span>{{getErrorMessage()}}</span></div>
+</div>
