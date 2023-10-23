@@ -13,9 +13,8 @@
     (blur)="handleBlur()"
     />     
 
-<div class="form-field-invalid-message" *ngIf="errorState">
-<span>{{getErrorMessage()}}</span></div>
-
 <mat-hint class="form-field-hint" *ngIf="hint">{{hint}}</mat-hint>
 </mat-form-field>  
+<div class="form-field-invalid-message" *ngIf="errorState">
+    <span>{{getErrorMessage()}}</span></div>
 </div>

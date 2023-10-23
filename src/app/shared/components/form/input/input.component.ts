@@ -32,7 +32,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
     }
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     if (this.formGroupDirective) {
       this.subscriptions.push(this.formGroupDirective.ngSubmit.subscribe(() => {
         this.onTouched();
