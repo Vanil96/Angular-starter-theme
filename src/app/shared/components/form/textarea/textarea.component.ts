@@ -26,7 +26,7 @@ export class TextareaComponent implements ControlValueAccessor, OnInit, OnDestro
   onTouched = () => { };
 
   constructor(
-    @Self() @Optional() public ngControl: NgControl, 
+    @Self() @Optional() public ngControl: NgControl,
     @Optional() private formGroupDirective: FormGroupDirective) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
@@ -41,7 +41,6 @@ export class TextareaComponent implements ControlValueAccessor, OnInit, OnDestro
       }));
     }
   }
-
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe())
   }

@@ -23,7 +23,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   private _value: string | number;
   private subscriptions: Subscription[] = [];
 
-  onChange = (_: string | number) => { };
+  onChange = (_: string | number) => {};
   onTouched = () => { };
 
   constructor(@Self() @Optional() public ngControl: NgControl, @Optional() private formGroupDirective: FormGroupDirective) {

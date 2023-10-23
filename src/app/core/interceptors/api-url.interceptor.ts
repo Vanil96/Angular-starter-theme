@@ -6,10 +6,13 @@ export class ApiUrlInterceptor implements HttpInterceptor {
     private apiUrl = environment.apiUrl;
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-        /* exclude change if request include e.g 'images'
-         if (request.url.includes('images')) {
-             return next.handle(request)
-         } */
+
+        if (request.url.startsWith('http://') || request.url.startsWith('https://')) {
+            return next.handle(request);}
+
+        if (  request.url.includes('assets/i18n/')) {
+            return next.handle(request);
+        }
 
         request = request.clone({
             url: `${this.apiUrl}${request.url}`,
