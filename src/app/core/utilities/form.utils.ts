@@ -1,4 +1,4 @@
-import { FormGroup, ValidationErrors } from "@angular/forms";
+import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { CheckboxOption, Option } from "../models/option.model";
 
 interface ErrorMessages {
@@ -88,6 +88,15 @@ export function getSimplifyOption(option:Option): Option | null {
     label: option.label,
     value: option.value
   }
+}
+
+
+export function hasRequiredField(validator: ValidatorFn | null): boolean {
+  if (validator) {
+    const validationResult = validator({} as AbstractControl);
+    return !!(validationResult && validationResult.hasOwnProperty('required'));
+  }
+  return false;
 }
 
 

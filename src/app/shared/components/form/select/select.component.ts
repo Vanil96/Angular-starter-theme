@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/co
 import { ControlValueAccessor, NgControl, FormGroupDirective } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Option } from '@app/core/models/option.model';
-import { getErrorMessage, isArrayOfOptions, isOption } from '@app/core/utilities/form.utils';
+import { getErrorMessage, hasRequiredField, isArrayOfOptions, isOption } from '@app/core/utilities/form.utils';
 import { environment } from '@environments/environment';
 import { Subscription } from 'rxjs';
 
@@ -15,8 +15,10 @@ export class SelectComponent implements ControlValueAccessor, OnInit, OnDestroy 
   @Input({ required: true }) options: Option[];
   @Input() label = '';
   @Input() placeholder = '';
+  @Input() hint = '';
   @Input() appearance: MatFormFieldAppearance = 'fill';
   @Input() isMultiple = false;
+  isRequired = false;
   isDisabled = false;
   errorState: boolean = false;
   private _value: Option | Option[];
@@ -45,6 +47,10 @@ export class SelectComponent implements ControlValueAccessor, OnInit, OnDestroy 
     this.options.forEach(option => {
       option.isDisabled = option.isDisabled || false;
     });
+
+    if (this.ngControl && this.ngControl.control) {
+      this.isRequired = hasRequiredField(this.ngControl.control.validator);
+    }
   }
 
   ngOnDestroy(): void {

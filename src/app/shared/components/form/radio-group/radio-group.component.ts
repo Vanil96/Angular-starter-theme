@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 export class RadioGroupComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input({ required: true }) options: Option[];
   @Input() label = '';
+  @Input() verticalView = false;
   isDisabled = false;
   errorState: boolean = false;
   private subscriptions: Subscription[] = [];

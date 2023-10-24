@@ -1,6 +1,5 @@
 @use '/src/styles/shared/variables' as var;
-
-
+$inputsHorizontallyPadding: 12px;
 
 
 .form-field {
@@ -9,28 +8,64 @@
     }
 
     .form-field-invalid-message {
-        border: 1px solid var.$warn-clr;
         color: var.$warn-clr;
-        padding: 3px;
+        padding: 3px $inputsHorizontallyPadding;
         font-size: 11px;
         line-height: 1.2em;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        background: var.$warn-bg;
     }
 
-    //remember add style for hints
+    .form-field-hint {
+        padding: 3px $inputsHorizontallyPadding;
+    }
+
 }
+
+.required-star {
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    white-space: nowrap;
+    pointer-events: all;
+    box-sizing: inherit;
+
+    &::after {
+        margin-left: 2px;
+        margin-right: 0px;
+        content: "*";
+    }
+
+    &.red::after {
+        color: var.$warn-clr
+    }
+}
+
 
 //material
 body {
+    .form-field mat-form-field {
+        width: 100%;
+    }
 
     .mdc-text-field,
     .mat-mdc-form-field-hint-wrapper {
-        padding: 0 12px;
+        padding: 0 $inputsHorizontallyPadding;
     }
 
     .form-field.field-invalid {
         .mdc-text-field--filled .mdc-line-ripple::after {
             border-bottom-color: var.$warn-clr;
             opacity: 1;
+        }
+    }
+
+    .form-field.field-invalid {
+
+        .mdc-notched-outline__trailing,
+        .mdc-notched-outline__notch,
+        .mdc-notched-outline__leading {
+            border-color: var.$warn-clr !important;
         }
     }
 }

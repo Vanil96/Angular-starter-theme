@@ -1,7 +1,13 @@
 <div class="form-field checkbox-field" [ngClass]="{'field-invalid':errorState}">
   <div>
-    <mat-checkbox [checked]="value" (change)="handleChange($event)" (focusout)="handleBlur()" [disabled]="isDisabled" [labelPosition]="labelPosition">
-      {{label}}
+    <mat-checkbox 
+    [checked]="value" 
+    (change)="handleChange($event)" 
+    (focusout)="handleBlur()" 
+    [disabled]="isDisabled" 
+    [labelPosition]="labelPosition"
+    >
+      {{label}}<span class="required-star" *ngIf="isRequired"></span>
     </mat-checkbox>
   </div>
   <div class="form-field-invalid-message" *ngIf="errorState">

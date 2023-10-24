@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { getErrorMessage } from '@app/core/utilities/form.utils';
+import { getErrorMessage, hasRequiredField } from '@app/core/utilities/form.utils';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -17,6 +17,7 @@ export class TextareaComponent implements ControlValueAccessor, OnInit, OnDestro
   @Input() cols: number = 45;
   @Input() hint = '';
   errorState: boolean = false;
+  isRequired = false;
   isDisabled = false;
   private _value: string | number;
   private subscriptions: Subscription[] = [];
@@ -39,6 +40,10 @@ export class TextareaComponent implements ControlValueAccessor, OnInit, OnDestro
         this.onTouched();
         this.updateErrorState();
       }));
+    }
+
+    if (this.ngControl && this.ngControl.control) {
+      this.isRequired = hasRequiredField(this.ngControl.control.validator);
     }
   }
   ngOnDestroy(): void {

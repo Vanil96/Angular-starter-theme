@@ -56,7 +56,13 @@
   <div class="example-container">
     <mat-form-field>
       <mat-label>Enter your email</mat-label>
-      <input matInput placeholder="pat@example.com" [formControl]="email" required>
+      <input matInput placeholder="pat@example.com" [formControl]="email">
+      <mat-error *ngIf="true">esssaaa</mat-error>
+    </mat-form-field>
+ <br> 
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your email</mat-label>
+      <input matInput placeholder="pat@example.com" [formControl]="email">
       <mat-error *ngIf="true">esssaaa</mat-error>
     </mat-form-field>
   </div>
@@ -71,40 +77,39 @@
           <fieldset>
             <legend>app-input</legend>
 
-            <app-input [formControl]="form.get('name')" label="Name" hint="Lorem ipsum"> </app-input>
+            <app-input [formControl]="form.get('name')" label="Name" hint="Lorem ipsum ^"> </app-input>
             <app-input [formControl]="form.get('name') | formControl" label="Name" type="email"> </app-input> 
             <hr>
-            <app-input [formControl]="form.get('email') | formControl" label="Email" type="email"> </app-input>
-            <app-input [formControl]="form.get('password') | formControl" label="Password" type="password"> </app-input>
+            <app-input [formControl]="form.get('email') | formControl" label="Email" type="email" appearance="outline"> </app-input>
+            <app-input [formControl]="form.get('password') | formControl" label="Password" type="password" appearance="outline"> </app-input>
           </fieldset>
 
 
           <fieldset>
             <legend>app-input-autocomplete</legend>
 
-            <app-input-autocomplete [formControl]="form.get('list1') | formControl" [options]="list1" label="List 1">
+            <app-input-autocomplete [formControl]="form.get('list1') | formControl" [options]="list1" label="List1">
             </app-input-autocomplete>
             <hr>
-            <app-input-autocomplete [formControl]="form.get('list1') | formControl" [options]="list1" label="List 1">
+            <app-input-autocomplete [formControl]="form.get('list1') | formControl" [options]="list1" label="List1">
             </app-input-autocomplete>
           </fieldset>
 
           <fieldset>
             <legend>app-checkbox-group</legend>
             <app-checkbox-group [formControl]="form.get('checkboxList') | formControl"
-              label="hobbies"></app-checkbox-group>
+></app-checkbox-group>
             <hr>
             <app-checkbox-group [formControl]="form.get('checkboxList') | formControl"
-              label="hobbies"></app-checkbox-group>
+              label="Lorem ipsum lorem ipsum:" [verticalView]="false"></app-checkbox-group>
           </fieldset>
 
           <fieldset>
             <legend>app-radio-group</legend>
-            <app-radio-group [formControl]="form.get('radioList') | formControl" [options]="radioList"
-              label="List 3"></app-radio-group>
+            <app-radio-group [formControl]="form.get('radioList') | formControl" [options]="radioList"></app-radio-group>
             <hr>
             <app-radio-group [formControl]="form.get('radioList') | formControl" [options]="radioList"
-              label="List 3"></app-radio-group>
+              label="Lorem ipsum lorem ipsum:" [verticalView]="true"></app-radio-group>
           </fieldset>
 
 
@@ -112,7 +117,7 @@
             <legend>app-select </legend>
             <app-select [formControl]="form.get('list4') | formControl" [options]="list4" label="List 4"></app-select>
             <hr>
-            <app-select [formControl]="form.get('list4') | formControl" [options]="list4" label="List 4"></app-select>
+            <app-select [formControl]="form.get('list4') | formControl" [options]="list4" label="List 4" appearance="outline"></app-select>
           </fieldset>
 
 

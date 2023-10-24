@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl } from '@angular/forms'
-import { getErrorMessage } from '@app/core/utilities/form.utils';
+import { getErrorMessage, hasRequiredField } from '@app/core/utilities/form.utils';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class CheckboxComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() label = '';
   @Input() labelPosition:'before' | 'after' = 'after'
+  isRequired = false;
   isDisabled = false;
   errorState: boolean = false;
   private _value: boolean;
@@ -32,6 +33,10 @@ export class CheckboxComponent implements ControlValueAccessor, OnInit, OnDestro
         this.onTouched();
         this.updateErrorState();
       }));
+    }
+
+    if (this.ngControl && this.ngControl.control) {
+      this.isRequired = hasRequiredField(this.ngControl.control.validator);
     }
   }
 

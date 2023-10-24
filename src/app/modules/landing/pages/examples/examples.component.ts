@@ -24,13 +24,13 @@ export class ExamplesComponent {
   constructor(protected examplesService: ExamplesService, private fb: FormBuilder) {
     this.form = this.fb.group({
       name: ['Kłi', [Validators.required, Validators.minLength(10), Validators.maxLength(20)]],
-      email: ['', [Validators.email, Validators.required]],
+      email: ['', [Validators.email]],
       password: ['', [Validators.minLength(8), Validators.required]],
       gender: [''],
       country: [''],
       list1: [{ label: 'blok 2222', value: 2 }, [Validators.required]],
       checkboxList: [this.checkboxList],
-      radioList: [{ label: 'blok 2', value: 2 }, Validators.required],
+      radioList: [null, Validators.required],
       list4: [null, [Validators.required]],
       list5: [this.list4[1]],
       agree: [false, Validators.requiredTrue],

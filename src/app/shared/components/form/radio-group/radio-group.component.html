@@ -1,16 +1,18 @@
-<div class="form-field input-field" [ngClass]="{'field-invalid':errorState}">
-
-<mat-label>{{ label }}</mat-label>
+<div class="radio-group-field form-field" [ngClass]="{'field-invalid':errorState}">
+<mat-label *ngIf="label" class="label">{{label}}</mat-label>
 <mat-radio-group [disabled]="isDisabled">
+  <div [ngClass]="verticalView ? 'verticalView' : 'horizontalView'">
   <mat-radio-button
     *ngFor="let option of options"
     [value]="option"
     [checked]="option === value"
     [disabled]="option.isDisabled === true"
     (change)="selectOption(option)"
+    class="radio-button"
   >
     {{ option.label }}
   </mat-radio-button>
+</div>
 </mat-radio-group>
 <div class="form-field-invalid-message" *ngIf="errorState">
   <span>{{getErrorMessage()}}</span></div>

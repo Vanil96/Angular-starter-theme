@@ -12,7 +12,9 @@ import { Subscription } from 'rxjs';
 
 })
 export class CheckboxGroupComponent implements ControlValueAccessor, OnInit, OnDestroy, ValidationErrors {
+  @Input() label = '';
   @Input() showIsRequiredForSingle = true;
+  @Input() verticalView = true;
   @Input() showRequiredLegend = true;
   formArray: FormArray<any> = new FormArray<any>([], this.checkboxRequiredValidator());
   arrayHasRequiredUnchecked = false;

@@ -1,7 +1,10 @@
 <div class="form-field select-field" [ngClass]="{'field-invalid':errorState}">
-<mat-form-field [appearance]="appearance">
-  <mat-label>{{ label }}</mat-label>
-  <input matInput 
+<mat-form-field 
+[appearance]="appearance"
+subscriptSizing="dynamic"
+>
+<mat-label *ngIf="label">{{ label }}<span class="required-star" *ngIf="isRequired"></span> </mat-label>
+<input matInput 
   #inputRef
   [value]="displayedValue"
   [placeholder]="placeholder" 
@@ -19,6 +22,7 @@
     {{option.label}}
   </mat-option>
 </mat-autocomplete> 
+<div class="form-field-hint" *ngIf="hint">{{hint}}</div>
 <div class="form-field-invalid-message" *ngIf="errorState">
   <span>{{getErrorMessage()}}</span></div>
 </div>

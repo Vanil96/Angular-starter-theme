@@ -1,7 +1,10 @@
 <div class="form-field select-field" [ngClass]="{'field-invalid':errorState}">
-<mat-form-field [appearance]="appearance">
-    <mat-label>{{ label }}</mat-label>
-    <mat-select 
+<mat-form-field 
+[appearance]="appearance"
+subscriptSizing="dynamic" 
+>
+<mat-label *ngIf="label">{{ label }}<span class="required-star" *ngIf="isRequired"></span> </mat-label>
+<mat-select 
         [value]="value" 
         [compareWith]="compare" 
         [multiple]="isMultiple"
@@ -10,9 +13,9 @@
         (blur)="handleBlur()">
         <mat-option *ngFor="let option of options" [value]="option" [disabled]="option.isDisabled">{{option.label}}</mat-option>
     </mat-select>
-    <div class="form-field-invalid-message" *ngIf="errorState">
-        <span>{{getErrorMessage()}}</span></div>
         </mat-form-field>
+        <div class="form-field-invalid-message" *ngIf="errorState">
+            <span>{{getErrorMessage()}}</span></div>
 </div>
 
 

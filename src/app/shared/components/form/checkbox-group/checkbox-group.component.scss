@@ -1,4 +1,23 @@
+@use '/src/styles/shared/variables' as var;
+
+.label {
+    display: block;
+    padding-left:7px;
+    margin-bottom:.5em;
+}
+
 .required-info {
     font-style:italic;
     font-size:0.8em;
 }
+
+
+.horizontalView {
+ display:flex;
+ flex-wrap:wrap;
+ .form-field {
+    margin-right:10px;
+ }
+}
+
+

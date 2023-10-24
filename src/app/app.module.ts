@@ -29,7 +29,7 @@ import { translateLoader } from './shared/loaders/translate-browser.loader';
         loader: {
           provide: TranslateLoader,
           useFactory: (translateLoader),
-          deps: [HttpClient] // add TransferState if Angular Universal
+          deps: [HttpClient] // add TransferState if SSR
         }
       }
     ),

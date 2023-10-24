@@ -1,0 +1,19 @@
+.label {
+    display: block;
+    padding-left: 7px;
+    margin-bottom:.5em;
+}
+
+.horizontalView {
+    display: flex;
+    flex-wrap: wrap;
+
+    .radio-button {
+        margin-right: 10px;
+    }
+}
+
+.verticalView {
+    display:flex;
+    flex-direction: column;
+}

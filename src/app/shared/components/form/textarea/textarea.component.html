@@ -1,8 +1,10 @@
 <div class="form-field input-field" [ngClass]="{'field-invalid':errorState}">
-  <mat-form-field [appearance]="appearance"
+  <mat-form-field 
+  [appearance]="appearance"
+  subscriptSizing="dynamic" 
   >
-      <mat-label>{{ label }}</mat-label>
-    <textarea 
+  <mat-label *ngIf="label">{{ label }}<span class="required-star" *ngIf="isRequired"></span> </mat-label>
+  <textarea 
     #inputRef
     matInput 
     [placeholder]="placeholder"
@@ -13,11 +15,9 @@
     (input)="handleInput($event)"
     (blur)="handleBlur()"
     > </textarea>
-
-  <div class="form-field-invalid-message" *ngIf="errorState">
-  <span>{{getErrorMessage()}}</span> 
-  </div>
-    
- <mat-hint class="form-field-hint" *ngIf="hint">{{hint}}</mat-hint>
     </mat-form-field>  
+    <div class="form-field-hint" *ngIf="hint">{{hint}}</div> 
+    <div class="form-field-invalid-message" *ngIf="errorState">
+    <span>{{getErrorMessage()}}</span> 
+    </div>
         </div>

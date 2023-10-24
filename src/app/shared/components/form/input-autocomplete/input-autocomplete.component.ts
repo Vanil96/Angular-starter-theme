@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnDestroy, OnInit, Optional, Self, ViewCh
 import { AbstractControl, ControlValueAccessor, FormGroupDirective, NgControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Option } from '@app/core/models/option.model';
-import { getErrorMessage, isOption } from '@app/core/utilities/form.utils';
+import { getErrorMessage, hasRequiredField, isOption } from '@app/core/utilities/form.utils';
 import { environment } from '@environments/environment';
 import { Subscription } from 'rxjs';
 
@@ -19,8 +19,9 @@ export class InputAutocompleteComponent implements OnInit, OnDestroy, ControlVal
   @Input() type: InputType = 'text';
   @Input() appearance: MatFormFieldAppearance = 'fill';
   @Input() autocomplete = 'auto';
+  @Input() hint = '';
   @ViewChild('inputRef') inputRef: ElementRef;
-
+  isRequired = false;
   isDisabled = false;
   errorState: boolean = false;
   allOptions: Option[] = [];
@@ -34,8 +35,7 @@ export class InputAutocompleteComponent implements OnInit, OnDestroy, ControlVal
 
   constructor(
     @Self() @Optional() public ngControl: NgControl,
-    @Optional() private formGroupDirective: FormGroupDirective,
-  ) {
+    @Optional() private formGroupDirective: FormGroupDirective) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
@@ -55,6 +55,9 @@ export class InputAutocompleteComponent implements OnInit, OnDestroy, ControlVal
     this.allOptions = [...this.options];
     this.updateDisplayedValueAndOptions();
 
+    if (this.ngControl && this.ngControl.control) {
+      this.isRequired = hasRequiredField(this.ngControl.control.validator);
+    }
   }
 
   ngOnDestroy(): void {

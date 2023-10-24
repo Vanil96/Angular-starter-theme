@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { PageNotFoundComponent } from "./shared/components/page-not-found/page-not-found.component";
 import { AuthorizedGuard } from "./core/guards/authorized.guard";
 
-
+  
 const routes: Routes = [
     {
         path: '',
