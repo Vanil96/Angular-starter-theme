@@ -30,7 +30,6 @@ export class AuthService {
   state = this.session.pipe(
     map(session => !!session && !!session.token),
     tap(state => {
-      console.log('Set isAuthenticated: ', state)
       this.isAuthenticated = state
     })
   )
@@ -59,8 +58,7 @@ export class AuthService {
   }
 
   logout(message?: string) {
-    //this.http.post('logout);
-    localStorage.removeItem('session');  
+    localStorage.removeItem('session');
     this.router.navigate(['/auth']);
     const session = this.session.getValue();
     if (session) {
@@ -96,6 +94,4 @@ export class AuthService {
     const storedSession = localStorage.getItem('session');
     return storedSession ? JSON.parse(storedSession) : null;
   }
-
-
 }

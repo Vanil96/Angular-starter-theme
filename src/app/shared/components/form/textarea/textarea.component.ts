@@ -13,7 +13,7 @@ export class TextareaComponent implements ControlValueAccessor, OnInit, OnDestro
   @Input() label = '';
   @Input() placeholder = '';
   @Input() appearance: MatFormFieldAppearance = 'fill';
-  @Input() rows: number = 15;
+  @Input() rows: number = 5;
   @Input() cols: number = 45;
   @Input() hint = '';
   errorState: boolean = false;

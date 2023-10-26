@@ -1,0 +1,37 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use 'config' as config;
+@include mat.core();
+
+$my-primary: mat.define-palette(config.$primary-palette, config.$primary-default-shape);
+$my-accent: mat.define-palette(config.$accent-palette, config.$accent-default-shape, config.$accent-lighter-shape, config.$accent-darker-shape);
+$my-warn: mat.define-palette(config.$warn-palette, config.$warn-default-shape); 
+
+$my-typography: mat.define-typography-config($font-family: 'Courier New, monospace');
+
+
+$my-theme: mat.define-light-theme((
+ color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn,
+ ),
+ typography: $my-typography,
+ density: 0,
+));
+
+
+//delete if not needed typography hierarchy styles
+//@include mat.typography-hierarchy($my-theme); 
+
+// Emit theme for core and all angular material components 
+// if using most of angular material components use: 
+@include mat.all-component-themes($my-theme);
+// ^Generates code for unused angular material components
+
+// if not using most of angular material components use this version:
+// Emit theme-dependent styles for common features used across multiple components.
+// @include mat.core-theme($my-theme);
+// and then emit styles based on theme for each of angular material components you use e.g MatButton:
+// @include mat.button-theme($my-theme);
+

@@ -17,12 +17,10 @@ export class ProfileBarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.profileService.getUserProfile().subscribe(user => { this.user = user; console.log('Profile bar get user') })
-      )
+      this.profileService.getUserProfile().subscribe(user => { this.user = user; })
+    )
   }
-
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
-
 }

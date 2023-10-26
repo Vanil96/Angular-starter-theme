@@ -1,35 +1,26 @@
-@use '@angular/material' as mat;
 @use 'sass:map';
 @use '/src/styles/global/material/config' as mat-config;
-
 
 //fonts
 $main-font: "Courier New", monospace;
 $material-font: $main-font;
 $btn-font: $main-font;
 
+
 //colors
-$primary-clr: mat-config.$primary-clr;
-$primary-contrast-clr: mat-config.$primary-contrast-clr;
+$primary-clr: mat-config.$mat-primary-color;
+$primary-contrast-clr: mat-config.$mat-primary-contrast-color;
 
-$accent-clr: mat-config.$accent-clr;
-$accent-contrast-clr: mat-config.$accent-contrast-clr;
+$accent-clr: mat-config.$mat-accent-color;
+$accent-contrast-clr: mat-config.$mat-accent-contrast-color;
 
-$accent-lighter-clr: mat-config.$accent-lighter-clr;
-$accent-lighter-contrast-clr: mat-config.$accent-lighter-contrast-clr;
-
-$accent-darker-clr: mat-config.$accent-darker-clr;
-$accent-darker-contrast-clr: mat-config.$accent-darker-contrast-clr;
-
-$warn-clr: mat-config.$warn-clr;
-$warn-contrast-clr: mat-config.$warn-contrast-clr;
-$warn-bg: #fff2f1;
-
-$main-text-clr: black;
-$link-clr: $accent-lighter-contrast-clr;
+$warn-clr: mat-config.$mat-warn-color;
+$warn-contrast-clr: mat-config.$mat-warn-contrast-color;
 
 $grey-clr: rgba(0, 0, 0, 0.38);
-
+$warn-bg: #fff2f1;
+$main-text-clr: black;
+$link-clr: $main-text-clr;
 
 //breakpoints
 $breakpoint-sm: 576px;

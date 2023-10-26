@@ -25,10 +25,7 @@
       <mat-icon>home</mat-icon>
     </button>
 
-    <button class="btn primary" (click)="addTodo(titleRef.value)">btn primary</button>
-    <button class="btn accent" (click)="addTodo(titleRef.value)">btn accent</button>
-    <button class="btn warn" (click)="addTodo(titleRef.value)">btn warn <mat-icon>more_vert</mat-icon> </button>
-    <button class="btn warn" disabled (click)="addTodo(titleRef.value)">btn warn </button>
+
 
     <button class="btn primary stroked" disabled (click)="addTodo(titleRef.value)">btn warn </button>
 
@@ -52,98 +49,140 @@
 
   <p>Results: {{($todos | async)?.length || 0}}</p>
 
-
-  <div class="example-container">
-    <mat-form-field>
-      <mat-label>Enter your email</mat-label>
-      <input matInput placeholder="pat@example.com" [formControl]="email">
-      <mat-error *ngIf="true">esssaaa</mat-error>
-    </mat-form-field>
- <br> 
-    <mat-form-field appearance="outline">
-      <mat-label>Enter your email</mat-label>
-      <input matInput placeholder="pat@example.com" [formControl]="email">
-      <mat-error *ngIf="true">esssaaa</mat-error>
-    </mat-form-field>
-  </div>
-
   <div class="container">
-    <div class="col-6">
-      <fieldset>
-        <legend>Form Example</legend>
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <fieldset>
+          <legend>Form Example</legend> 
+          <h3>Buttons</h3>
 
-        <form (ngSubmit)="onSubmit()" [formGroup]="form" style="display:flex; flex-direction: column; gap:2px">
+<fieldset>
+  <legend>Custom</legend>
+  <button class="btn stroked">Basic</button>
+  <button class="btn" disabled>Disabled</button>
+  <button class="btn primary" color="primary">Primary.<mat-icon [inline]="true">more_vert</mat-icon></button>
+  <button class="btn accent">Accent</button>
+  <button class="btn warn">Warn  </button>
 
-          <fieldset>
-            <legend>app-input</legend>
+</fieldset>
 
-            <app-input [formControl]="form.get('name')" label="Name" hint="Lorem ipsum ^"> </app-input>
-            <app-input [formControl]="form.get('name') | formControl" label="Name" type="email"> </app-input> 
-            <hr>
-            <app-input [formControl]="form.get('email') | formControl" label="Email" type="email" appearance="outline"> </app-input>
-            <app-input [formControl]="form.get('password') | formControl" label="Password" type="password" appearance="outline"> </app-input>
-          </fieldset>
-
-
-          <fieldset>
-            <legend>app-input-autocomplete</legend>
-
-            <app-input-autocomplete [formControl]="form.get('list1') | formControl" [options]="list1" label="List1">
-            </app-input-autocomplete>
-            <hr>
-            <app-input-autocomplete [formControl]="form.get('list1') | formControl" [options]="list1" label="List1">
-            </app-input-autocomplete>
-          </fieldset>
-
-          <fieldset>
-            <legend>app-checkbox-group</legend>
-            <app-checkbox-group [formControl]="form.get('checkboxList') | formControl"
-></app-checkbox-group>
-            <hr>
-            <app-checkbox-group [formControl]="form.get('checkboxList') | formControl"
-              label="Lorem ipsum lorem ipsum:" [verticalView]="false"></app-checkbox-group>
-          </fieldset>
-
-          <fieldset>
-            <legend>app-radio-group</legend>
-            <app-radio-group [formControl]="form.get('radioList') | formControl" [options]="radioList"></app-radio-group>
-            <hr>
-            <app-radio-group [formControl]="form.get('radioList') | formControl" [options]="radioList"
-              label="Lorem ipsum lorem ipsum:" [verticalView]="true"></app-radio-group>
-          </fieldset>
-
-
-          <fieldset>
-            <legend>app-select </legend>
-            <app-select [formControl]="form.get('list4') | formControl" [options]="list4" label="List 4"></app-select>
-            <hr>
-            <app-select [formControl]="form.get('list4') | formControl" [options]="list4" label="List 4" appearance="outline"></app-select>
-          </fieldset>
+<fieldset>
+  <legend>Angular material</legend>
+  <div class="button-row">
+    <!-- Standard button -->
+    <button mat-button>Basic</button>
+  
+    <!-- Button with an accent color -->
+    <button mat-button color="accent">Accent</button>
+  
+    <!-- Button with a primary color -->
+    <button mat-button color="primary">Primary <mat-icon>more_vert</mat-icon></button>
+  
+    <!-- Button with a warn color -->
+    <button mat-button color="warn">Warn</button>
+  
+    <!-- Disabled button -->
+    <button mat-button disabled>Disabled</button>
+  
+    <!-- Flat button -->
+    <button mat-flat-button>Flat</button>
+  
+    <!-- Raised button -->
+    <button mat-raised-button>Raised</button>
+  
+    <!-- Stroked button -->
+    <button mat-stroked-button>Stroked</button>
+  
+    <!-- Fab button -->
+    <button mat-fab>Fab</button>
+  
+    <!-- Mini Fab button -->
+    <button mat-mini-fab>Mini Fab</button>
+  
+    <!-- Icon button -->
+    <button mat-icon-button>
+      <mat-icon>favorite</mat-icon>  <!-- You can use any icon here -->
+    </button>
+  </div>
+</fieldset>
 
 
-          <fieldset>
-            <legend>app-checkbox</legend>
-            <app-checkbox label="I Agree to Terms and Conditions"
-              [formControl]="form.get('agree') | formControl"></app-checkbox>
-            <hr>
-            <app-checkbox label="I Agree to Terms and Conditions"
-              [formControl]="form.get('agree') | formControl"></app-checkbox>
-          </fieldset>
+        </fieldset>
+      </div>
 
-          <fieldset>
-            <legend>app-textarea</legend>
-            <app-textarea [formControl]="form.get('description') | formControl" label="Description"
-              placeholder="Lorem ipsum..."></app-textarea>
-          </fieldset>
+      <div class="col-12 col-md-6">
+        <fieldset>
+          <legend>Form Example</legend>
+          <h3>Form shared inputs based on controlValueAccessor</h3>
+          <form (ngSubmit)="onSubmit()" [formGroup]="form" style="display:flex; flex-direction: column; gap:2px">
 
-          <div formArrayName="hobbies">
-            Hobbies <div *ngFor="let hobby of hobbies.controls; let i = index">
-              <input [formControlName]="i">
-            </div>
-          </div>
-          <button type="submit" >Submit</button>
-        </form>
-      </fieldset>
+            <fieldset>
+              <legend>app-input</legend>
+
+              <app-input [formControl]="form.get('name')" label="Name (fill)" hint="Sample hint text"> </app-input>
+              <br>
+              <app-input [formControl]="form.get('password') | formControl" label="Password (outline)" type="password"
+                appearance="outline"> </app-input>
+            </fieldset>
+
+            <fieldset>
+              <legend>app-input-autocomplete</legend>
+
+              <app-input-autocomplete [formControl]="form.get('autocompleteList') | formControl"
+                [options]="autocompleteList" label="Autocomplete (fill)">
+              </app-input-autocomplete>
+              <br>
+              <app-input-autocomplete [formControl]="form.get('autocompleteList') | formControl"
+                [options]="autocompleteList" label="Autocomplete (outline)" appearance="outline">
+              </app-input-autocomplete>
+            </fieldset>
+
+            <fieldset>
+              <legend>app-checkbox-group</legend>
+              <app-checkbox-group [formControl]="form.get('checkboxList') | formControl"
+                label="Vertical:"></app-checkbox-group>
+              <br>
+              <app-checkbox-group [formControl]="form.get('checkboxList') | formControl" label="Horizontal:"
+                [verticalView]="false"></app-checkbox-group>
+            </fieldset>
+
+            <fieldset>
+              <legend>app-radio-group</legend>
+              <app-radio-group [formControl]="form.get('radioList') | formControl" [options]="radioList"
+                label="Vertical" [verticalView]="true"></app-radio-group>
+              <br>
+              <app-radio-group label="Horizontal:" [formControl]="form.get('radioList') | formControl"
+                [options]="radioList"></app-radio-group>
+
+            </fieldset>
+
+
+            <fieldset>
+              <legend>app-select </legend>
+              <app-select [formControl]="form.get('selectList') | formControl" [options]="selectList"
+                label="Select (fill)"></app-select>
+              <br>
+              <app-select [formControl]="form.get('selectList') | formControl" [options]="selectList"
+                label="Select (outline)" appearance="outline"></app-select>
+            </fieldset>
+
+
+            <fieldset>
+              <legend>app-checkbox</legend>
+              <app-checkbox label="I Agree to Terms and Conditions"
+                [formControl]="form.get('singleCheckbox') | formControl"></app-checkbox>
+            </fieldset>
+
+            <fieldset>
+              <legend>app-textarea</legend>
+              <app-textarea [formControl]="form.get('textArea') | formControl" label="Description"
+                placeholder="Lorem ipsum..."></app-textarea>
+            </fieldset>
+
+            <button type="submit">Submit</button>
+          </form>
+        </fieldset>
+      </div>
     </div>
   </div>
 

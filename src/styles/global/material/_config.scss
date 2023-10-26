@@ -1,123 +1,31 @@
 @use '@angular/material' as mat;
+//Composed color pallets ready to use you'll find there: node_modules\@angular\material\core\theming\_palette.scss
 
 
-//pallets
-$primary-default: 500;
-$primary-palette: mat.define-palette((
-            50 : #e5f4f3,
-            100 : #bee4e1,
-            200 : #93d3cd,
-            300 : #67c1b8,
-            400 : #47b3a9,
-            500 : #26a69a,
-            600 : #229e92,
-            700 : #1c9588,
-            800 : #178b7e,
-            900 : #0d7b6c,
-            A100 : #adfff3,
-            A200 : #7affec,
-            A400 : #47ffe4,
-            A700 : #2dffe0,
-            contrast: (50 : #000000,
-                100 : #000000,
-                200 : #000000,
-                300 : #000000,
-                400 : #000000,
-                500 : #ffffff,
-                600 : #ffffff,
-                700 : #ffffff,
-                800 : #ffffff,
-                900 : #ffffff,
-                A100 : #000000,
-                A200 : #000000,
-                A400 : #000000,
-                A700 : #000000,
-            )));
+//shapes
+$primary-default-shape: 500;
+$accent-default-shape: A200;
+$accent-lighter-shape: A100;
+$accent-darker-shape: A400;
+$warn-default-shape: 500;
 
-$accent-default: A200;
-$accent-lighter: A100;
-$accent-darker: A400;
-$accent-palette: mat.define-palette(
-            (50 : #eef5fb,
-            100 : #d4e5f5,
-            200 : #b7d4ee,
-            300 : #9ac2e7,
-            400 : #85b5e1,
-            500 : #6fa8dc,
-            600 : #67a0d8,
-            700 : #5c97d3,
-            800 : #528dce,
-            900 : #407dc5,
-            A100 : #ffffff,
-            A200 : #e3efff,
-            A400 : #b0d3ff,
-            A700 : #96c4ff,
-            contrast: (50 : #000000,
-                100 : #000000,
-                200 : #000000,
-                300 : #000000,
-                400 : #000000,
-                500 : #000000,
-                600 : #000000,
-                700 : #000000,
-                800 : #000000,
-                900 : #ffffff,
-                A100 : #000000,
-                A200 : #000000,
-                A400 : #000000,
-                A700 : #000000,
-            )));
+$primary-palette: mat.$lime-palette;
+$accent-palette: mat.$green-palette;
+$warn-palette: mat.$red-palette;
 
 
-            $warn-default: 500;
-            $warn-palette: mat.define-palette((
-                50 : #f9e0e0,
-                100 : #f0b3b3,
-                200 : #e68080,
-                300 : #db4d4d,
-                400 : #d42626,
-                500 : #cc0000,
-                600 : #c70000,
-                700 : #c00000,
-                800 : #b90000,
-                900 : #ad0000,
-                A100 : #ffd7d7,
-                A200 : #ffa4a4,
-                A400 : #ff7171,
-                A700 : #ff5858,
-                contrast: (
-                    50 : #000000,
-                    100 : #000000,
-                    200 : #000000,
-                    300 : #ffffff,
-                    400 : #ffffff,
-                    500 : #ffffff,
-                    600 : #ffffff,
-                    700 : #ffffff,
-                    800 : #ffffff,
-                    900 : #ffffff,
-                    A100 : #000000,
-                    A200 : #000000,
-                    A400 : #000000,
-                    A700 : #000000,
-                )
-            ));
-            
+//to export variables with main colors
+$mat-primary-color: map-get($primary-palette, $primary-default-shape);
+$mat-primary-contrast-color: map-get(map-get($primary-palette, 'contrast'), $primary-default-shape);
 
+$mat-accent-color: map-get($accent-palette, $accent-default-shape);
+$mat-accent-contrast-color: map-get(map-get($accent-palette, 'contrast'), $accent-default-shape);
 
+$mat-accent-lighter-color: map-get($accent-palette, $accent-lighter-shape);
+$mat-accent-lighter-contrast-color: map-get(map-get($accent-palette, 'contrast'), $accent-lighter-shape);
 
-            $primary-clr: map-get($primary-palette, $primary-default);
-            $primary-contrast-clr: map-get(map-get($primary-palette, 'contrast'), $primary-default);
-            
-            $accent-clr: map-get($accent-palette, $accent-default);
-            $accent-contrast-clr: map-get(map-get($accent-palette, 'contrast'), $accent-default);
-            
-            $accent-lighter-clr: map-get($accent-palette, $accent-lighter);
-            $accent-lighter-contrast-clr: map-get(map-get($accent-palette, 'contrast'), $accent-lighter);
+$mat-accent-darker-color: map-get($accent-palette, $accent-darker-shape);
+$mat-accent-darker-contrast-color: map-get(map-get($accent-palette, 'contrast'), $accent-darker-shape);
 
-            $accent-darker-clr: map-get($accent-palette, $accent-darker);
-            $accent-darker-contrast-clr: map-get(map-get($accent-palette, 'contrast'), $accent-darker); 
-            
-            $warn-clr: map-get($warn-palette, $warn-default);
-            $warn-contrast-clr: map-get(map-get($warn-palette, 'contrast'), $warn-default);
-            
+$mat-warn-color: map-get($warn-palette, $warn-default-shape);
+$mat-warn-contrast-color: map-get(map-get($warn-palette, 'contrast'), $warn-default-shape);
