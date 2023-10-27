@@ -1,23 +1,11 @@
-<h1>{{'title' | translate}}</h1>
 
 <fieldset>
   <legend>
     Examples component
   </legend>
 
-  <router-outlet></router-outlet>
-  <h2> Examples component </h2>
-
-  <div style="margin:2rem 0">
-    <!-- 
-<h1>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio, expedita neque. Quibusdam totam mollitia ullam. Cum obcaecati soluta, molestias ullam quo illo dignissimos nemo dicta molestiae ea, sapiente totam tempore.</h1>
-<h2>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio, expedita neque. Quibusdam totam mollitia ullam. Cum obcaecati soluta, molestias ullam quo illo dignissimos nemo dicta molestiae ea, sapiente totam tempore.</h2>
-<h3>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio, expedita neque. Quibusdam totam mollitia ullam. Cum obcaecati soluta, molestias ullam quo illo dignissimos nemo dicta molestiae ea, sapiente totam tempore.</h3>
-<h4>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio, expedita neque. Quibusdam totam mollitia ullam. Cum obcaecati soluta, molestias ullam quo illo dignissimos nemo dicta molestiae ea, sapiente totam tempore.</h4>
-<h5>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio, expedita neque. Quibusdam totam mollitia ullam. Cum obcaecati soluta, molestias ullam quo illo dignissimos nemo dicta molestiae ea, sapiente totam tempore.</h5> -->
-
-
-  </div>
+  <fieldset>
+    <legend>List with pagination (to continue)</legend>
 
   <input type="text" id="search" (keyup.enter)="search($event)" placeholder="Search...">
   <ul style="height:400px; overflow: scroll;">
@@ -30,39 +18,35 @@
       <option value="30">30</option>
     </select>
   </div>
-
-
   <p>Results: {{($todos | async)?.length || 0}}</p>
+
+</fieldset>
+
 
   <div class="container">
     <div class="row">
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-md-4">
         <fieldset>
           <legend>Buttons</legend>
-
-          <div class="button-row" style="display:Flex; flex-direction: column; gap:1rem">
+          <div class="button-row" style="display:Flex; flex-direction: column; gap:1rem; max-width:300px; margin:auto">
             <span>Default buttons</span>
             <button class="btn">Button basic</button>
             <button class="btn" color="primary">Button primary</button>
             <button class="btn" color="accent">Button accent</button>
             <button class="btn" color="warn">Button warn</button>
             <button class="btn" disabled>Button disabled</button>
-
             <hr>
             <span>Outline buttons</span>
-
             <button class="btn outline">Button basic</button>
             <button class="btn outline" color="primary">Button primary</button>
             <button class="btn outline" color="accent">Button accent</button>
             <button class="btn outline" color="warn">Button warn</button>
             <button class="btn outline" disabled>Button disabled</button>
-
           </div>
-
         </fieldset>
       </div>
 
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-md-4">
         <fieldset>
           <legend>Form Example</legend>
           <h3>Form shared inputs based on controlValueAccessor</h3>
