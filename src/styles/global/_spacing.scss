@@ -33,3 +33,10 @@ $spacing-sizes: (
 }
 
 @include generate-paddings;
+
+
+//additional utilites class
+.m-auto {
+  margin-left: auto;
+  margin-right: auto;
+}

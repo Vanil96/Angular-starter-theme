@@ -1,7 +1,7 @@
 <fieldset>
     <legend>Navbar component</legend>
-    <nav style="display:flex; justify-content: space-between;">
-        <ul style="display:flex; gap:2rem;">
+    <nav style="display:flex; justify-content: space-between; flex-wrap:wrap; ">
+        <ul style="display:flex; flex-wrap:wrap; gap:1rem">
             <li>
                 <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">HOME</a>
             </li>
@@ -20,7 +20,12 @@
                 <a routerLink="examples" routerLinkActive="active">EXAMPLES</a>
             </li>
         </ul>
-        <app-profile-bar *ngIf="isAuthenticated"></app-profile-bar>
+
+        <div *ngIf="isAuthenticated">
+            <p *ngIf="user$ | async">{{(user$ | async)?.email}}
+                <button (click)="this.auth.logout()"> | Logout</button>
+            </p>
+        </div>
     </nav>
 </fieldset>
 

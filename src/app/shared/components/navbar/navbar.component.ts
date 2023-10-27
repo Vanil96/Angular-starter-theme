@@ -1,4 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { User } from '@app/core/models/user.model';
+import { AuthService } from '@app/core/services/auth.service';
+import { ProfileService } from '@app/core/services/profile.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +11,11 @@ import { Component, Input } from '@angular/core';
 })
 export class NavbarComponent {
   @Input() isAuthenticated = false;
+  user$: Observable<User | null>
 
-
+  constructor(private profileService: ProfileService, protected auth: AuthService) { }
+  ngOnInit(): void {
+    this.user$ = this.profileService.getUserProfile();
+  }
   
 }

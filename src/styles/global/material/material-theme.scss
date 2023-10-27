@@ -7,8 +7,9 @@ $my-primary: mat.define-palette(config.$primary-palette, config.$primary-default
 $my-accent: mat.define-palette(config.$accent-palette, config.$accent-default-shape, config.$accent-lighter-shape, config.$accent-darker-shape);
 $my-warn: mat.define-palette(config.$warn-palette, config.$warn-default-shape); 
 
-$my-typography: mat.define-typography-config($font-family: 'Courier New, monospace');
-
+$my-typography: mat.define-typography-config(
+   $font-family: 'Courier New, monospace'
+);
 
 $my-theme: mat.define-light-theme((
  color: (
@@ -21,7 +22,7 @@ $my-theme: mat.define-light-theme((
 ));
 
 
-//delete if not needed typography hierarchy styles
+//include material typography hierarchy styles
 //@include mat.typography-hierarchy($my-theme); 
 
 // Emit theme for core and all angular material components 

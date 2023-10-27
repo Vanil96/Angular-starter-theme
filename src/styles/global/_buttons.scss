@@ -2,9 +2,8 @@
 
 .btn,
 button {
-    display: inline-flex;
     font-family: var.$btn-font;
-    padding: 10px 20px;
+    padding: .5em .75em;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
@@ -16,8 +15,6 @@ button {
 
 .btn:hover {
     box-shadow: (0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12));
-    //box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
-
 }
 
 .btn::before {
@@ -44,40 +41,61 @@ button {
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-
 /* Wariant "Disabled" */
 .btn:disabled {
     cursor: not-allowed;
     opacity: 0.5;
 }
 
-/* Wariant "Stroked" */
-.btn.stroked {
-    background-color: transparent;
+.btn:not(.outline) {
+    background-color: rgb(245, 245, 245);
     border: 1px solid;
-    border-color: var.$main-text-clr;
+    border-color: rgb(245, 245, 245);
     color: var.$main-text-clr;
 
-    &.primary {
+    &[color="primary"] {
+        background-color: var.$primary-clr;
+        color: var.$primary-contrast-clr;
         border-color: var.$primary-clr;
-        color: var.$primary-clr;
     }
 
-    &.accent {
+    &[color="accent"] {
+        background-color: var.$accent-clr;
+        color: var.$accent-contrast-clr;
         border-color: var.$accent-clr;
     }
 
-    &.warn {
-        border-color: var.$warn-clr;
-        color: var.$warn-clr;
+    &[color="warn"] {
+        background-color: var.$warn-clr;
+        color: var.$warn-contrast-clr;
+        border-color: var.$warn-clr
+    }
+}
+
+.btn.outline {
+    background-color: transparent;
+    border: 1px solid;
+    border-color: rgba(var.$main-text-clr, 0.4);
+    color: var.$main-text-clr;
+
+    &[color="primary"] {
+        color: var.$primary-clr;
+        border-color: rgba(var.$primary-clr, 0.8);
     }
 
+    &[color="accent"] {
+        color: var.$accent-clr;
+        border-color: rgba(var.$accent-clr, 0.8);
+    }
+
+    &[color="warn"] {
+        color: var.$warn-clr;
+        border-color: rgba(var.$warn-clr, 0.8);
+    }
 }
 
-.btn.stroked:hover {
-    //  background-color: #6200ea;
-    //  color: #ffffff;
-}
+
+
 
 
 

@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/core/models/user.model';
 import { ProfileService } from 'src/app/core/services/profile.service';
 
@@ -8,31 +8,11 @@ import { ProfileService } from 'src/app/core/services/profile.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit, OnDestroy {
-  user: User | null;
-  private subscriptions: Subscription[] = []
-  error: string;
+export class ProfileComponent implements OnInit {
+  user$: Observable<User | null>
   constructor(protected profileService: ProfileService) { }
 
   ngOnInit(): void {
-    this.getProfile();
+    this.user$ = this.profileService.getUserProfile();
   }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-  }
-
-  refreshProfile(): void {
-    this.profileService.clearCache();
-    this.getProfile();
-  }
-
-  getProfile(): void {
-    this.subscriptions.push(
-      this.profileService.getUserProfile().subscribe(user => { this.user = user;})
-    )
-  }
-
-
-
 }

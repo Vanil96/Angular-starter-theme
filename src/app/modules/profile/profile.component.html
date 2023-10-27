@@ -3,16 +3,8 @@
         Profile component
     </legend>
     <h3>User data:</h3>
-    <div *ngIf="user">
-        <ul>
-            <li> <strong>Name:</strong> {{user.name}}</li>
-            <li> <strong>Username:</strong> {{user.username}}</li>
-            <li> <strong>E-mail:</strong> {{user.email}}</li>
-            <li> <strong>City:</strong> {{user.address?.city}}</li>
-        </ul>
+    <div *ngIf="user$ | async">
+        <span>{{user$ | async | json}}</span>
     </div>
-    <button (click)="refreshProfile()">refresh profile</button>
-
-
 
 </fieldset>
