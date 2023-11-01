@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
@@ -36,13 +36,15 @@ export class AuthService {
 
 
   login(credentials: Credentials) {
-    this.http.post<Session>('login', credentials).subscribe(
+    const headers = new HttpHeaders({ 'HandleManually': 'true' });
+    
+    this.http.post<Session>('login', credentials, { headers }).subscribe(
       {
         next: (session: Session) => {
           this.session.next(session);
           this.storeSession(session);
           this.router.navigate(['/profile']);
-
+console.log(credentials)
           //Simulate expired token
           /*    setTimeout(() => {
                 const currentSession = this.session.getValue();
@@ -52,7 +54,8 @@ export class AuthService {
                 }
               }, 5500)      */
         },
-        error: err => { if (err instanceof HttpErrorResponse) console.error(err.error) }
+        error: err => {console.log('error', credentials)
+          if (err instanceof HttpErrorResponse) console.error(err.error) }
       }
     )
   }

@@ -1,6 +1,9 @@
 import { HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+
+@Injectable({ providedIn: 'root' })
 
 export class ApiUrlInterceptor implements HttpInterceptor {
     private apiUrl = environment.apiUrl;

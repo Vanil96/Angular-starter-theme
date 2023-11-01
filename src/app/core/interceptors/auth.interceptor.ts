@@ -4,15 +4,12 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { SnackBarService } from '../services/snack-bar.service';
-import { Router } from '@angular/router';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private authServie: AuthService, private snackbar: SnackBarService, private router: Router) { }
+  constructor(private authServie: AuthService, private snackbar: SnackBarService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(this.getAuthorizedRequest(req)).pipe(
       catchError((err) => {
@@ -24,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
   
           if (err.status === 403) {
             this.snackbar.open('httpErrors.authorization.403', 'warn');
-            this.router.navigate(['']);
+           // this.router.navigate(['']); 
             return throwError(() => err);
           }
         }

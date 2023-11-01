@@ -11,18 +11,19 @@ export class LoginComponent implements OnInit {
   message: string | null | undefined;
 
   form: FormGroup = this.fb.group({
-    email: ['admin', [Validators.required, Validators.email]],
+    username: ['', [Validators.required]],
     password: ['', Validators.required]
   })
 
   constructor(
     private fb: FormBuilder,
-    private auth: AuthService
+    private auth: AuthService,
   ) { }
 
   ngOnInit(): void {
     this.message = this.auth.getMessage();
   }
 
-  login() { this.auth.login(this.form.value) }
+  login() {
+    this.auth.login(this.form.value);  }
 }

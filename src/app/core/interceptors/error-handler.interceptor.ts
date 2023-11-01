@@ -4,10 +4,10 @@ import { TranslateService } from "@ngx-translate/core";
 import { Observable, catchError, throwError } from 'rxjs';
 import { SnackBarService } from "../services/snack-bar.service";
 
+@Injectable({ providedIn: 'root' })
 //to not use that interceptor for any http request, add 'HandleManually' to headers
 //for example: this.http.get('/endpoint', {headers: new HttpHeaders({ 'HandleManually': 'true' })});
 
-@Injectable()
 export class ErrorHandlerInterceptor implements HttpInterceptor {
     constructor(private snackbar: SnackBarService, private translate: TranslateService) { }
 
