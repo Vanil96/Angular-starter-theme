@@ -1,5 +1,25 @@
 @use '/src/styles/shared/variables' as var;
 
+$max-width-values: (
+  xs: 200px,
+  sm: 400px,
+  md: 600px,
+  lg: 800px,
+  xl: 1000px,
+  2xl: 1200px,
+  3xl: 1400px,
+  4xl: 1600px,
+  5xl: 1800px,
+  6xl: 2000px,
+  7xl: 2200px
+);
+
+@each $name, $value in $max-width-values {
+  .max-w-#{$name} {
+    max-width: $value;
+  }
+}
+
 .container {
     width: 100%;
     padding-right: 15px;

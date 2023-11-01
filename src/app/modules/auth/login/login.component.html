@@ -1,16 +1,15 @@
 <fieldset>
     <legend>Login component</legend>
-    <form [formGroup]="form" (submit)="login()">
-        <p style="color:yellowgreen" *ngIf="message">{{message}} </p>
 
-        <div>
-            <label for="username"> Username </label>
-            <input type="text" id="username" formControlName="username">
-        </div>
-        <div>
-            <label for="password"> Password </label>
-            <input type="password" id="password" formControlName="password">
-        </div>
-        <button type="submit">Submit</button>
-    </form>
-</fieldset> 
+    <div class="container max-w-sm text-center">
+        <h1>Login</h1>
+
+        <form [formGroup]="form" (submit)="login()">
+            <app-input formControlName="email" type="email" label="Email"></app-input>
+            <app-input formControlName="password" type="password" label="Password" class="mt-3"></app-input>
+            <button mat-raised-button type="submit" color="primary" class="mt-3">{{'form.submit' | translate}}</button>
+        </form>
+
+
+    </div>
+</fieldset>

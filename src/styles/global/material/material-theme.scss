@@ -3,6 +3,7 @@
 @use 'config' as config;
 @include mat.core();
 
+//set pallete's in config.
 $my-primary: mat.define-palette(config.$primary-palette, config.$primary-default-shape);
 $my-accent: mat.define-palette(config.$accent-palette, config.$accent-default-shape, config.$accent-lighter-shape, config.$accent-darker-shape);
 $my-warn: mat.define-palette(config.$warn-palette, config.$warn-default-shape); 

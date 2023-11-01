@@ -1,5 +1,9 @@
 @use '/src/styles/shared/variables' as var;
 
+:host {
+    display:block;
+}
+
 .label {
     display: block;
     padding-left:7px;

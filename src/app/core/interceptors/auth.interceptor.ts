@@ -3,6 +3,8 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { SnackBarService } from '../services/snack-bar.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,31 +12,27 @@ import { AuthService } from '../services/auth.service';
 
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private authServie: AuthService) { }
+  constructor(private authServie: AuthService, private snackbar: SnackBarService, private router: Router) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(this.getAuthorizedRequest(req)).pipe(
       catchError((err) => {
         if (err instanceof HttpErrorResponse) {
-          switch (err.status) {
-            case 401:
-              this.authServie.logout('Authorization required - Please log in!');
-              break;
-
-            case 403:
-              // you can redirect here
-              alert('Access denied. You do not have the necessary permissions.');
-              // this.router.navigate(['/home']);
-              break;
-
-            default:
-              alert('An error occurred. Please try again later.');
-              break;
+          if (err.status === 401) {
+            this.snackbar.open('httpErrors.authorization.401', 'warn');
+            return throwError(() => err);
+          }
+  
+          if (err.status === 403) {
+            this.snackbar.open('httpErrors.authorization.403', 'warn');
+            this.router.navigate(['']);
+            return throwError(() => err);
           }
         }
-        return throwError(() => err);
+        throw err;
       })
     );
   }
+
 
   getAuthorizedRequest(req: HttpRequest<any>) {
     return req.clone({

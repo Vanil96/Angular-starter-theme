@@ -1,3 +1,15 @@
 {
-    "title":"title"
+    "title": "Angular starter",
+    "httpErrors": {
+        "general-error": "Something went wrong. Please try again later.",
+        "invalid-password": "Password is invalid.",
+        "authorization": {
+            "401": "Authorization required. Please log in!",
+            "403": "Access denied. You do not have the necessary permissions."
+        }
+    },
+    "form": {
+        "submit": "Submit",
+        "clear":"Clear"
+    }
 }

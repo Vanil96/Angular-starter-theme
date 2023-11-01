@@ -1,3 +1,4 @@
+import { ErrorHandlerInterceptorProvider } from './core/interceptors/error-handler.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
@@ -35,7 +36,7 @@ import { translateLoader } from './shared/loaders/translate-browser.loader';
     ),
 
   ],
-  providers: [ApiUrlInterceptorProvider, AuthInterceptorProvider, AuthorizedGuard],
+  providers: [ApiUrlInterceptorProvider, AuthInterceptorProvider, ErrorHandlerInterceptorProvider, AuthorizedGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

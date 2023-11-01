@@ -11,6 +11,8 @@ body {
     line-height:1.4;
 }
 
+img {display:block}
+
 fieldset {
     padding: 15px;
     border-color: rgb(211 211 211 / 35%)
@@ -18,6 +20,21 @@ fieldset {
 
 legend {
     color: rgb(168, 168, 168);
+}
+
+.snackbar-warn>.mdc-snackbar__surface {
+    background-color: var.$warn-clr !important;
+    color: var.$warn-contrast-clr !important;
+}
+
+.snackbar-success .mdc-snackbar__surface {
+    background-color: var.$success-clr !important;
+    color: var.$success-contrast-clr !important;
+}
+
+.snackbar-info .mdc-snackbar__surface {
+    background-color: var.$info-clr !important;
+    color: var.$info-contrast-clr !important;
 }
 
 
