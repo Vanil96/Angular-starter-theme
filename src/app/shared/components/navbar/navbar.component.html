@@ -3,25 +3,24 @@
     <nav style="display:flex; justify-content: space-between; flex-wrap:wrap; ">
         <ul style="display:flex; flex-wrap:wrap; gap:1rem">
             <li>
-                <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">HOME</a>
+                <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{'navigation.home' | translate}}</a>
             </li>
             <ng-container *ngIf="isAuthenticated">
                 <li>
-                    <a routerLink="profile" routerLinkActive="active">MY PROFILE</a>
+                    <a routerLink="profile" routerLinkActive="active">{{'navigation.my-profile' | translate}}</a>
                 </li>
             </ng-container>
             <ng-container *ngIf="!isAuthenticated">
                 <li>
-                    <a routerLink="auth" routerLinkActive="active">LOGIN/REGISTER</a>
+                    <a routerLink="auth" routerLinkActive="active">{{'navigation.login' | translate}}</a>
                 </li>
             </ng-container>
         </ul>
 
         <div *ngIf="isAuthenticated">
             <span *ngIf="user$ | async">{{(user$ | async)?.email}} | </span>
-                <button (click)="this.auth.logout()">  Logout</button>
+                <button (click)="this.auth.logout()">  {{'navigation.logout' | translate}}</button>
            
         </div>
     </nav>
 </fieldset>
-
