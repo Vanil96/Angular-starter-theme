@@ -1,7 +1,8 @@
 import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { getErrorMessage, hasRequiredField } from '@app/core/utilities/form.utils';
+import { FormValidationService } from '@app/core/services/form-validation.service';
+import { hasRequiredField } from '@app/core/utilities/form.utils';
 import { Subscription } from 'rxjs';
 type InputType = 'text' | 'number' | 'password' | 'email';
 
@@ -27,7 +28,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   onChange = (_: string | number) => { };
   onTouched = () => { };
 
-  constructor(@Self() @Optional() public ngControl: NgControl, @Optional() private formGroupDirective: FormGroupDirective) {
+  constructor(@Self() @Optional() public ngControl: NgControl, @Optional() private formGroupDirective: FormGroupDirective, private formValidationService:FormValidationService) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
@@ -86,7 +87,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   }
 
   getErrorMessage(): string {
-    return getErrorMessage(this.ngControl.errors)
+    return this.formValidationService.getErrorMessage(this.ngControl.errors);
   }
 
   private updateErrorState(): void {

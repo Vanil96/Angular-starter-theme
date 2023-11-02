@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from "@angular/core";
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { ProfileBarComponent } from './components/profile-bar/profile-bar.component';
 import { CommonModule } from '@angular/common';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ScrollAnimationDirective } from '@app/core/directives/scroll-animation.directive';
@@ -35,7 +34,6 @@ import { TranslateModule } from '@ngx-translate/core';
     declarations: [
         PageNotFoundComponent,
         FooterComponent,
-        ProfileBarComponent,
         PaginationComponent,
         ScrollAnimationDirective,
         RestrictCharactersDirective,
@@ -50,7 +48,7 @@ import { TranslateModule } from '@ngx-translate/core';
         TextareaComponent,
     ],
     imports: [RouterModule, CommonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatAutocompleteModule, MatOptionModule, MatSelectModule, MatButtonModule, MatIconModule, MatRadioModule, MatCheckboxModule, FormsModule, FontAwesomeModule, MatSnackBarModule, TranslateModule ],
-    exports: [PageNotFoundComponent, FooterComponent, ProfileBarComponent, ScrollAnimationDirective, RestrictCharactersDirective, NavbarComponent, InputComponent, FormControlPipe, InputAutocompleteComponent, SelectComponent, MatButtonModule, MatIconModule, RadioGroupComponent, CheckboxGroupComponent, CheckboxComponent, TextareaComponent, TranslateModule]
+    exports: [PageNotFoundComponent, FooterComponent, ScrollAnimationDirective, RestrictCharactersDirective, NavbarComponent, InputComponent, FormControlPipe, InputAutocompleteComponent, SelectComponent, MatButtonModule, MatIconModule, RadioGroupComponent, CheckboxGroupComponent, CheckboxComponent, TextareaComponent, TranslateModule]
 })
 
 export class SharedModule { }

@@ -1,7 +1,8 @@
 import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl } from '@angular/forms';
 import { Option } from '@app/core/models/option.model';
-import { getErrorMessage, getSimplifyOption, isOption } from '@app/core/utilities/form.utils';
+import { FormValidationService } from '@app/core/services/form-validation.service';
+import { getSimplifyOption, isOption } from '@app/core/utilities/form.utils';
 import { environment } from '@environments/environment';
 import { Subscription } from 'rxjs';
 
@@ -24,7 +25,8 @@ export class RadioGroupComponent implements ControlValueAccessor, OnInit, OnDest
 
   constructor(
     @Self() @Optional() public ngControl: NgControl, 
-    @Optional() private formGroupDirective: FormGroupDirective
+    @Optional() private formGroupDirective: FormGroupDirective,
+    private formValidationService:FormValidationService
     ) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
@@ -97,7 +99,7 @@ export class RadioGroupComponent implements ControlValueAccessor, OnInit, OnDest
   }
 
   getErrorMessage(): string {
-    return getErrorMessage(this.ngControl.errors)
+    return this.formValidationService.getErrorMessage(this.ngControl.errors);
   }
 
   getOptionFromOptionsByValue(value: Option): Option {

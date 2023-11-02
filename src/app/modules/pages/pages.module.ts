@@ -1,26 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LandingRoutingModule } from './landing-routing.module';
-import { LandingComponent } from './landing.component';
-import { HomeComponent } from './pages/home/home.component';
-import { ExamplesComponent } from './pages/examples/examples.component';
+import { HomeComponent } from './subpages/home/home.component';
+import { ExamplesComponent } from './subpages/examples/examples.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '@app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { PagesComponent } from './pages.component';
+import { PagesRoutingModule } from './pages-routing.module';
 
 
 @NgModule({
   declarations: [
-    LandingComponent,
+    PagesComponent,
     HomeComponent,
     ExamplesComponent,
 
   ],
   imports: [
     CommonModule,
-    LandingRoutingModule,
+    PagesRoutingModule,
     FontAwesomeModule,
     SharedModule,
     ReactiveFormsModule,
@@ -29,4 +29,4 @@ import { MatInputModule } from '@angular/material/input';
   ],
   providers: []
 })
-export class LandingModule { }
+export class PagesModule { }

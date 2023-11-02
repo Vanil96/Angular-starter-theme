@@ -1,7 +1,8 @@
 import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroupDirective, NgControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { CheckboxOption } from '@app/core/models/option.model';
-import { getErrorMessage, isCheckboxOption } from '@app/core/utilities/form.utils';
+import { FormValidationService } from '@app/core/services/form-validation.service';
+import { isCheckboxOption } from '@app/core/utilities/form.utils';
 import { environment } from '@environments/environment';
 import { Subscription } from 'rxjs';
 
@@ -24,7 +25,10 @@ export class CheckboxGroupComponent implements ControlValueAccessor, OnInit, OnD
   onChange = (_: CheckboxOption[]) => { };
   onTouched = () => { };
 
-  constructor(@Self() @Optional() public ngControl: NgControl, @Optional() private formGroupDirective: FormGroupDirective
+  constructor(
+    @Self() @Optional() public ngControl: NgControl, 
+    @Optional() private formGroupDirective: FormGroupDirective,
+    private formValidationService:FormValidationService
   ) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
@@ -113,7 +117,7 @@ export class CheckboxGroupComponent implements ControlValueAccessor, OnInit, OnD
 
 
   getErrorMessage(errors: any): string {
-    return getErrorMessage(errors);
+    return this.formValidationService.getErrorMessage(errors)
   }
 
   private checkboxRequiredValidator(): ValidatorFn {

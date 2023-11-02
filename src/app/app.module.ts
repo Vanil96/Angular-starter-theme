@@ -30,7 +30,7 @@ import { translateLoader } from './shared/loaders/translate-browser.loader';
         loader: {
           provide: TranslateLoader,
           useFactory: (translateLoader),
-          deps: [HttpClient] // add TransferState if SSR
+          deps: [HttpClient] // use TransferState for SSR
         }
       }
     ),

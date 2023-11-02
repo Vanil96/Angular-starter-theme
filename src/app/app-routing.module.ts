@@ -7,7 +7,7 @@ import { AuthorizedGuard } from "./core/guards/authorized.guard";
 const routes: Routes = [
     {
         path: '',
-        loadChildren: () => import('./modules/landing/landing.module').then(m => m.LandingModule)
+        loadChildren: () => import('./modules/pages/pages.module').then(m => m.PagesModule)
     },
     {
         path: 'auth',

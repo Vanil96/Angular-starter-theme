@@ -10,6 +10,22 @@
     },
     "form": {
         "submit": "Submit",
-        "clear":"Clear"
-    }  
-}
+        "clear":"Clear",
+        "errors": {
+            "required": "This field is required",
+            "email": "Invalid email format",
+            "pattern": "Invalid pattern",
+            "max": "Value is too high",
+            "min": "Value is too low",
+            "nullValidator": "Value is null",
+            "requiredTrue": "Value must be true",
+            "notInList": "Value is not in list",
+            "default": "Invalid value"
+        }
+    },
+    "modules":{
+        "auth":{
+            "login":"Login"
+        }
+    
+}}  

@@ -2,7 +2,8 @@ import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/co
 import { ControlValueAccessor, NgControl, FormGroupDirective } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Option } from '@app/core/models/option.model';
-import { getErrorMessage, hasRequiredField, isArrayOfOptions, isOption } from '@app/core/utilities/form.utils';
+import { FormValidationService } from '@app/core/services/form-validation.service';
+import {  hasRequiredField, isArrayOfOptions, isOption } from '@app/core/utilities/form.utils';
 import { environment } from '@environments/environment';
 import { Subscription } from 'rxjs';
 
@@ -29,7 +30,8 @@ export class SelectComponent implements ControlValueAccessor, OnInit, OnDestroy 
 
   constructor(
     @Self() @Optional() public ngControl: NgControl,
-    @Optional() private formGroupDirective: FormGroupDirective
+    @Optional() private formGroupDirective: FormGroupDirective,
+    private formValidationService:FormValidationService
   ) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
@@ -110,7 +112,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit, OnDestroy 
   }
 
   getErrorMessage(): string {
-    return getErrorMessage(this.ngControl.errors)
+    return this.formValidationService.getErrorMessage(this.ngControl.errors)
   }
 
   private updateErrorState(): void {
