@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './subpages/home/home.component';
-import { ExamplesComponent } from './subpages/examples/examples.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '@app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,8 +14,6 @@ import { PagesRoutingModule } from './pages-routing.module';
   declarations: [
     PagesComponent,
     HomeComponent,
-    ExamplesComponent,
-
   ],
   imports: [
     CommonModule,

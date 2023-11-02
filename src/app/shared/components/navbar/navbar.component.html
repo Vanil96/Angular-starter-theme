@@ -15,16 +15,12 @@
                     <a routerLink="auth" routerLinkActive="active">LOGIN/REGISTER</a>
                 </li>
             </ng-container>
-
-            <li *ngIf="isAuthenticated">
-                <a routerLink="examples" routerLinkActive="active">EXAMPLES</a>
-            </li>
         </ul>
 
         <div *ngIf="isAuthenticated">
-            <p *ngIf="user$ | async">{{(user$ | async)?.email}}
-                <button (click)="this.auth.logout()"> | Logout</button>
-            </p>
+            <span *ngIf="user$ | async">{{(user$ | async)?.email}} | </span>
+                <button (click)="this.auth.logout()">  Logout</button>
+           
         </div>
     </nav>
 </fieldset>
