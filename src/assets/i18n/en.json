@@ -23,6 +23,12 @@
             "default": "Invalid value"
         }
     },
+    "navigation": {
+        "home": "Home",
+        "my-profile":"My profile",
+        "login": "Login",
+        "logout": "Logout"
+    },
     "modules":{
         "auth":{
             "login":"Login"
