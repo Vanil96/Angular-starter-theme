@@ -95,8 +95,8 @@
 
             <fieldset>
               <legend>app-select </legend>
-              <app-select [formControl]="form.get('selectList') | formControl" [options]="selectList"
-                label="Select (fill)"></app-select>
+              <app-select formControlName="selectList" [options]="selectList"
+              label="Select (fill)"></app-select>
               <br>
               <app-select [formControl]="form.get('selectList') | formControl" [options]="selectList"
                 label="Select (outline)" appearance="outline"></app-select>
