@@ -110,7 +110,6 @@ Documentation link: https://www.npmjs.com/package/json-server
 ## 3. Core Settings
 - Added support for staging environment
 - Added EsLint
-- Added support for multilingualism (ngx-translate)
 - Strict mode
 
 ## 4. Styles
@@ -234,7 +233,7 @@ Includes components, directives, pipes, and services used across multiple other 
 
 ### 7.1 Shared Forms
 
-Input components in the forms folder of `SharedModule` are built using the `ControlValueAccessor` pattern for easy integration with reactive forms and full control over their behavior. They also include error handling with `ngx-translate` translations for easy customization and localization of error messages. Each input offers additional features specific to its type, such as autocomplete or group selections, and supports two appearance styles: `fill` for a solid background and `outline` for a contoured edge, facilitating consistent adaptation to various design themes and application requirements.
+Input components in the forms folder of `SharedModule` are built using the `ControlValueAccessor` pattern for easy integration with reactive forms and full control over their behavior.  Each input offers additional features specific to its type, such as autocomplete or group selections, and supports two appearance styles: `fill` for a solid background and `outline` for a contoured edge, facilitating consistent adaptation to various design themes and application requirements.
 
 #### Example usage:
 ```html
@@ -256,11 +255,7 @@ Input components in the forms folder of `SharedModule` are built using the `Cont
   label="Select (fill)"></app-select>
 ```
 
-## 8. Multilingual Support
-
-The project is built with flexibility in mind, using `ngx-translate` for internationalization, with English as the default and primary language of the application. While the multilingual structure is implemented and ready to use, it is not a requirement—the application can function effectively in a monolingual environment. `ngx-translate` enables simple scalability of the project, allowing for the addition of new languages in the future by adding the respective JSON translation files. This pragmatic approach ensures that managing translations and customizing the application for additional language requirements can be carried out as the project develops, without the need for reconfiguration or significant modifications to existing code.
-
-## 9. Additional Tools/Utilities
+## 10. Additional Tools/Utilities
 
 The project incorporates useful tools and utilities that aid in maintaining clean, functional application code and facilitate working with forms and data. These include functions for form validation and management, pipes for transforming data displayed in templates, and conversion functions that allow for easy data manipulation and formatting.
 

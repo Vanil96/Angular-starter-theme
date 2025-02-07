@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
 //Composed color pallets ready to use you'll find there: node_modules\@angular\material\core\theming\_palette.scss
-
+@use 'sass:map';
 
 //shapes
 $primary-default-shape: 500;
@@ -9,23 +9,23 @@ $accent-lighter-shape: A100;
 $accent-darker-shape: A400;
 $warn-default-shape: 500;
 
-$primary-palette: mat.$indigo-palette;
-$accent-palette: mat.$blue-palette;
-$warn-palette: mat.$red-palette;
+$primary-palette: mat.$m2-indigo-palette;
+$accent-palette: mat.$m2-blue-palette;
+$warn-palette: mat.$m2-red-palette;
 
 
 //to export variables with main colors
-$mat-primary-color: map-get($primary-palette, $primary-default-shape);
-$mat-primary-contrast-color: map-get(map-get($primary-palette, 'contrast'), $primary-default-shape);
+$mat-primary-color: map.get($primary-palette, $primary-default-shape);
+$mat-primary-contrast-color: map.get(map.get($primary-palette, 'contrast'), $primary-default-shape);
 
-$mat-accent-color: map-get($accent-palette, $accent-default-shape);
-$mat-accent-contrast-color: map-get(map-get($accent-palette, 'contrast'), $accent-default-shape);
+$mat-accent-color: map.get($accent-palette, $accent-default-shape);
+$mat-accent-contrast-color: map.get(map.get($accent-palette, 'contrast'), $accent-default-shape);
 
-$mat-accent-lighter-color: map-get($accent-palette, $accent-lighter-shape);
-$mat-accent-lighter-contrast-color: map-get(map-get($accent-palette, 'contrast'), $accent-lighter-shape);
+$mat-accent-lighter-color: map.get($accent-palette, $accent-lighter-shape);
+$mat-accent-lighter-contrast-color: map.get(map.get($accent-palette, 'contrast'), $accent-lighter-shape);
 
-$mat-accent-darker-color: map-get($accent-palette, $accent-darker-shape);
-$mat-accent-darker-contrast-color: map-get(map-get($accent-palette, 'contrast'), $accent-darker-shape);
+$mat-accent-darker-color: map.get($accent-palette, $accent-darker-shape);
+$mat-accent-darker-contrast-color: map.get(map.get($accent-palette, 'contrast'), $accent-darker-shape);
 
-$mat-warn-color: map-get($warn-palette, $warn-default-shape);
-$mat-warn-contrast-color: map-get(map-get($warn-palette, 'contrast'), $warn-default-shape);
+$mat-warn-color: map.get($warn-palette, $warn-default-shape);
+$mat-warn-contrast-color: map.get(map.get($warn-palette, 'contrast'), $warn-default-shape);

@@ -1,26 +1,30 @@
 <fieldset>
-    <legend>Navbar component</legend>
-    <nav style="display:flex; justify-content: space-between; flex-wrap:wrap; ">
-        <ul style="display:flex; flex-wrap:wrap; gap:1rem">
-            <li>
-                <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{'navigation.home' | translate}}</a>
-            </li>
-            <ng-container *ngIf="isAuthenticated">
-                <li>
-                    <a routerLink="profile" routerLinkActive="active">{{'navigation.my-profile' | translate}}</a>
-                </li>
-            </ng-container>
-            <ng-container *ngIf="!isAuthenticated">
-                <li>
-                    <a routerLink="auth" routerLinkActive="active">{{'navigation.login' | translate}}</a>
-                </li>
-            </ng-container>
-        </ul>
+  <legend>Navbar component</legend>
+  <nav style="display: flex; justify-content: space-between; flex-wrap: wrap">
+    <ul style="display: flex; flex-wrap: wrap; gap: 1rem">
+      <li>
+        <a
+          routerLink=""
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Home</a
+        >
+      </li>
+      <ng-container *ngIf="isAuthenticated">
+        <li>
+          <a routerLink="profile" routerLinkActive="active">Profil</a>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="!isAuthenticated">
+        <li>
+          <a routerLink="auth" routerLinkActive="active">Login</a>
+        </li>
+      </ng-container>
+    </ul>
 
-        <div *ngIf="isAuthenticated">
-            <span *ngIf="user$ | async">{{(user$ | async)?.email}} | </span>
-                <button (click)="this.auth.logout()">  {{'navigation.logout' | translate}}</button>
-           
-        </div>
-    </nav>
+    <div *ngIf="isAuthenticated">
+      <span *ngIf="user$ | async">{{ (user$ | async)?.email }} | </span>
+      <button (click)="this.auth.logout()">Logout</button>
+    </div>
+  </nav>
 </fieldset>

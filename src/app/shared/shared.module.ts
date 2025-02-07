@@ -44,7 +44,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         CheckboxGroupComponent,
         CheckboxComponent,
         TextareaComponent,
-    ]
+    ],
     imports: [RouterModule, CommonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatAutocompleteModule, MatOptionModule, MatSelectModule, MatButtonModule, MatIconModule, MatRadioModule, MatCheckboxModule, FormsModule, MatSnackBarModule ],
     exports: [PageNotFoundComponent, FooterComponent, ScrollAnimationDirective, RestrictCharactersDirective, NavbarComponent, InputComponent, FormControlPipe, InputAutocompleteComponent, SelectComponent, MatButtonModule, MatIconModule, RadioGroupComponent, CheckboxGroupComponent, CheckboxComponent, TextareaComponent]
 })

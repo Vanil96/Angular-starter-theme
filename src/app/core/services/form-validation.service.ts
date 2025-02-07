@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 
 interface ErrorMessages {
   [key: string]: string;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class FormValidationService {
-
-  constructor(private translate: TranslateService) {}
+  constructor() {}
 
   public getErrorMessage(errors: ValidationErrors | null): string {
     if (!errors) {
@@ -20,33 +17,33 @@ export class FormValidationService {
     }
 
     const errorMessages: ErrorMessages = {
-      required: 'form.errors.required',
-      email: 'form.errors.email',
-      pattern: 'form.errors.pattern',
-      max: 'form.errors.max',
-      min: 'form.errors.min',
-      nullValidator: 'form.errors.nullValidator',
-      requiredTrue: 'form.errors.requiredTrue',
-      notInList: 'form.errors.notInList',
-      default: 'form.errors.default'
+      required: 'To pole jest wymagane.',
+      email: 'Podaj poprawny adres e-mail.',
+      pattern: 'Wprowadzone dane nie pasują do wymaganego wzorca.',
+      max: 'Wartość jest zbyt wysoka.',
+      min: 'Wartość jest zbyt niska.',
+      nullValidator: 'Nieprawidłowa wartość.',
+      requiredTrue: 'To pole musi być zaznaczone.',
+      notInList: 'Podana wartość nie znajduje się na liście.',
+      default: 'Nieprawidłowe dane.',
     };
 
-    if (errors["minlength"]) {
-      const requiredLength = errors["minlength"].requiredLength;
-      return this.translate.instant('form.errors.minLength', { requiredLength });
+    if (errors['minlength']) {
+      const requiredLength = errors['minlength'].requiredLength;
+      return `Minimalna długość: ${requiredLength} znaków.`;
     }
 
-    if (errors["maxlength"]) {
-      const requiredLength = errors["maxlength"].requiredLength;
-      return this.translate.instant('form.errors.maxLength', { requiredLength });
+    if (errors['maxlength']) {
+      const requiredLength = errors['maxlength'].requiredLength;
+      return `Maksymalna długość: ${requiredLength} znaków.`;
     }
 
     for (const key of Object.keys(errorMessages)) {
       if (errors[key]) {
-        return this.translate.instant(errorMessages[key]);
+        return errorMessages[key];
       }
     }
 
-    return this.translate.instant(errorMessages["default"]);
+    return errorMessages['default'];
   }
 }

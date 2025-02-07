@@ -4,15 +4,15 @@
 @include mat.core();
 
 //set pallete's in config.
-$my-primary: mat.define-palette(config.$primary-palette, config.$primary-default-shape);
-$my-accent: mat.define-palette(config.$accent-palette, config.$accent-default-shape, config.$accent-lighter-shape, config.$accent-darker-shape);
-$my-warn: mat.define-palette(config.$warn-palette, config.$warn-default-shape); 
+$my-primary: mat.m2-define-palette(config.$primary-palette, config.$primary-default-shape);
+$my-accent: mat.m2-define-palette(config.$accent-palette, config.$accent-default-shape, config.$accent-lighter-shape, config.$accent-darker-shape);
+$my-warn: mat.m2-define-palette(config.$warn-palette, config.$warn-default-shape); 
 
-$my-typography: mat.define-typography-config(
+$my-typography: mat.m2-define-typography-config(
    $font-family: 'Courier New, monospace'
 );
 
-$my-theme: mat.define-light-theme((
+$my-theme: mat.m2-define-light-theme((
  color: (
     primary: $my-primary,
     accent: $my-accent,
