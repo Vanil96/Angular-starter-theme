@@ -35,17 +35,21 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/angular-starter",
+            "outputPath": {
+              "base": "dist/angular-starter"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "src/polyfills.ts"
+            ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "stylePreprocessorOptions": {
               "includePaths": [
-               "src/styles/shared"
+                "src/styles/shared",
+                "."
               ]
              }, 
             "assets": [
@@ -60,7 +64,8 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
@@ -103,9 +108,7 @@
                   "maximumError": "5mb"
                 }
               ],
-              "buildOptimizer": false, 
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -117,13 +120,13 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-starter:build:production"
+              "buildTarget": "angular-starter:build:production"
             },
             "development": {
-              "browserTarget": "angular-starter:build:development"
+              "buildTarget": "angular-starter:build:development"
             },
             "staging": {
-              "browserTarget": "angular-starter:build:staging"
+              "buildTarget": "angular-starter:build:staging"
             }
           },
           "defaultConfiguration": "development"
@@ -131,7 +134,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-starter:build"
+            "buildTarget": "angular-starter:build"
           }
         },
         "test": {

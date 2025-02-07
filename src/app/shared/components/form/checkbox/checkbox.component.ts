@@ -5,10 +5,10 @@ import { hasRequiredField } from '@app/core/utilities/form.utils';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-checkbox',
-  templateUrl: './checkbox.component.html',
-  styleUrls: ['./checkbox.component.scss'],
-
+    selector: 'app-checkbox',
+    templateUrl: './checkbox.component.html',
+    styleUrls: ['./checkbox.component.scss'],
+    standalone: false
 })
 export class CheckboxComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() label = '';

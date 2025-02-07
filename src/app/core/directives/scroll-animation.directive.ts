@@ -1,7 +1,8 @@
 import { Directive, ElementRef, Renderer2, OnInit, OnDestroy, NgZone } from '@angular/core';
 
 @Directive({
-  selector: '[appScrollAnimation]'
+    selector: '[appScrollAnimation]',
+    standalone: false
 })
 export class ScrollAnimationDirective implements OnInit, OnDestroy {
   private hasClassBeenAdded = false;

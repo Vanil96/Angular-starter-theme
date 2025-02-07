@@ -9,9 +9,10 @@ import { Subscription } from 'rxjs';
 
 type InputType = 'text' | 'number' | 'password' | 'email';
 @Component({
-  selector: 'app-input-autocomplete',
-  templateUrl: './input-autocomplete.component.html',
-  styleUrls: ['./input-autocomplete.component.scss'],
+    selector: 'app-input-autocomplete',
+    templateUrl: './input-autocomplete.component.html',
+    styleUrls: ['./input-autocomplete.component.scss'],
+    standalone: false
 })
 export class InputAutocompleteComponent implements OnInit, OnDestroy, ControlValueAccessor {
   @Input({ required: true }) options: Option[];

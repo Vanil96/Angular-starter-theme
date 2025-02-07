@@ -6,9 +6,10 @@ import { hasRequiredField } from '@app/core/utilities/form.utils';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-textarea',
-  templateUrl: './textarea.component.html',
-  styleUrls: ['./textarea.component.scss'],
+    selector: 'app-textarea',
+    templateUrl: './textarea.component.html',
+    styleUrls: ['./textarea.component.scss'],
+    standalone: false
 })
 export class TextareaComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() label = '';

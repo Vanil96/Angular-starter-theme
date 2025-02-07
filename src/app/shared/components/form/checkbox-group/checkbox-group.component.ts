@@ -7,10 +7,10 @@ import { environment } from '@environments/environment';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-checkbox-group',
-  templateUrl: './checkbox-group.component.html',
-  styleUrls: ['./checkbox-group.component.scss'],
-
+    selector: 'app-checkbox-group',
+    templateUrl: './checkbox-group.component.html',
+    styleUrls: ['./checkbox-group.component.scss'],
+    standalone: false
 })
 export class CheckboxGroupComponent implements ControlValueAccessor, OnInit, OnDestroy, ValidationErrors {
   @Input() label = '';

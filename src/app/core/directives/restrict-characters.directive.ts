@@ -1,7 +1,8 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[appRestrictCharacters]'
+    selector: '[appRestrictCharacters]',
+    standalone: false
 })
 export class RestrictCharactersDirective {
   @Input() appRestrictCharacters: 'numeric' | 'alpha' | 'alphanumeric';

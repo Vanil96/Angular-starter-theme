@@ -8,9 +8,10 @@ import { environment } from '@environments/environment';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
+    selector: 'app-select',
+    templateUrl: './select.component.html',
+    styleUrls: ['./select.component.scss'],
+    standalone: false
 })
 export class SelectComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input({ required: true }) options: Option[];
