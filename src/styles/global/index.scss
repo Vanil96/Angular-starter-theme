@@ -1,9 +1,9 @@
 @use 'normalize' as *;
-@use 'material/material-theme' as *;
+@use 'material/material-init' as *;
 @use 'theme' as *;
-@use 'grid' as *;
-@use 'spacing' as *;
-@use 'typography' as *;
-@use 'buttons' as *;
+@use 'utils/grid' as *;
+@use 'utils/spacing' as *;
+@use 'utils/typography' as *;
+@use 'utils/buttons' as *;
 @use 'form' as *;
 

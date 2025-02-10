@@ -1,0 +1,133 @@
+@use "sass:map";
+@use "/src/styles/global/material/config" as mat-config;
+
+//material color variables
+$primary-50: map.get(mat-config.$primary-palette, 50);
+$primary-100: map.get(mat-config.$primary-palette, 100);
+$primary-200: map.get(mat-config.$primary-palette, 200);
+$primary-300: map.get(mat-config.$primary-palette, 300);
+$primary-400: map.get(mat-config.$primary-palette, 400);
+$primary-500: map.get(mat-config.$primary-palette, 500);
+$primary-600: map.get(mat-config.$primary-palette, 600);
+$primary-700: map.get(mat-config.$primary-palette, 700);
+$primary-800: map.get(mat-config.$primary-palette, 800);
+$primary-900: map.get(mat-config.$primary-palette, 900);
+$primary-A100: map.get(mat-config.$primary-palette, A100);
+$primary-A200: map.get(mat-config.$primary-palette, A200);
+$primary-A400: map.get(mat-config.$primary-palette, A400);
+$primary-A700: map.get(mat-config.$primary-palette, A700);
+
+$accent-50: map.get(mat-config.$accent-palette, 50);
+$accent-100: map.get(mat-config.$accent-palette, 100);
+$accent-200: map.get(mat-config.$accent-palette, 200);
+$accent-300: map.get(mat-config.$accent-palette, 300);
+$accent-400: map.get(mat-config.$accent-palette, 400);
+$accent-500: map.get(mat-config.$accent-palette, 500);
+$accent-600: map.get(mat-config.$accent-palette, 600);
+$accent-700: map.get(mat-config.$accent-palette, 700);
+$accent-800: map.get(mat-config.$accent-palette, 800);
+$accent-900: map.get(mat-config.$accent-palette, 900);
+$accent-A100: map.get(mat-config.$accent-palette, A100);
+$accent-A200: map.get(mat-config.$accent-palette, A200);
+$accent-A400: map.get(mat-config.$accent-palette, A400);
+$accent-A700: map.get(mat-config.$accent-palette, A700);
+
+$warn-50: map.get(mat-config.$warn-palette, 50);
+$warn-100: map.get(mat-config.$warn-palette, 100);
+$warn-200: map.get(mat-config.$warn-palette, 200);
+$warn-300: map.get(mat-config.$warn-palette, 300);
+$warn-400: map.get(mat-config.$warn-palette, 400);
+$warn-500: map.get(mat-config.$warn-palette, 500);
+$warn-600: map.get(mat-config.$warn-palette, 600);
+$warn-700: map.get(mat-config.$warn-palette, 700);
+$warn-800: map.get(mat-config.$warn-palette, 800);
+$warn-900: map.get(mat-config.$warn-palette, 900);
+$warn-A100: map.get(mat-config.$warn-palette, A100);
+$warn-A200: map.get(mat-config.$warn-palette, A200);
+$warn-A400: map.get(mat-config.$warn-palette, A400);
+$warn-A700: map.get(mat-config.$warn-palette, A700);
+
+
+//material contrast color variables
+$primary-50-contrast: map.get(map.get(mat-config.$primary-palette, 'contrast'), 50);
+$primary-100-contrast: map.get(map.get(mat-config.$primary-palette, 'contrast'), 100);
+$primary-200-contrast: map.get(map.get(mat-config.$primary-palette, 'contrast'), 200);
+$primary-300-contrast: map.get(map.get(mat-config.$primary-palette, 'contrast'), 300);
+$primary-400-contrast: map.get(map.get(mat-config.$primary-palette, 'contrast'), 400);
+$primary-500-contrast: map.get(map.get(mat-config.$primary-palette, 'contrast'), 500);
+$primary-600-contrast: map.get(map.get(mat-config.$primary-palette, 'contrast'), 600);
+$primary-700-contrast: map.get(map.get(mat-config.$primary-palette, 'contrast'), 700);
+$primary-800-contrast: map.get(map.get(mat-config.$primary-palette, 'contrast'), 800);
+$primary-900-contrast: map.get(map.get(mat-config.$primary-palette, 'contrast'), 900);
+$primary-A100-contrast: map.get(map.get(mat-config.$primary-palette, 'contrast'), A100);
+$primary-A200-contrast: map.get(map.get(mat-config.$primary-palette, 'contrast'), A200);
+$primary-A400-contrast: map.get(map.get(mat-config.$primary-palette, 'contrast'), A400);
+$primary-A700-contrast: map.get(map.get(mat-config.$primary-palette, 'contrast'), A700);
+
+$accent-50-contrast: map.get(map.get(mat-config.$accent-palette, 'contrast'), 50);
+$accent-100-contrast: map.get(map.get(mat-config.$accent-palette, 'contrast'), 100);
+$accent-200-contrast: map.get(map.get(mat-config.$accent-palette, 'contrast'), 200);
+$accent-300-contrast: map.get(map.get(mat-config.$accent-palette, 'contrast'), 300);
+$accent-400-contrast: map.get(map.get(mat-config.$accent-palette, 'contrast'), 400);
+$accent-500-contrast: map.get(map.get(mat-config.$accent-palette, 'contrast'), 500);
+$accent-600-contrast: map.get(map.get(mat-config.$accent-palette, 'contrast'), 600);
+$accent-700-contrast: map.get(map.get(mat-config.$accent-palette, 'contrast'), 700);
+$accent-800-contrast: map.get(map.get(mat-config.$accent-palette, 'contrast'), 800);
+$accent-900-contrast: map.get(map.get(mat-config.$accent-palette, 'contrast'), 900);
+$accent-A100-contrast: map.get(map.get(mat-config.$accent-palette, 'contrast'), A100);
+$accent-A200-contrast: map.get(map.get(mat-config.$accent-palette, 'contrast'), A200);
+$accent-A400-contrast: map.get(map.get(mat-config.$accent-palette, 'contrast'), A400);
+$accent-A700-contrast: map.get(map.get(mat-config.$accent-palette, 'contrast'), A700);
+
+$warn-50-contrast: map.get(map.get(mat-config.$warn-palette, 'contrast'), 50);
+$warn-100-contrast: map.get(map.get(mat-config.$warn-palette, 'contrast'), 100);
+$warn-200-contrast: map.get(map.get(mat-config.$warn-palette, 'contrast'), 200);
+$warn-300-contrast: map.get(map.get(mat-config.$warn-palette, 'contrast'), 300);
+$warn-400-contrast: map.get(map.get(mat-config.$warn-palette, 'contrast'), 400);
+$warn-500-contrast: map.get(map.get(mat-config.$warn-palette, 'contrast'), 500);
+$warn-600-contrast: map.get(map.get(mat-config.$warn-palette, 'contrast'), 600);
+$warn-700-contrast: map.get(map.get(mat-config.$warn-palette, 'contrast'), 700);
+$warn-800-contrast: map.get(map.get(mat-config.$warn-palette, 'contrast'), 800);
+$warn-900-contrast: map.get(map.get(mat-config.$warn-palette, 'contrast'), 900);
+$warn-A100-contrast: map.get(map.get(mat-config.$warn-palette, 'contrast'), A100);
+$warn-A200-contrast: map.get(map.get(mat-config.$warn-palette, 'contrast'), A200);
+$warn-A400-contrast: map.get(map.get(mat-config.$warn-palette, 'contrast'), A400);
+$warn-A700-contrast: map.get(map.get(mat-config.$warn-palette, 'contrast'), A700);
+
+
+//main variable colors
+$primary-clr: $primary-500;
+$primary-contrast-clr: $primary-500-contrast;
+
+$accent-clr: $accent-A200;
+$accent-contrast-clr: $accent-200-contrast;
+
+$warn-clr: $warn-500;
+$warn-contrast-clr: $warn-500-contrast;
+
+$success-clr: #209c56;
+$success-contrast-clr: #ffffff;
+
+
+//fonts
+$main-font: "Courier New", monospace;
+$material-font: $main-font;
+$btn-font: $main-font;
+
+
+//other colors
+$info-clr: $primary-clr;
+$info-contrast-clr: $primary-contrast-clr;
+$grey-clr: rgba(0, 0, 0, 0.38);
+$warn-bg: #fff2f1;
+$main-text-clr: black;
+$link-clr: $main-text-clr;
+
+//breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xll: 1450px;
+
+

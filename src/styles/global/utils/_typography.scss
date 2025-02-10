@@ -1,0 +1,56 @@
+@use '/src/styles/shared/parts/variables' as var;
+@use '../material/config' as mat-config;
+@use 'sass:map';
+
+
+.main-text-clr {color: var.$main-text-clr;}
+.link-clr {color: var.$link-clr;}
+.active {color: var.$primary-clr;}
+
+.text-center {text-align: center;}
+.text-justify {text-align: justify;}
+.capitalize {text-transform: capitalize;}
+.uppercase {text-transform: uppercase;}
+.lowercase {text-transform: lowercase;}
+
+
+.title {
+  font-size: 2.5em;
+  margin-bottom: 0.5em;
+}
+
+.subtitle {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+
+
+@each $shade in (50, 100, 200, 300, 400, 500, 600, 700, 800, 900, A100, A200, A400, A700) {
+  .bg-primary-#{$shade} {
+    background-color: #{map.get(mat-config.$primary-palette, $shade)} !important;
+    color: #{map.get(map.get(mat-config.$primary-palette, 'contrast'), $shade)} !important;
+  }
+
+  .text-primary-#{$shade} {
+    color: #{map.get(mat-config.$primary-palette, $shade)} !important;
+  }
+
+  .bg-accent-#{$shade} {
+    background-color: #{map.get(mat-config.$accent-palette, $shade)} !important;
+    color: #{map.get(map.get(mat-config.$accent-palette, 'contrast'), $shade)} !important;
+  }
+
+  .text-accent-#{$shade} {
+    color: #{map.get(mat-config.$accent-palette, $shade)} !important;
+  }
+
+  .bg-warn-#{$shade} {
+    background-color: #{map.get(mat-config.$warn-palette, $shade)} !important;
+    color: #{map.get(map.get(mat-config.$warn-palette, 'contrast'), $shade)} !important;
+  }
+
+  .text-warn-#{$shade} {
+    color: #{map.get(mat-config.$warn-palette, $shade)} !important;
+  }
+}

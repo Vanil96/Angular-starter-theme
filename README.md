@@ -2,8 +2,7 @@
 
 The Angular Starter Theme is an initial project setup for Angular that configures essential elements to expedite the initial phase of code production.
 
-**Angular Version:** 16.2.6  
-**Node Version:** 16.17
+**Angular Version:** 19.1.6
 
 ## 1. Project Structure
 
@@ -101,13 +100,16 @@ The Angular Starter Theme is an initial project setup for Angular that configure
 ```
 
 ## 2. API Simulation
+
 For API simulation, a simple JSON server has been added in the `server` subfolder. To start it, use:
+
 - `npm run server` or `node ./server/`
-The API will be available at: http://localhost:4200/
-If you have a ready-to-use API at the start, simply remove the `server` folder.
-Documentation link: https://www.npmjs.com/package/json-server
+  The API will be available at: http://localhost:4200/
+  If you have a ready-to-use API at the start, simply remove the `server` folder.
+  Documentation link: https://www.npmjs.com/package/json-server
 
 ## 3. Core Settings
+
 - Added support for staging environment
 - Added EsLint
 - Strict mode
@@ -116,22 +118,58 @@ Documentation link: https://www.npmjs.com/package/json-server
 
 Basic application styles have been written, largely based on the OOCSS methodology, which I find best for Angular, where styles are separated for components. With a significant number of useful utility classes and mixins, managing styles in our project becomes straightforward.
 Styles are located in the `shared` folder; thanks to `stylePreprocessorOptions` set in `angular.json`, they can be used from any location without specifying the full path, for example:
+
 ```scss
-@use 'variables' as var;
-@use 'mixins' as mixin;
+@use "parts/variables" as var;
+@use "parts/mixins" as mixin;
+@use "parts/media-queries" as mquery;
+
 ```
 
-### 4.1 Angular Material
-Configured material theme allows for easy modification of color palettes and typography. Basic color variables are extracted to "variables.scss" for easy access to the primary palette colors. In the file `material/config.scss`, you can set all the styles associated with it.
+or just all parts by one line
+
+```scss
+@use "helpers" as helper;
+```
+
+## 4.1 Angular Material
+
+The configured Material theme allows for easy modification of color palettes and typography. Basic color variables are extracted into `variables.scss` for quick access to primary palette colors. The file `material/config.scss` manages all related styles.
+example:
+
+```scss
+@use "helpers" as helper;
+
+div {
+  color: helper.$primary-500;
+  background-color: helper.$accent-200;
+}
+```
+
+### Enhancements
+
+Additional utilities have been introduced to support detailed color shades for `primary`, `accent`, and `warn` palettes. Using `map.get`, various shades (e.g., 50, 100, 200, ..., A700) are retrieved dynamically from the Material theme configuration.
+
+### Utility Classes
+
+New utility classes have been added for easy styling, including:
+
+- **Background Colors**: `.bg-primary-500`, `.bg-accent-200`, `.bg-warn-A100`
+- **Text Colors**: `.text-primary-700`, `.text-accent-400`, `.text-warn-900`
+
+These classes ensure proper contrast for readability and maintain consistent styling across the application.
 
 ### 4.2 Variables
+
 The project's color scheme is based on variables in 'variables.scss'. Initially, colors: primary/accent/warn dynamically take values from the Angular color palette set in 'material/config.scss', ensuring color consistency between Angular Material and our project. However, you can operate the variables in any way and easily replace the colors if you decide to stop using Angular Material.
 
 ### 4.3 Utility Class
+
 Based on the `OOCSS methodology`, utility classes have been created, some of which are presented here, with more information available in the specific files they relate to.
 
 #### 4.3.1 grid.scss
-Inspired by Bootstrap Grid. 
+
+Inspired by Bootstrap Grid.
 (Media queries are dependent on settings in variables.scss).
 
 ```html
@@ -149,12 +187,14 @@ Inspired by Bootstrap Grid.
   </div>
 </div>
 ```
+
 In this file, you will also find utility classes for `max-width`, an example of usage:
 `<div class="max-w-md"> </div>`
 
 ### 4.3.2 `buttons.scss`
 
 #### Standard Buttons:
+
 ```html
 <button class="btn">Button basic</button>
 <button class="btn" color="primary">Button primary</button>
@@ -164,6 +204,7 @@ In this file, you will also find utility classes for `max-width`, an example of 
 ```
 
 #### Outline Buttons:
+
 ```html
 <button class="btn outline">Button basic</button>
 <button class="btn outline" color="primary">Button primary</button>
@@ -175,6 +216,7 @@ In this file, you will also find utility classes for `max-width`, an example of 
 ### 4.3.3 `spacing.scss`
 
 #### Spacing for margins and paddings with example usage:
+
 ```html
 <div class="m-auto pt-2"></div>
 <div class="mt-5 pb-2"></div>
@@ -185,6 +227,7 @@ In this file, you will also find utility classes for `max-width`, an example of 
 - etc.
 
 Configurable spacing values in `spacing.scss`:
+
 ```
 0: 0,
 1: 0.25rem,
@@ -197,6 +240,7 @@ Configurable spacing values in `spacing.scss`:
 ### 4.3.4 `typography.scss`
 
 #### Typography settings and utilities with example usage:
+
 ```html
 <h2 class="text-primary lowercase text-center">Lorem ipsum</h2>
 ```
@@ -233,36 +277,27 @@ Includes components, directives, pipes, and services used across multiple other 
 
 ### 7.1 Shared Forms
 
-Input components in the forms folder of `SharedModule` are built using the `ControlValueAccessor` pattern for easy integration with reactive forms and full control over their behavior.  Each input offers additional features specific to its type, such as autocomplete or group selections, and supports two appearance styles: `fill` for a solid background and `outline` for a contoured edge, facilitating consistent adaptation to various design themes and application requirements.
+Input components in the forms folder of `SharedModule` are built using the `ControlValueAccessor` pattern for easy integration with reactive forms and full control over their behavior. Each input offers additional features specific to its type, such as autocomplete or group selections, and supports two appearance styles: `fill` for a solid background and `outline` for a contoured edge, facilitating consistent adaptation to various design themes and application requirements.
 
 #### Example usage:
+
 ```html
-<app-input-autocomplete 
-    formControlName="autocompleteList"
-    [options]="autocompleteList" 
-    label="Pick a car" 
-    appearance="outline">
-</app-input-autocomplete>
+<app-input-autocomplete formControlName="autocompleteList" [options]="autocompleteList" label="Pick a car" appearance="outline"> </app-input-autocomplete>
 
-<app-input 
-   formControlName="password" 
-   label="Password" 
-   type="password"
-   appearance="fill"> 
-</app-input>
+<app-input formControlName="password" label="Password" type="password" appearance="fill"> </app-input>
 
-<app-select formControlName="selectList" [options]="selectList"
-  label="Select (fill)"></app-select>
+<app-select formControlName="selectList" [options]="selectList" label="Select (fill)"></app-select>
 ```
 
-## 10. Additional Tools/Utilities
+## 8. Additional Tools/Utilities
 
 The project incorporates useful tools and utilities that aid in maintaining clean, functional application code and facilitate working with forms and data. These include functions for form validation and management, pipes for transforming data displayed in templates, and conversion functions that allow for easy data manipulation and formatting.
 
 For instance:
 A `ScrollAnimationDirective` has been added. When applied to any element, such as:
+
 ```html
 <div appScrollAnimation></div>
 ```
-it assigns a predefined CSS class ('scroll-animation') to the element when it becomes visible on the user's screen, enabling the addition of animations to div.scroll-animation that should appear when the user scrolls to that element.
 
+it assigns a predefined CSS class ('scroll-animation') to the element when it becomes visible on the user's screen, enabling the addition of animations to div.scroll-animation that should appear when the user scrolls to that element.

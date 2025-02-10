@@ -1,4 +1,4 @@
-@use '/src/styles/shared/variables' as var;
+@use '/src/styles/shared/parts/variables' as var;
 
 .btn,
 button {
@@ -71,22 +71,6 @@ button {
         border-color: rgba(var.$warn-clr, 0.8);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // /* Wariant "Primary" */
