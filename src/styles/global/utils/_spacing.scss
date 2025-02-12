@@ -35,6 +35,16 @@ $spacing-sizes: (
 @include generate-paddings;
 
 
+@mixin generate-gaps {
+  @each $size, $value in $spacing-sizes {
+    .gap-#{size} {gap: $value}
+    .gap-y-#{$size} {row-gap:$value}
+    .gap-x-#{$size} {column-gap:$value}
+  }
+}
+
+@include generate-gaps();
+
 //additional utilites class
 .m-auto {
   margin-left: auto;
